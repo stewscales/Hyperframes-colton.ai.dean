@@ -61,12 +61,20 @@ def guided_filter(I, p, r, eps):
 
 
 def grade_subject(f):
-    """Make the subject clearly brighter: lift midtones (gamma) + exposure."""
-    f = np.power(np.clip(f, 0, 1), 0.78) * 1.10
-    f[..., 0] *= 0.985                            # keep skin warm (BGR)
-    f[..., 2] *= 1.015
+    """Bright, warm subject that pops off the neutral wall."""
+    f = np.power(np.clip(f, 0, 1), 0.78) * 1.10   # brightness (midtone lift + exposure)
+    f[..., 0] *= 0.90                             # warm white balance (BGR): less blue,
+    f[..., 1] *= 0.995                            #   touch less green,
+    f[..., 2] *= 1.06                             #   more red
     u8 = cv2.LUT((np.clip(f, 0, 1) * 255).astype(np.uint8), LUT)
-    return u8.astype(np.float32) / 255.0
+    hsv = cv2.cvtColor(u8, cv2.COLOR_BGR2HSV).astype(np.float32)
+    hsv[..., 1] = np.clip(hsv[..., 1] * 1.15, 0, 255)  # richer colour
+    u8 = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
+    # Local contrast ("clarity") so features read crisply against the soft wall
+    g = u8.astype(np.float32) / 255.0
+    base = cv2.GaussianBlur(g, (0, 0), 12)
+    g = np.clip(g + 0.25 * (g - base), 0, 1)
+    return g
 
 
 def grade_background(bg):
