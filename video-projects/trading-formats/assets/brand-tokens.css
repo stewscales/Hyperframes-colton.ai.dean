@@ -1,0 +1,16 @@
+:root {
+  /* Stew Scales brand — black, grey, white, electric blue */
+  --brand-bg: #0a0a0a;
+  --brand-surface: #1a1a1a;
+  --brand-surface-2: #2a2a2a;
+  --brand-border: #3a3a3a;
+  --brand-accent: #007fff;
+  --brand-accent-glow: rgba(0, 127, 255, 0.4);
+  --brand-warn: #ff4444;
+  --brand-text: #ffffff;
+  --brand-text-dim: #888888;
+
+  /* Typography */
+  --font-mono: ui-monospace, Menlo, monospace;
+  --font-display: system-ui, sans-serif;
+}
