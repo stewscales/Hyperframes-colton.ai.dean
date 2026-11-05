@@ -28,6 +28,8 @@
       object-fit: cover;
       object-position: center top;
       z-index: 1;
+      /* Professional lighting grade: lift contrast, add warmth, sharpen slightly */
+      filter: contrast(1.12) brightness(1.06) saturate(1.15) sepia(0.08);
     }
 
     /* ── Overlay insert videos ───────────────────────────────── */
@@ -206,18 +208,6 @@
     ></video>
   </div>
 
-  <!-- ── Persistent title card (track 3) ───────────────────── -->
-  <div
-    id="title-card"
-    class="clip"
-    data-start="0"
-    data-duration="15.87"
-    data-track-index="3"
-    style="position:absolute;left:26px;right:26px;top:56px;background:#ffffff;border-radius:16px;padding:20px 24px 16px;z-index:20;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;"
-  >
-    <div style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:40px;line-height:1.2;color:#111111;text-align:center;">10 Content Formats<br>That Always Work 📈</div>
-    <div style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:19px;color:#555555;border:1.5px solid #cccccc;border-radius:100px;padding:4px 14px;text-align:center;">( Scales Coaches Edition )</div>
-  </div>
 
   <!-- ── Item labels (track 4, 10 sequential clips) ────────── -->
   <div id="label-1"  class="item-label clip" data-start="1.90"  data-duration="1.17" data-track-index="4">1 ) Road To Payout</div>
@@ -235,9 +225,6 @@
     window.__timelines = window.__timelines || {};
 
     const tl = gsap.timeline({ paused: true });
-
-    // ── Title card entrance ───────────────────────────────────
-    tl.to("#title-card", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
 
     // ── Overlay entrance animations ───────────────────────────
     // The overlay-stage wrapper is always visible (non-timed)
@@ -282,7 +269,7 @@
     labelEntrance("label-10", 12.95);
 
     // ── Final fade out ────────────────────────────────────────
-    tl.to(["#label-10", "#overlay-stage", "#title-card"], {
+    tl.to(["#label-10", "#overlay-stage"], {
       opacity: 0,
       duration: 0.4,
       ease: "power2.in"
