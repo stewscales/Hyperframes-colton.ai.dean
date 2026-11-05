@@ -25,9 +25,11 @@ EYE_Y = 520                                           # eye line in source
 CL = int(np.clip(CX - CW // 2, 0, W - CW))
 CT = int(np.clip(EYE_Y - 0.37 * CH, 0, H - CH))
 
-BLUR_SIGMA = 7          # slight background blur
+BLUR_SIGMA = 13         # background blur
 MASK_EMA = 0.85
 LIGHT_SOFT = 6          # px falloff of subject light at the edge
+KEY_SIDE = +1           # -1 = key light from frame-left, +1 = from frame-right
+BG_DIM = 0.92           # background slightly dimmer (colour unchanged) for separation
 LIGHT_ERODE = 13        # px kernel: pull the light edge inside the subject         # temporal smoothing of matte (weight of current frame)
 
 seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
@@ -60,9 +62,23 @@ def guided_filter(I, p, r, eps):
     return box(a) * I + box(b)
 
 
+_XS = np.arange(W, dtype=np.float32)[None, :]
+_YS = np.arange(H, dtype=np.float32)[:, None]
+
+
+def key_light_map(cx, cy):
+    """Soft directional light: lit side brighter, opposite side falls into
+    gentle shadow; strongest around head/shoulder height like an off-camera softbox."""
+    t = (_XS - cx) / 150.0 * KEY_SIDE             # +ve towards the light
+    k = np.tanh(1.5 * t)
+    side = 1.0 + np.where(k > 0, 0.26 * k, 0.32 * k)   # lit side up, shadow side down
+    v = np.exp(-((_YS - cy) / 520.0) ** 2)         # falls off down the body
+    return (1.0 + (side - 1.0) * (0.55 + 0.45 * v)) * (1.0 + 0.06 * v)
+
+
 def grade_subject(f):
     """Bright, warm subject that pops off the neutral wall."""
-    f = np.power(np.clip(f, 0, 1), 0.78) * 1.10   # brightness (midtone lift + exposure)
+    f = np.power(np.clip(f, 0, 1), 0.82) * 1.04   # brightness (midtone lift + exposure)
     f[..., 0] *= 0.90                             # warm white balance (BGR): less blue,
     f[..., 1] *= 0.995                            #   touch less green,
     f[..., 2] *= 1.06                             #   more red
@@ -80,7 +96,7 @@ def grade_subject(f):
 def grade_background(bg):
     """Background stays natural: same gentle tone curve, no recolour or darkening."""
     u8 = cv2.LUT((np.clip(bg, 0, 1) * 255).astype(np.uint8), LUT)
-    return u8.astype(np.float32) / 255.0
+    return u8.astype(np.float32) / 255.0 * BG_DIM
 
 
 reader = subprocess.Popen(
@@ -97,6 +113,7 @@ if preview is None:
         stdin=subprocess.PIPE)
 
 prev = None
+key_c = None
 i = 0
 frame_bytes = W * H * 3
 while True:
@@ -132,7 +149,23 @@ while True:
     # wall right next to Jude is never lifted -> no glow/halo.
     core = cv2.erode(matte, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (LIGHT_ERODE, LIGHT_ERODE)))
     L = cv2.GaussianBlur(core, (0, 0), LIGHT_SOFT)[..., None]
-    comp = grade_subject(comp) * L + grade_background(comp) * (1 - L)
+    # Track subject: horizontal centroid of upper body, head height
+    col = core[: int(H * 0.6)].sum(axis=0)
+    if col.sum() > 500:
+        cx_now = float((col * np.arange(W)).sum() / col.sum())
+        rows = np.where(core.max(axis=1) > 0.5)[0]
+        cy_now = float(rows.min() + 180) if len(rows) else 560.0
+    else:
+        cx_now, cy_now = W / 2, 560.0
+    key_c = (cx_now, cy_now) if key_c is None else (0.8 * key_c[0] + 0.2 * cx_now, 0.8 * key_c[1] + 0.2 * cy_now)
+    keymap = key_light_map(*key_c)[..., None]
+    subj = grade_subject(comp) * keymap
+    # Highlight roll-off so the lit side glows instead of clipping to white
+    knee = 0.82
+    over = np.maximum(subj - knee, 0)
+    subj = np.where(subj > knee, knee + (1 - knee) * (1 - np.exp(-over / (1 - knee))), subj)
+    subj = np.clip(subj, 0, 1)
+    comp = subj * L + grade_background(comp) * (1 - L)
     out = (comp * 255).astype(np.uint8)
 
     # Reframe
