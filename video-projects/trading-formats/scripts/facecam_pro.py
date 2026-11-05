@@ -71,9 +71,11 @@ def key_light_map(cx, cy):
     gentle shadow; strongest around head/shoulder height like an off-camera softbox."""
     t = (_XS - cx) / 150.0 * KEY_SIDE             # +ve towards the light
     k = np.tanh(1.5 * t)
-    side = 1.0 + np.where(k > 0, 0.26 * k, 0.32 * k)   # lit side up, shadow side down
-    v = np.exp(-((_YS - cy) / 520.0) ** 2)         # falls off down the body
-    return (1.0 + (side - 1.0) * (0.55 + 0.45 * v)) * (1.0 + 0.06 * v)
+    v = np.exp(-((_YS - cy) / 300.0) ** 2)         # concentrated at head/shoulder height
+    near = np.exp(-((_XS - cx) / 210.0) ** 2)      # boost stays on the face, not outstretched hands
+    lit = 0.26 * np.maximum(k, 0) * near * v
+    shade = 0.30 * np.minimum(k, 0) * (0.5 + 0.5 * v)
+    return 1.0 + lit + shade
 
 
 def grade_subject(f):
@@ -161,7 +163,7 @@ while True:
     keymap = key_light_map(*key_c)[..., None]
     subj = grade_subject(comp) * keymap
     # Highlight roll-off so the lit side glows instead of clipping to white
-    knee = 0.82
+    knee = 0.76
     over = np.maximum(subj - knee, 0)
     subj = np.where(subj > knee, knee + (1 - knee) * (1 - np.exp(-over / (1 - knee))), subj)
     subj = np.clip(subj, 0, 1)
