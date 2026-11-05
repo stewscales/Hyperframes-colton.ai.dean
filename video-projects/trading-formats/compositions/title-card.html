@@ -1,0 +1,74 @@
+<template id="title-card-template">
+<div
+  data-composition-id="title-card"
+  data-width="720"
+  data-height="1280"
+>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;800&display=swap');
+
+    [data-composition-id="title-card"] {
+      position: relative;
+      width: 720px;
+      height: 1280px;
+      pointer-events: none;
+    }
+
+    #tc-card {
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      top: 56px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px 16px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+    }
+    #tc-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 800;
+      font-size: 40px;
+      line-height: 1.2;
+      color: #111111;
+      text-align: center;
+    }
+    #tc-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 19px;
+      color: #555555;
+      border: 1.5px solid #cccccc;
+      border-radius: 100px;
+      padding: 4px 14px;
+      text-align: center;
+    }
+  </style>
+
+  <div id="tc-card">
+    <div id="tc-title">10 Content Formats<br>That Always Work 📈</div>
+    <div id="tc-sub">( Scales Coaches Edition )</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // Fade in title card at start
+    tl.to("#tc-card", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+
+    // Fade out at end (final scene exception)
+    tl.to("#tc-card", { opacity: 0, duration: 0.4, ease: "power2.in" }, 15.47);
+
+    // Pad to full composition duration
+    tl.set({}, {}, 15.87);
+
+    window.__timelines["title-card"] = tl;
+  </script>
+</div>
+</template>

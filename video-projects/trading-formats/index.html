@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10 Content Formats That Always Work — Stew Scales</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;800&family=Space+Mono:wght@700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; }
+
+    /* ── Composition shell ───────────────────────────────────── */
+    #trading-formats {
+      position: relative;
+      width: 720px;
+      height: 1280px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    /* ── Base face-cam ───────────────────────────────────────── */
+    #jude-facecam {
+      position: absolute;
+      top: 0; left: 0;
+      width: 720px;
+      height: 1280px;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 1;
+    }
+
+    /* ── Overlay insert videos ───────────────────────────────── */
+    /* Non-timed positioning wrapper — GSAP animates this */
+    #overlay-stage {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 696px;
+      width: 240px;
+      height: 426px;
+      z-index: 10;
+      border-radius: 12px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Each overlay video fills the stage */
+    .ov-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 240px;
+      height: 426px;
+      object-fit: cover;
+    }
+
+    /* ── Item label base style ───────────────────────────────── */
+    .item-label {
+      position: absolute;
+      bottom: 192px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 34px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.75), 0 0 20px rgba(0,0,0,0.5);
+      z-index: 30;
+      opacity: 0;
+      letter-spacing: 0.01em;
+    }
+  </style>
+</head>
+<body>
+
+<div
+  id="trading-formats"
+  data-composition-id="trading-formats"
+  data-start="0"
+  data-width="720"
+  data-height="1280"
+>
+
+  <!-- ── Base face-cam (muted video + separate audio) ─────── -->
+  <video
+    id="jude-facecam"
+    data-start="0"
+    data-duration="15.87"
+    data-track-index="0"
+    src="assets/jude-raw.mp4"
+    muted
+    playsinline
+  ></video>
+  <audio
+    id="jude-audio"
+    data-start="0"
+    data-duration="15.87"
+    data-track-index="1"
+    src="assets/jude-raw.mp4"
+    data-volume="1"
+  ></audio>
+
+  <!-- ── Overlay stage (non-timed wrapper — GSAP animates entrance) ── -->
+  <div id="overlay-stage">
+    <!-- 10 overlay videos, each timed, all share the same stage position -->
+    <video
+      id="ov-1"
+      class="ov-video"
+      data-start="0"
+      data-duration="1.385"
+      data-track-index="2"
+      src="assets/overlays/clip-07.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-2"
+      class="ov-video"
+      data-start="1.385"
+      data-duration="1.278"
+      data-track-index="2"
+      src="assets/overlays/clip-02.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-3"
+      class="ov-video"
+      data-start="2.663"
+      data-duration="1.384"
+      data-track-index="2"
+      src="assets/overlays/clip-09.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-4"
+      class="ov-video"
+      data-start="4.047"
+      data-duration="1.917"
+      data-track-index="2"
+      src="assets/overlays/clip-06.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-5"
+      class="ov-video"
+      data-start="5.964"
+      data-duration="1.385"
+      data-track-index="2"
+      src="assets/overlays/clip-10.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-6"
+      class="ov-video"
+      data-start="7.349"
+      data-duration="1.171"
+      data-track-index="2"
+      src="assets/overlays/clip-05.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-7"
+      class="ov-video"
+      data-start="8.520"
+      data-duration="1.320"
+      data-track-index="2"
+      src="assets/overlays/clip-08.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-8"
+      class="ov-video"
+      data-start="9.840"
+      data-duration="1.422"
+      data-track-index="2"
+      src="assets/overlays/clip-03.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-9"
+      class="ov-video"
+      data-start="11.262"
+      data-duration="1.624"
+      data-track-index="2"
+      src="assets/overlays/clip-01.mp4"
+      muted
+      playsinline
+    ></video>
+    <video
+      id="ov-10"
+      class="ov-video"
+      data-start="12.886"
+      data-duration="2.984"
+      data-track-index="2"
+      src="assets/overlays/clip-04.mp4"
+      muted
+      playsinline
+    ></video>
+  </div>
+
+  <!-- ── Persistent title card (track 3) ───────────────────── -->
+  <div
+    id="title-card"
+    class="clip"
+    data-start="0"
+    data-duration="15.87"
+    data-track-index="3"
+    style="position:absolute;left:26px;right:26px;top:56px;background:#ffffff;border-radius:16px;padding:20px 24px 16px;z-index:20;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;"
+  >
+    <div style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:40px;line-height:1.2;color:#111111;text-align:center;">10 Content Formats<br>That Always Work 📈</div>
+    <div style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:19px;color:#555555;border:1.5px solid #cccccc;border-radius:100px;padding:4px 14px;text-align:center;">( Scales Coaches Edition )</div>
+  </div>
+
+  <!-- ── Item labels (track 4, 10 sequential clips) ────────── -->
+  <div id="label-1"  class="item-label clip" data-start="0"      data-duration="1.385" data-track-index="4">1 ) Road To Payout</div>
+  <div id="label-2"  class="item-label clip" data-start="1.385"  data-duration="1.278" data-track-index="4">2 ) Trade Recaps</div>
+  <div id="label-3"  class="item-label clip" data-start="2.663"  data-duration="1.384" data-track-index="4">3 ) Story Telling</div>
+  <div id="label-4"  class="item-label clip" data-start="4.047"  data-duration="1.917" data-track-index="4">4 ) Strategy Breakdown</div>
+  <div id="label-5"  class="item-label clip" data-start="5.964"  data-duration="1.385" data-track-index="4">5 ) Testimonials</div>
+  <div id="label-6"  class="item-label clip" data-start="7.349"  data-duration="1.171" data-track-index="4">6 ) Psychology</div>
+  <div id="label-7"  class="item-label clip" data-start="8.520"  data-duration="1.320" data-track-index="4">7 ) Day In The Life</div>
+  <div id="label-8"  class="item-label clip" data-start="9.840"  data-duration="1.422" data-track-index="4">8 ) Ranking Videos</div>
+  <div id="label-9"  class="item-label clip" data-start="11.262" data-duration="1.624" data-track-index="4">9 ) Trading Mistakes</div>
+  <div id="label-10" class="item-label clip" data-start="12.886" data-duration="2.984" data-track-index="4">10 ) Hot Takes</div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const tl = gsap.timeline({ paused: true });
+
+    // ── Title card entrance ───────────────────────────────────
+    tl.to("#title-card", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+
+    // ── Overlay entrance animations ───────────────────────────
+    // The overlay-stage wrapper is always visible (non-timed)
+    // Individual video clips mount/unmount at their data-start times
+    // We flash scale on the stage wrapper at each cut to signal the swap
+
+    // First entrance: immediateRender:true (default) sets initial state
+    tl.fromTo("#overlay-stage",
+      { scale: 0.94, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.12, ease: "power3.out" },
+      0.00
+    );
+
+    // Subsequent entrances: immediateRender:false so pre-tween seeks are stable
+    const ovTimes = [1.385, 2.663, 4.047, 5.964, 7.349, 8.520, 9.840, 11.262, 12.886];
+    for (const t of ovTimes) {
+      tl.fromTo("#overlay-stage",
+        { scale: 0.94, opacity: 0, immediateRender: false },
+        { scale: 1, opacity: 1, duration: 0.12, ease: "power3.out" },
+        t
+      );
+    }
+
+    // ── Label entrance animations ─────────────────────────────
+    // Framework mounts each label div at data-start, unmounts at data-start+data-duration
+    // Animate opacity from 0 to 1 on mount
+
+    function labelEntrance(id, t) {
+      tl.to("#" + id, { opacity: 1, duration: 0.1, ease: "power2.out" }, t + 0.02);
+    }
+
+    labelEntrance("label-1",  0.00);
+    labelEntrance("label-2",  1.385);
+    labelEntrance("label-3",  2.663);
+    labelEntrance("label-4",  4.047);
+    labelEntrance("label-5",  5.964);
+    labelEntrance("label-6",  7.349);
+    labelEntrance("label-7",  8.520);
+    labelEntrance("label-8",  9.840);
+    labelEntrance("label-9",  11.262);
+    labelEntrance("label-10", 12.886);
+
+    // ── Final fade out ────────────────────────────────────────
+    tl.to(["#label-10", "#overlay-stage", "#title-card"], {
+      opacity: 0,
+      duration: 0.4,
+      ease: "power2.in"
+    }, 15.47);
+
+    // ── Pad timeline to full video duration ───────────────────
+    tl.set({}, {}, 15.87);
+
+    window.__timelines["trading-formats"] = tl;
+  </script>
+</div>
+
+</body>
+</html>
