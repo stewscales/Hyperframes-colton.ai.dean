@@ -60,6 +60,18 @@ Videos downloaded via SnapInsta — metadata stripped, identities inferred from 
 
 ---
 
+## unknown-6 — Trading Listicle Creator ⭐ PRIMARY STYLE REFERENCE
+- **Handle**: Unknown (white male, late teens–early 20s, dark curly hair, home studio)
+- **Niche**: Trading education / content strategy (Traders Edition)
+- **Platform**: Instagram Reels / TikTok
+- **Videos studied**: 1 (`reel-6`)
+- **Style distilled**: No (need 3+ videos)
+- **Key signature**: Persistent white rounded-rectangle title card (stays full video); numbered list lower-third `N ) Item Name`; phone-in-hands proof inserts; ~1 cut/second listicle pace; hard cuts only; niche qualifier sub-label `( X Edition )`
+- **Path**: `unknown-6/`
+- **Note**: Marked by Jude as the primary video style reference for his first build
+
+---
+
 ## Cross-creator patterns (what Stew wanted to learn)
 
 Based on all 5 reels, these are the shared moves Stew selected as reference:
@@ -76,3 +88,8 @@ Based on all 5 reels, these are the shared moves Stew selected as reference:
 | Fast cuts (<2s scenes) | unknown-1, unknown-5 |
 | Slower cinematic pacing | unknown-4 |
 | Countdown / retention hook | unknown-2 (timer arc) |
+| Persistent full-video title card | unknown-6 (white rounded rect) |
+| Phone-in-hands proof insert | unknown-6 |
+| Numbered list `N ) Item` format | unknown-6 |
+| Niche qualifier sub-label | unknown-6 (`Traders Edition`) |
+| 1 cut/sec listicle pace | unknown-6 |
