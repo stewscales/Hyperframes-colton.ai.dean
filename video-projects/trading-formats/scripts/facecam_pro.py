@@ -25,8 +25,10 @@ EYE_Y = 520                                           # eye line in source
 CL = int(np.clip(CX - CW // 2, 0, W - CW))
 CT = int(np.clip(EYE_Y - 0.37 * CH, 0, H - CH))
 
-BLUR_SIGMA = 9          # "slight" background blur
-MASK_EMA = 0.6          # temporal smoothing of matte (weight of current frame)
+BLUR_SIGMA = 22         # heavy background blur (shallow depth-of-field look)
+MASK_EMA = 0.85
+LIGHT_SOFT = 5          # px falloff of subject light at the edge
+LIGHT_ERODE = 21        # px kernel: pull the light edge inside the subject         # temporal smoothing of matte (weight of current frame)
 
 seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
     base_options=mpt.BaseOptions(model_asset_path=model),
@@ -37,7 +39,7 @@ seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
 # Precomputed vignette (applied after crop, on output canvas)
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 r = np.sqrt(((xx - W / 2) / (W * 0.75)) ** 2 + ((yy - H * 0.42) / (H * 0.62)) ** 2)
-vignette = (1.0 - 0.22 * np.clip(r - 0.35, 0, 1) ** 1.5)[..., None]
+vignette = (1.0 - 0.30 * np.clip(r - 0.35, 0, 1) ** 1.5)[..., None]
 
 # Tone curve LUT: gentle S-curve with lifted mids
 x = np.linspace(0, 1, 256)
@@ -47,22 +49,40 @@ curve = np.clip(curve, 0, 1)
 LUT = (curve * 255).astype(np.uint8)
 
 
-def grade(img_f, matte):
-    """img_f float32 0..1 BGR; matte float32 0..1 (person=1)."""
-    # Key light: very soft (wide) version of the matte so there is no edge band
-    soft = cv2.GaussianBlur(matte, (0, 0), 45)[..., None]
-    img_f = img_f * (0.95 + 0.10 * soft)
-    # Warm white balance (BGR): pull blue down a touch, red up a touch
-    img_f[..., 0] *= 0.965
-    img_f[..., 2] *= 1.025
-    img_f = np.clip(img_f, 0, 1)
-    u8 = (img_f * 255).astype(np.uint8)
-    u8 = cv2.LUT(u8, LUT)
-    # Saturation +8%
+# Background darkening gradient in source coords: dark at top of frame, opening up lower down
+_ys = np.arange(H, dtype=np.float32)
+_t = np.clip((_ys - CT) / (700 - CT), 0, 1)
+BG_GAIN = (0.28 + (0.60 - 0.28) * (_t ** 0.8))[:, None, None]
+
+
+def guided_filter(I, p, r, eps):
+    """He et al. guided filter (grey guide). Snaps the matte to real image edges."""
+    box = lambda x: cv2.boxFilter(x, -1, (2 * r + 1, 2 * r + 1))
+    mI, mp_ = box(I), box(p)
+    cov = box(I * p) - mI * mp_
+    var = box(I * I) - mI * mI
+    a = cov / (var + eps)
+    b = mp_ - a * mI
+    return box(a) * I + box(b)
+
+
+def grade_subject(f):
+    """Bright, clean key on the subject."""
+    f = f * 1.16                                  # exposure lift
+    f[..., 0] *= 0.985                            # touch of warmth (BGR)
+    f[..., 2] *= 1.015
+    u8 = cv2.LUT((np.clip(f, 0, 1) * 255).astype(np.uint8), LUT)
     hsv = cv2.cvtColor(u8, cv2.COLOR_BGR2HSV).astype(np.float32)
-    hsv[..., 1] = np.clip(hsv[..., 1] * 1.08, 0, 255)
-    u8 = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
-    return u8
+    hsv[..., 1] = np.clip(hsv[..., 1] * 1.04, 0, 255)
+    return cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR).astype(np.float32) / 255.0
+
+
+def grade_background(bg):
+    """Dark, cool, desaturated backdrop so the subject pops."""
+    grey = bg.mean(axis=2, keepdims=True)
+    bg = grey + (bg - grey) * 0.45                # desaturate
+    bg = bg * np.array([1.04, 1.0, 0.95], np.float32)  # cool (BGR)
+    return np.clip(bg * BG_GAIN, 0, 1)
 
 
 reader = subprocess.Popen(
@@ -92,8 +112,11 @@ while True:
     matte = res.confidence_masks[0].numpy_view().astype(np.float32)
     if matte.shape != (H, W):
         matte = cv2.resize(matte, (W, H), interpolation=cv2.INTER_LINEAR)
-    matte = np.clip((matte - 0.25) / 0.5, 0, 1)            # tighten edges
-    matte = cv2.GaussianBlur(matte, (0, 0), 3)             # feather
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255.0
+    matte = guided_filter(grey, matte, 10, 4e-3)           # snap to real edges
+    matte = np.clip((matte - 0.30) / 0.45, 0, 1)
+    matte = guided_filter(grey, matte, 4, 1e-3)            # second, finer pass
+    matte = np.clip(matte, 0, 1)
     prev = matte if prev is None else MASK_EMA * matte + (1 - MASK_EMA) * prev
     matte = prev
 
@@ -104,8 +127,20 @@ while True:
     den = cv2.GaussianBlur(inv, (0, 0), BLUR_SIGMA)
     if den.ndim == 2: den = den[..., None]
     bg = num / np.maximum(den, 1e-3)
-    comp = f * matte[..., None] + bg * (1 - matte[..., None])
-    out = grade(comp, matte)
+    m3 = matte[..., None]
+    # Grade each layer on its own, then composite with the refined matte
+    # Decontaminate fringe pixels: remove the (unblurred) local wall colour that is
+    # mixed into semi-transparent edge pixels, esp. on motion-blurred frames.
+    bnum = cv2.GaussianBlur(f * inv, (0, 0), 5)
+    bden = cv2.GaussianBlur(inv, (0, 0), 5)
+    if bden.ndim == 2: bden = bden[..., None]
+    b_local = np.where(bden > 0.05, bnum / np.maximum(bden, 1e-3), bg)
+    a = np.maximum(m3, 0.25)
+    fg = np.clip((f - (1 - a) * b_local) / a, 0, 1)
+    w = np.clip((m3 - 0.6) / 0.35, 0, 1)                   # solid interior stays untouched
+    fg = f * w + fg * (1 - w)
+    comp = grade_subject(fg) * m3 + grade_background(bg) * (1 - m3)
+    out = (comp * 255).astype(np.uint8)
 
     # Reframe
     out = out[CT:CT + CH, CL:CL + CW]
