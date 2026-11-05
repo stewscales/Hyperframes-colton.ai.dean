@@ -137,8 +137,8 @@
     <video
       id="ov-4"
       class="ov-video"
-      data-start="4.95"
-      data-duration="1.85"
+      data-start="5.15"
+      data-duration="1.65"
       data-track-index="2"
       src="assets/overlays/clip-06.mp4"
       muted
@@ -223,7 +223,7 @@
   <div id="label-1"  class="item-label clip" data-start="1.90"  data-duration="1.17" data-track-index="4">1 ) Road To Payout</div>
   <div id="label-2"  class="item-label clip" data-start="3.07"  data-duration="1.30" data-track-index="4">2 ) Trade Recaps</div>
   <div id="label-3"  class="item-label clip" data-start="4.37"  data-duration="0.58" data-track-index="4">3 ) Story Telling</div>
-  <div id="label-4"  class="item-label clip" data-start="4.95"  data-duration="1.85" data-track-index="4">4 ) Strategy Breakdown</div>
+  <div id="label-4"  class="item-label clip" data-start="5.15"  data-duration="1.65" data-track-index="4">4 ) Strategy Breakdown</div>
   <div id="label-5"  class="item-label clip" data-start="6.80"  data-duration="1.30" data-track-index="4">5 ) Testimonials</div>
   <div id="label-6"  class="item-label clip" data-start="8.10"  data-duration="1.20" data-track-index="4">6 ) Psychology</div>
   <div id="label-7"  class="item-label clip" data-start="9.30"  data-duration="0.90" data-track-index="4">7 ) Day In The Life</div>
@@ -253,7 +253,7 @@
     );
 
     // Subsequent entrances: immediateRender:false so pre-tween seeks are stable
-    const ovTimes = [3.07, 4.37, 4.95, 6.80, 8.10, 9.30, 10.20, 11.35, 12.95];
+    const ovTimes = [3.07, 4.37, 5.15, 6.80, 8.10, 9.30, 10.20, 11.35, 12.95];
     for (const t of ovTimes) {
       tl.fromTo("#overlay-stage",
         { scale: 0.94, opacity: 0, immediateRender: false },
@@ -273,7 +273,7 @@
     labelEntrance("label-1",  1.90);
     labelEntrance("label-2",  3.07);
     labelEntrance("label-3",  4.37);
-    labelEntrance("label-4",  4.95);
+    labelEntrance("label-4",  5.15);
     labelEntrance("label-5",  6.80);
     labelEntrance("label-6",  8.10);
     labelEntrance("label-7",  9.30);
