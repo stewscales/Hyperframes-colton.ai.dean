@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10 Content Formats That Always Work (take 2) — Stew Scales</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; }
+
+    #trading-formats-2 {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    /* Face-cam: the 10 joined clips, full-bleed */
+    #jude-facecam {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1080px;
+      height: 1920px;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* One fixed box for every overlay -> all overlays are exactly the same size */
+    #overlay-stage {
+      position: absolute;
+      left: 360px;
+      top: 1044px;
+      width: 360px;
+      height: 640px;
+      z-index: 10;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      opacity: 0;
+    }
+    .ov-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 360px;
+      height: 640px;
+      object-fit: cover;
+    }
+
+    /* Lower-third labels: one per item, switched with hard cuts */
+    .item-label {
+      position: absolute;
+      bottom: 288px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 51px;
+      color: #ffffff;
+      text-shadow: 0 3px 15px rgba(0,0,0,0.75), 0 0 30px rgba(0,0,0,0.5);
+      letter-spacing: 0.01em;
+      z-index: 30;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div
+  id="trading-formats-2"
+  data-composition-id="trading-formats-2"
+  data-start="0"
+  data-width="1080"
+  data-height="1920"
+>
+
+  <video id="jude-facecam" data-start="0" data-duration="16.3667" data-track-index="0"
+         src="assets/jude-joined.mp4" muted playsinline></video>
+  <audio id="jude-audio" data-start="0" data-duration="16.3667" data-track-index="1"
+         src="assets/jude-joined.mp4" data-volume="1"></audio>
+
+  <!--
+    Overlays start on each spoken word (clip start + 0.25s, snapped to frames) and run
+    until the next word, so there is never a gap. Odd/even overlays alternate tracks 2/3
+    and each overlaps the next by ~1 frame; the later one paints on top, so the switch
+    is a clean hard cut with no blank frame.
+  -->
+  <div id="overlay-stage">
+    <video id="ov-1"  class="ov-video" data-start="0.2667"  data-duration="1.6667" data-track-index="2" src="assets/overlays/clip-07.mp4" muted playsinline></video>
+    <video id="ov-2"  class="ov-video" data-start="1.9"     data-duration="1.6667" data-track-index="3" src="assets/overlays/clip-02.mp4" muted playsinline></video>
+    <video id="ov-3"  class="ov-video" data-start="3.5333"  data-duration="1.5667" data-track-index="2" src="assets/overlays/clip-09.mp4" muted playsinline></video>
+    <video id="ov-4"  class="ov-video" data-start="5.0667"  data-duration="1.8333" data-track-index="3" src="assets/overlays/clip-06.mp4" muted playsinline></video>
+    <video id="ov-5"  class="ov-video" data-start="6.8667"  data-duration="1.6667" data-track-index="2" src="assets/overlays/clip-10.mp4" muted playsinline></video>
+    <video id="ov-6"  class="ov-video" data-start="8.5"     data-duration="1.5333" data-track-index="3" src="assets/overlays/clip-01.mp4" muted playsinline></video>
+    <video id="ov-7"  class="ov-video" data-start="10.0"    data-duration="1.5667" data-track-index="2" src="assets/overlays/clip-08.mp4" muted playsinline></video>
+    <video id="ov-8"  class="ov-video" data-start="11.5333" data-duration="1.8333" data-track-index="3" src="assets/overlays/clip-03.mp4" muted playsinline></video>
+    <video id="ov-9"  class="ov-video" data-start="13.3333" data-duration="1.9"    data-track-index="2" src="assets/overlays/clip-05.mp4" muted playsinline></video>
+    <video id="ov-10" class="ov-video" data-start="15.2"    data-duration="1.1667" data-track-index="3" src="assets/overlays/clip-04.mp4" muted playsinline></video>
+  </div>
+
+  <div id="label-1"  class="item-label">1 ) Road To Payout</div>
+  <div id="label-2"  class="item-label">2 ) Trade Recaps</div>
+  <div id="label-3"  class="item-label">3 ) Story Telling</div>
+  <div id="label-4"  class="item-label">4 ) Strategy Breakdown</div>
+  <div id="label-5"  class="item-label">5 ) Testimonials</div>
+  <div id="label-6"  class="item-label">6 ) Psychology</div>
+  <div id="label-7"  class="item-label">7 ) Day In The Life</div>
+  <div id="label-8"  class="item-label">8 ) Ranking Videos</div>
+  <div id="label-9"  class="item-label">9 ) Trading Mistakes</div>
+  <div id="label-10" class="item-label">10 ) Hot Takes</div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // Word onsets (frame-aligned at 30fps)
+    const onsets = [0.2667, 1.9, 3.5333, 5.0667, 6.8667, 8.5, 10.0, 11.5333, 13.3333, 15.2];
+
+    // Overlay box appears on the first word and stays up to the end: hard cuts only
+    tl.set("#overlay-stage", { opacity: 1 }, onsets[0]);
+
+    // Labels: hard switch on each word, exactly one label visible at a time
+    onsets.forEach((t, i) => {
+      if (i > 0) tl.set("#label-" + i, { opacity: 0 }, t);
+      tl.set("#label-" + (i + 1), { opacity: 1 }, t);
+    });
+
+    tl.set({}, {}, 16.3667);
+    window.__timelines["trading-formats-2"] = tl;
+  </script>
+</div>
+
+</body>
+</html>
