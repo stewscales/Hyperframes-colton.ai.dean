@@ -1,0 +1,284 @@
+[
+  {
+    "text": "how",
+    "start": 0.08,
+    "end": 0.27,
+    "id": "w0"
+  },
+  {
+    "text": "do",
+    "start": 0.27,
+    "end": 0.45,
+    "id": "w1"
+  },
+  {
+    "text": "tgr",
+    "start": 0.45,
+    "end": 0.72,
+    "id": "w2"
+  },
+  {
+    "text": "harry",
+    "start": 0.72,
+    "end": 1.13,
+    "id": "w3"
+  },
+  {
+    "text": "gunter",
+    "start": 1.19,
+    "end": 1.75,
+    "id": "w4"
+  },
+  {
+    "text": "how",
+    "start": 1.75,
+    "end": 1.84,
+    "id": "w5"
+  },
+  {
+    "text": "have",
+    "start": 1.84,
+    "end": 1.95,
+    "id": "w6"
+  },
+  {
+    "text": "they",
+    "start": 1.95,
+    "end": 2.07,
+    "id": "w7"
+  },
+  {
+    "text": "always",
+    "start": 2.16,
+    "end": 2.43,
+    "id": "w8"
+  },
+  {
+    "text": "got",
+    "start": 2.43,
+    "end": 2.61,
+    "id": "w9"
+  },
+  {
+    "text": "the",
+    "start": 2.61,
+    "end": 2.79,
+    "id": "w10"
+  },
+  {
+    "text": "best",
+    "start": 2.79,
+    "end": 3.04,
+    "id": "w11"
+  },
+  {
+    "text": "content",
+    "start": 3.04,
+    "end": 3.52,
+    "id": "w12"
+  },
+  {
+    "text": "ideas",
+    "start": 3.52,
+    "end": 3.99,
+    "id": "w13"
+  },
+  {
+    "text": "in",
+    "start": 4.12,
+    "end": 4.16,
+    "id": "w14"
+  },
+  {
+    "text": "the",
+    "start": 4.16,
+    "end": 4.24,
+    "id": "w15"
+  },
+  {
+    "text": "trading",
+    "start": 4.24,
+    "end": 4.64,
+    "id": "w16"
+  },
+  {
+    "text": "space",
+    "start": 4.64,
+    "end": 5.18,
+    "id": "w17"
+  },
+  {
+    "text": "it's",
+    "start": 5.28,
+    "end": 5.42,
+    "id": "w18"
+  },
+  {
+    "text": "because",
+    "start": 5.42,
+    "end": 5.77,
+    "id": "w19"
+  },
+  {
+    "text": "they",
+    "start": 5.84,
+    "end": 6.01,
+    "id": "w20"
+  },
+  {
+    "text": "follow",
+    "start": 6.02,
+    "end": 6.33,
+    "id": "w21"
+  },
+  {
+    "text": "these",
+    "start": 6.39,
+    "end": 6.65,
+    "id": "w22"
+  },
+  {
+    "text": "10",
+    "start": 6.65,
+    "end": 6.99,
+    "id": "w23"
+  },
+  {
+    "text": "simple",
+    "start": 6.99,
+    "end": 7.29,
+    "id": "w24"
+  },
+  {
+    "text": "content",
+    "start": 7.36,
+    "end": 7.69,
+    "id": "w25"
+  },
+  {
+    "text": "formats",
+    "start": 7.75,
+    "end": 8.16,
+    "id": "w26"
+  },
+  {
+    "text": "road",
+    "start": 8.16,
+    "end": 8.43,
+    "id": "w27"
+  },
+  {
+    "text": "to",
+    "start": 8.43,
+    "end": 8.55,
+    "id": "w28"
+  },
+  {
+    "text": "payouts",
+    "start": 8.61,
+    "end": 9.04,
+    "id": "w29"
+  },
+  {
+    "text": "trade",
+    "start": 9.04,
+    "end": 9.36,
+    "id": "w30"
+  },
+  {
+    "text": "recaps",
+    "start": 9.36,
+    "end": 10.07,
+    "id": "w31"
+  },
+  {
+    "text": "storytelling",
+    "start": 10.09,
+    "end": 10.96,
+    "id": "w32"
+  },
+  {
+    "text": "strategy",
+    "start": 11.04,
+    "end": 11.54,
+    "id": "w33"
+  },
+  {
+    "text": "breakdown",
+    "start": 11.59,
+    "end": 12.3,
+    "id": "w34"
+  },
+  {
+    "text": "testimonials",
+    "start": 12.3,
+    "end": 13.24,
+    "id": "w35"
+  },
+  {
+    "text": "psychology",
+    "start": 13.24,
+    "end": 14,
+    "id": "w36"
+  },
+  {
+    "text": "day",
+    "start": 14.02,
+    "end": 14.27,
+    "id": "w37"
+  },
+  {
+    "text": "in",
+    "start": 14.27,
+    "end": 14.43,
+    "id": "w38"
+  },
+  {
+    "text": "the",
+    "start": 14.43,
+    "end": 14.67,
+    "id": "w39"
+  },
+  {
+    "text": "life",
+    "start": 14.67,
+    "end": 14.95,
+    "id": "w40"
+  },
+  {
+    "text": "ranking",
+    "start": 15.08,
+    "end": 15.54,
+    "id": "w41"
+  },
+  {
+    "text": "videos",
+    "start": 15.54,
+    "end": 16.02,
+    "id": "w42"
+  },
+  {
+    "text": "trading",
+    "start": 16.02,
+    "end": 16.57,
+    "id": "w43"
+  },
+  {
+    "text": "mistakes",
+    "start": 16.57,
+    "end": 17.28,
+    "id": "w44"
+  },
+  {
+    "text": "hot",
+    "start": 17.28,
+    "end": 17.52,
+    "id": "w45"
+  },
+  {
+    "text": "takes",
+    "start": 17.52,
+    "end": 17.83,
+    "id": "w46"
+  }
+]
