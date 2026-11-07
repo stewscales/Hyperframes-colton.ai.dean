@@ -1,0 +1,110 @@
+[
+  {
+    "text": "How",
+    "start": 0.08,
+    "end": 0.21,
+    "id": "w0"
+  },
+  {
+    "text": "do",
+    "start": 0.21,
+    "end": 0.35,
+    "id": "w1"
+  },
+  {
+    "text": "TGR,",
+    "start": 0.35,
+    "end": 0.68,
+    "id": "w2"
+  },
+  {
+    "text": "Harry",
+    "start": 0.7,
+    "end": 1.05,
+    "id": "w3"
+  },
+  {
+    "text": "Gunter,",
+    "start": 1.06,
+    "end": 1.66,
+    "id": "w4"
+  },
+  {
+    "text": "how",
+    "start": 1.69,
+    "end": 1.78,
+    "id": "w5"
+  },
+  {
+    "text": "have",
+    "start": 1.78,
+    "end": 1.92,
+    "id": "w6"
+  },
+  {
+    "text": "they",
+    "start": 1.92,
+    "end": 2.07,
+    "id": "w7"
+  },
+  {
+    "text": "always",
+    "start": 2.16,
+    "end": 2.49,
+    "id": "w8"
+  },
+  {
+    "text": "got",
+    "start": 2.55,
+    "end": 2.75,
+    "id": "w9"
+  },
+  {
+    "text": "the",
+    "start": 2.75,
+    "end": 2.8,
+    "id": "w10"
+  },
+  {
+    "text": "best",
+    "start": 2.93,
+    "end": 3.12,
+    "id": "w11"
+  },
+  {
+    "text": "content",
+    "start": 3.12,
+    "end": 3.63,
+    "id": "w12"
+  },
+  {
+    "text": "ideas",
+    "start": 3.63,
+    "end": 3.99,
+    "id": "w13"
+  },
+  {
+    "text": "in",
+    "start": 3.99,
+    "end": 4.12,
+    "id": "w14"
+  },
+  {
+    "text": "the",
+    "start": 4.12,
+    "end": 4.28,
+    "id": "w15"
+  },
+  {
+    "text": "trading",
+    "start": 4.28,
+    "end": 4.67,
+    "id": "w16"
+  },
+  {
+    "text": "space?",
+    "start": 4.67,
+    "end": 5.28,
+    "id": "w17"
+  }
+]

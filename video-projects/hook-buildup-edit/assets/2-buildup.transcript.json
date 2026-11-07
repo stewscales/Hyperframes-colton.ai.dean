@@ -1,0 +1,56 @@
+[
+  {
+    "text": "It's",
+    "start": 0.03,
+    "end": 0.16,
+    "id": "w0"
+  },
+  {
+    "text": "because",
+    "start": 0.26,
+    "end": 0.62,
+    "id": "w1"
+  },
+  {
+    "text": "they",
+    "start": 0.62,
+    "end": 0.84,
+    "id": "w2"
+  },
+  {
+    "text": "follow",
+    "start": 0.92,
+    "end": 1.19,
+    "id": "w3"
+  },
+  {
+    "text": "these",
+    "start": 1.19,
+    "end": 1.47,
+    "id": "w4"
+  },
+  {
+    "text": "10",
+    "start": 1.47,
+    "end": 1.81,
+    "id": "w5"
+  },
+  {
+    "text": "simple",
+    "start": 1.81,
+    "end": 2.12,
+    "id": "w6"
+  },
+  {
+    "text": "content",
+    "start": 2.16,
+    "end": 2.55,
+    "id": "w7"
+  },
+  {
+    "text": "formats.",
+    "start": 2.55,
+    "end": 3.16,
+    "id": "w8"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "text": "Road",
+    "start": 0,
+    "end": 0.61,
+    "id": "w0"
+  },
+  {
+    "text": "to",
+    "start": 0.61,
+    "end": 0.9,
+    "id": "w1"
+  },
+  {
+    "text": "Payouts,",
+    "start": 1.22,
+    "end": 2.11,
+    "id": "w2"
+  },
+  {
+    "text": "Trade",
+    "start": 2.18,
+    "end": 2.39,
+    "id": "w3"
+  },
+  {
+    "text": "Recaps,",
+    "start": 2.4,
+    "end": 2.88,
+    "id": "w4"
+  },
+  {
+    "text": "Storytelling,",
+    "start": 3.17,
+    "end": 4.08,
+    "id": "w5"
+  },
+  {
+    "text": "Strategy",
+    "start": 4.13,
+    "end": 4.5,
+    "id": "w6"
+  },
+  {
+    "text": "Breakdown,",
+    "start": 4.5,
+    "end": 5.02,
+    "id": "w7"
+  },
+  {
+    "text": "Testimonials,",
+    "start": 5.11,
+    "end": 6.02,
+    "id": "w8"
+  },
+  {
+    "text": "Psychology,",
+    "start": 6.02,
+    "end": 7,
+    "id": "w9"
+  },
+  {
+    "text": "Day",
+    "start": 7,
+    "end": 7.21,
+    "id": "w10"
+  },
+  {
+    "text": "in",
+    "start": 7.21,
+    "end": 7.35,
+    "id": "w11"
+  },
+  {
+    "text": "the",
+    "start": 7.35,
+    "end": 7.56,
+    "id": "w12"
+  },
+  {
+    "text": "Life,",
+    "start": 7.56,
+    "end": 7.99,
+    "id": "w13"
+  },
+  {
+    "text": "Ranking",
+    "start": 8.22,
+    "end": 8.45,
+    "id": "w14"
+  },
+  {
+    "text": "Videos,",
+    "start": 8.51,
+    "end": 8.98,
+    "id": "w15"
+  },
+  {
+    "text": "Trading",
+    "start": 9.17,
+    "end": 9.56,
+    "id": "w16"
+  },
+  {
+    "text": "Mistakes,",
+    "start": 9.56,
+    "end": 10.21,
+    "id": "w17"
+  },
+  {
+    "text": "Hot",
+    "start": 10.27,
+    "end": 10.48,
+    "id": "w18"
+  },
+  {
+    "text": "Takes.",
+    "start": 10.48,
+    "end": 11.52,
+    "id": "w19"
+  }
+]
