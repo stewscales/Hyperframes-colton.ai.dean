@@ -1,0 +1,104 @@
+[
+{
+"word": "OPEN",
+"start": 1.786,
+"end": 1.986,
+"score": 0.999
+},
+{
+"word": "YOUR",
+"start": 2.046,
+"end": 2.207,
+"score": 0.879
+},
+{
+"word": "INSTAGRAM",
+"start": 2.267,
+"end": 2.588,
+"score": 0.562
+},
+{
+"word": "AND",
+"start": 2.608,
+"end": 2.688,
+"score": 0.0
+},
+{
+"word": "I'M",
+"start": 2.728,
+"end": 2.789,
+"score": 0.0
+},
+{
+"word": "GOING",
+"start": 2.809,
+"end": 2.909,
+"score": 0.007
+},
+{
+"word": "TO",
+"start": 2.929,
+"end": 2.989,
+"score": 0.001
+},
+{
+"word": "TELL",
+"start": 3.009,
+"end": 3.11,
+"score": 1.0
+},
+{
+"word": "YOU",
+"start": 3.13,
+"end": 3.19,
+"score": 0.984
+},
+{
+"word": "WHAT'S",
+"start": 3.25,
+"end": 3.411,
+"score": 0.726
+},
+{
+"word": "WRONG",
+"start": 3.451,
+"end": 3.571,
+"score": 0.944
+},
+{
+"word": "WITH",
+"start": 3.591,
+"end": 3.671,
+"score": 0.001
+},
+{
+"word": "YOUR",
+"start": 3.691,
+"end": 3.772,
+"score": 0.003
+},
+{
+"word": "CONTENT",
+"start": 3.812,
+"end": 4.153,
+"score": 0.993
+},
+{
+"word": "IN",
+"start": 4.213,
+"end": 4.253,
+"score": 0.996
+},
+{
+"word": "THIRTY",
+"start": 4.333,
+"end": 4.594,
+"score": 0.932
+},
+{
+"word": "SECONDS",
+"start": 4.675,
+"end": 5.076,
+"score": 0.998
+}
+]

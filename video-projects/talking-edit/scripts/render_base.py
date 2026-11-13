@@ -1,8 +1,12 @@
 """Render the cut + un-faded + punched-in + graded base video (1080x1920) from the 4K source.
-Usage: python3 render_base.py <src.mov> <workdir> <audio.wav> <out.mp4> [--preview f1,f2,...]"""
-import sys, json, subprocess, numpy as np, cv2
+Usage: python3 render_base.py <src.mov> <workdir> <audio.wav> <out.mp4> [--preview f1,f2,...] [--skip N] [--prepend DIR]
+  --skip N       leave out the first N output frames (the audio file must already be trimmed to match)
+  --prepend DIR  write the 1080x1920 PNG frames in DIR (from render_hook.py) before the first frame"""
+import sys, os, json, subprocess, numpy as np, cv2
 src, S, audio, dst = sys.argv[1:5]
-preview = [int(x) for x in sys.argv[6].split(',')] if len(sys.argv) > 6 else None
+_o = dict(zip(sys.argv[5::2], sys.argv[6::2]))
+preview = [int(x) for x in _o['--preview'].split(',')] if '--preview' in _o else None
+SKIP = int(_o.get('--skip', 0)); PREPEND = _o.get('--prepend')
 edl = json.load(open(S + '/edl.json')); omap = edl['map']; segs = edl['segs']
 lm = np.load(S + '/lm.npy'); align = json.load(open(S + '/align.json'))
 UNG = np.load(S + '/ungain.npy')            # per-frame, per-channel gain that undoes the baked-in fade (see fit_unfade.py)
@@ -121,7 +125,12 @@ if not preview:
                             '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', dst], stdin=subprocess.PIPE)
 cur = -1; frame = None; fb = SW * SH * 3
 last_needed = max(need)
+if enc and PREPEND:
+    for name in sorted(n for n in os.listdir(PREPEND) if n.endswith('.png')):
+        im = cv2.cvtColor(cv2.imread(os.path.join(PREPEND, name)), cv2.COLOR_BGR2RGB); assert im.shape == (H, W, 3), name
+        enc.stdin.write(im.tobytes())
 for k in range(NOUT):
+    if k < SKIP: continue
     tgt = need[k]
     if preview and k > max(want): break
     while cur < tgt:

@@ -1,14 +1,26 @@
-"""Generate index.html (captions + list pills over assets/base.mp4) from the forced-alignment word times."""
+"""Generate index.html (captions + list pills over assets/base.mp4) from the forced-alignment word times.
+The video is: the hook clip (HOOK_N frames, its own recording) + the main edit with its first SKIP frames
+("Scroll your Instagram") removed. Main word times in align.json are in main-edit time, so they shift by OFF."""
 import json, math
 al = json.load(open('assets/align.json'))
-NF = 995; DUR = NF / 30
+hk = {w['word']: w['start'] for w in json.load(open('assets/align-hook.json'))}
+HOOK_F0, HOOK_N, SKIP = 50, 106, 25          # hook = frames 50..155 of the hook clip; main starts at its frame 25
+OFF = HOOK_N - SKIP
+NF = 995 + OFF; DUR = NF / 30
+hf = lambda w: int(math.floor(hk[w] * 30 + 1e-6)) - HOOK_F0      # hook word -> output frame
+# hook captions: (output frame, lines, hero?)
+HOOK = [
+ (0, ['OPEN YOUR', '*INSTAGRAM'], 0),
+ (hf('AND'), ["I'M GOING TO", 'TELL YOU'], 0),            # switches as "Instagram" ends (he says "and I'm going to")
+ (hf("WHAT'S"), ["WHAT'S *WRONG", 'WITH YOUR CONTENT'], 0),
+ (hf('IN'), ['IN *30 *SECONDS'], 1),
+]
 starts = {}
 for w in al: starts.setdefault(w['word'], []).append(w['start'])
 def t(word, k=0): return starts[word][k]
 # (start word, occurrence, lines, hero?)   '*' marks blue words
 C = [
- ('SCROLL', 0, ['SCROLL YOUR', '*INSTAGRAM'], 0),
- ('IF', 0, ["IF IT'S JUST", 'YOUR *CARS'], 0),
+ ('IF', 0, ["IT'S JUST", 'YOUR *CARS'], 0),      # starts exactly on the cut from the hook (the "if" was slurred into "Instagram")
  ('AND', 0, ['AND YOUR', '*WATCHES'], 0),
  ('AND', 1, ['AND YOUR', '*FANCY *DINNERS'], 0),
  ('JUST', 1, ['JUST THE', '*SAME *POST'], 0),
@@ -59,11 +71,13 @@ for _s in _e['segs']:
 def fr(s):
     f = max(0, int(math.floor(s * 30 + 1e-6)))
     for c in CUTS:
-        if 0 <= f - c <= 4: return c
-    return f
+        if 0 <= f - c <= 4: f = c; break
+    return max(f, SKIP) + OFF
 tm = lambda f: round(f / 30 - 0.001, 4) if f > 0 else 0
-on = [fr(t(w, k)) for w, k, _, _ in C]; on[0] = 0
-assert on == sorted(on) and len(set(on)) == len(on), on
+on = [fr(t(w, k)) for w, k, _, _ in C]; on[0] = HOOK_N
+C = [(None, 0, lines, hero) for _, lines, hero in HOOK] + C
+on = [f for f, _, _ in HOOK] + on
+assert on == sorted(on) and len(set(on)) == len(on) and on[0] == 0, on
 def span(line):
     out = []
     for w in line.split(' '):
