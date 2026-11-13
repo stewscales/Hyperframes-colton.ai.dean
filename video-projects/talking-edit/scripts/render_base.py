@@ -5,7 +5,8 @@ src, S, audio, dst = sys.argv[1:5]
 preview = [int(x) for x in sys.argv[6].split(',')] if len(sys.argv) > 6 else None
 edl = json.load(open(S + '/edl.json')); omap = edl['map']; segs = edl['segs']
 lm = np.load(S + '/lm.npy'); align = json.load(open(S + '/align.json'))
-UNF = np.load(S + '/unfade.npy')            # per-frame, per-channel (gain, offset) that maps a faded frame back to its clip's normal look
+UNG = np.load(S + '/ungain.npy')            # per-frame, per-channel gain that undoes the baked-in fade (see fit_unfade.py)
+UNR = np.load(S + '/unref.npy')             # per-frame index of the clean frame used to rebuild the dark areas (-1 = not faded)
 SW, SH, W, H = 2160, 3840, 1080, 1920
 NOUT = len(omap)
 seg_start = []; t = 0
@@ -78,10 +79,16 @@ def make(frame4k, k):
     x0 = min(max(x0, 0), SW - int(round(cw))); y0 = min(max(y0, 0), SH - int(round(ch)))
     crop = frame4k[y0:y0 + int(round(ch)), x0:x0 + int(round(cw))]
     g = m['gain']
-    if g > 1.0:
-        u = UNF[m['show']]
+    if g > 1.0 and UNR[m['show']] >= 0:
         small = cv2.resize(crop.astype(np.float32), (W, H), interpolation=cv2.INTER_AREA) / 255.0
-        small = small * u[:, 0] + u[:, 1]
+        small = np.clip(small * UNG[m['show']], 0, 1)
+        rc = REF[int(UNR[m['show']])][y0:y0 + int(round(ch)), x0:x0 + int(round(cw))]
+        rs = cv2.resize(rc, (W, H), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
+        # dark areas (static background) come from the clean frame: a faded frame has too few levels left there
+        lum = lambda a: cv2.GaussianBlur(0.2126 * a[..., 0] + 0.7152 * a[..., 1] + 0.0722 * a[..., 2], (0, 0), 3)
+        mx = np.maximum(lum(small), lum(rs))
+        w = np.clip((mx - DK0) / (DK1 - DK0), 0, 1); w = (w * w * (3 - 2 * w))[..., None]
+        small = small * w + rs * (1 - w)
     else:
         small = cv2.resize(crop, (W, H), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
     small = np.clip(small, 0, 1)
@@ -91,6 +98,17 @@ def make(frame4k, k):
     return np.clip(np.rint(small * 255), 0, 255).astype(np.uint8)
 
 need = [m['show'] for m in omap]
+DK0, DK1 = 0.07, 0.15
+# clean reference frames for the un-faded frames, decoded once up front
+refs = sorted({int(UNR[m['show']]) for m in omap if m['gain'] > 1.0 and UNR[m['show']] >= 0})
+REF = {}
+if refs:
+    sel = '+'.join(f'eq(n\\,{r})' for r in refs)
+    raw = subprocess.check_output(['ffmpeg', '-nostdin', '-v', 'error', '-i', src, '-vf',
+                                   f"select='{sel}',scale=in_color_matrix=bt709:in_range=tv,format=rgb24", '-vsync', '0', '-f', 'rawvideo', '-'])
+    for i, r in enumerate(refs):
+        REF[r] = np.frombuffer(raw, np.uint8, SW * SH * 3, i * SW * SH * 3).reshape(SH, SW, 3)
+    print('reference frames', refs, flush=True)
 want = set(preview) if preview else None
 dec = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-i', src, '-vf', 'scale=in_color_matrix=bt709:in_range=tv,format=rgb24',
                         '-f', 'rawvideo', '-'], stdout=subprocess.PIPE, bufsize=SW * SH * 3)
