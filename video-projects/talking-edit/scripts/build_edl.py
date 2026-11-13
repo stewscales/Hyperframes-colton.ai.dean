@@ -19,7 +19,7 @@ clip_of = lambda fr: int(np.searchsorted(bounds, fr, side='right'))
 clip_rng = [(([0] + bounds)[i], (bounds + [N])[i]) for i in range(len(bounds) + 1)]
 good = []
 for a, b in clip_rng:
-    g = [x for x in range(a, b) if fade[x] >= 0.20]
+    g = [x for x in range(a, b) if fade[x] >= 0.33]   # frames faded darker than this do not restore cleanly: hold the nearest good frame instead
     good.append((g[0], g[-1]))
 END_PAD, START_PAD, MIN_REMOVE = 0.05, 0.04, 3
 cuts = []                                                # (remove_from, remove_to) in frames, exclusive end
