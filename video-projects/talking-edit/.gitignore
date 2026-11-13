@@ -1,0 +1,5 @@
+# Render outputs (large, regenerable)
+renders/
+
+# CLI internal state
+.hyperframes/

@@ -87,7 +87,8 @@ def process(Y, U, V, st, k=1.0):
     bgq = 1 - pq
 
     # --- wall plate: robust polynomial fit of the lit wall ---
-    valid = (bgq > 0.99) & (Yq > 30) & (Yq < 238)
+    ylo = max(10.0, 0.25 * float(np.percentile(Yq, 95)))
+    valid = (bgq > 0.99) & (Yq > ylo) & (Yq < 238)
     if valid.sum() < 2000:
         return Y, U, V, None
     mU, mV = np.median(Uq[valid]), np.median(Vq[valid])
@@ -142,21 +143,15 @@ def process(Y, U, V, st, k=1.0):
     n, lab = cv2.connectedComponents(dark)
     top_ids = np.unique(lab[0][dark[0] > 0])
     frame_mask = np.isin(lab, top_ids[top_ids > 0]).astype(np.uint8)
-    if frame_mask.sum() > 0.02 * frame_mask.size:
-        # Stylised intro card (black frame + built-in vignette): the designed darkening can't be
-        # separated from the shadow without artifacts, so these frames are passed through untouched.
-        return Y, U, V, None
     # soft lock: fully locked within 6px (quarter res) of the frame, fading to free by 40px
     dist = cv2.distanceTransform(1 - frame_mask, cv2.DIST_L2, 5) if frame_mask.any() else np.full((H4, W4), 1e3, np.float32)
-    frame_mask = 1 - ramp(dist, 6, 40)
+    frame_mask = 1 - ramp(dist, 2, 6)
     frame_mask = frame_mask.astype(np.float32)
     frame_h = cv2.resize(frame_mask, (W2, H2), interpolation=cv2.INTER_LINEAR)
     wh = (1 - person) * (1 - frame_h) * wall_weight(Yhf, Uf, Vf, PUh, PVh, PYh)
     # Smooth the wall weight into soft/blurred edges (e.g. a motion-blurred hand in front of the
     # shadow) so the lift fades out naturally instead of leaving a jagged shadow strip.
     # Solid person stays fully protected.
-    core = ramp(m, 0.55, 0.85)
-    wh = np.maximum(wh, cv2.GaussianBlur(wh, (0, 0), 6) * (1 - core) * (1 - frame_h))
     # Shadowed wall seen THROUGH an out-of-focus foreground (blurred hand near the lens): the
     # detector calls it person, but it has wall colour, shadow-range brightness and no sharp
     # detail, and it touches lifted wall. Sharp things (mic, face texture, hair) fail the test.
@@ -179,17 +174,34 @@ def process(Y, U, V, st, k=1.0):
     strict = cv2.morphologyEx(strict, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))   # drop isolated specks
     allow = band * strict * near * (1 - frame_h)
     wh = np.maximum(wh, cv2.GaussianBlur(allow, (0, 0), 1.5))
-    Es = cv2.erode((wh > 0.9).astype(np.float32), np.ones((5, 5), np.uint8))
-    Yden, _ = normconv(Yhf, np.maximum(wh, 1e-3), 1.5)   # light denoise (3px at 4K) along wall only
+    deep = cv2.erode(ramp(m, 0.95, 0.99), np.ones((15, 15), np.uint8))
+    wallish = ramp(rr, 0.33, 0.40) * ramp(rr, 0.95, 0.88) * ramp(dd, 7, 4)
+    wallish = cv2.morphologyEx(wallish, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    wallish = cv2.GaussianBlur(wallish, (0, 0), 1.5)
+    # Measurement points: clean wall, plus wall-coloured pixels near the body that are SMOOTH
+    # (pure shadowed wall). Hair-edge mixes are textured and are excluded, so they never bias it.
+    Yb = cv2.GaussianBlur(Yhf, (0, 0), 1.0)                     # texture measured above the grain level
+    mu = cv2.GaussianBlur(Yb, (0, 0), 3)
+    sd = np.sqrt(np.maximum(cv2.GaussianBlur(Yb * Yb, (0, 0), 3) - mu * mu, 0))
+    smooth = cv2.GaussianBlur(ramp(sd, 4.0, 2.0), (0, 0), 2)
+    meas = np.maximum(wh, wallish * smooth * (1 - deep) * (1 - frame_h))
+    Es = cv2.erode((meas > 0.9).astype(np.float32), np.ones((5, 5), np.uint8))
+    Yden, _ = normconv(Yhf, np.maximum(meas, 1e-3), 5.0 if CARD[0] else 1.5)   # denoise along wall only (heavier on the grainy intro card)
     graw = np.clip(PYh / np.maximum(Yden, 1), 0.8, 2.4)
     gfill, den = normconv(graw, Es, 3)
     Ufill, _ = normconv(Uf, Es, 3)
     Vfill, _ = normconv(Vf, Es, 3)
-    ew = Es * wh
+    # where no wall is close enough to measure, change nothing (no extrapolated values)
+    nofill = ramp(den, 0.03, 0.005)
+    gfill = gfill * (1 - nofill) + 1.0 * nofill
+    Ufill = Ufill * (1 - nofill) + Uf * nofill
+    Vfill = Vfill * (1 - nofill) + Vf * nofill
+    ew = np.maximum(Es * meas, meas * smooth)     # clean-wall interior + smooth confirmed wall near the body
+    ew = cv2.GaussianBlur(ew, (0, 0), 2)           # soft switch between own/neighbour measurement (no speckle)
     gh = graw * ew + gfill * (1 - ew)
     LU = Uf * ew + Ufill * (1 - ew)
     LV = Vf * ew + Vfill * (1 - ew)
-    support = ramp(den, 0.02, 0.15)                 # only where there is enough wall nearby to measure
+    support = np.maximum(ramp(den, 0.02, 0.15), ew)  # enough wall nearby, or the pixel itself is measured wall
 
     gh = np.clip(gh, 1.0, 2.2)
     s = ramp(gh - 1, 0.003, 0.012) * support       # small dead zone: lit wall is left exactly as is
@@ -197,18 +209,104 @@ def process(Y, U, V, st, k=1.0):
     dU = (PUh - LU) * s * k
     dV = (PVh - LV) * s * k
 
-    # --- apply: chroma at half res, luma at full res ---
-    Uo = np.clip(np.rint(Uf + dU * wh), 0, 255).astype(np.uint8)
-    Vo = np.clip(np.rint(Vf + dV * wh), 0, 255).astype(np.uint8)
-    gf = cv2.resize(1 + (gh - 1) * wh, (W, H), interpolation=cv2.INTER_LINEAR)
-    # full-res luma guard: never lift white graphics / dark detail even at sub-half-res edges
+    # --- application weight ---
+    # Clear background: colour/brightness-gated wall weight (keeps graphics untouched).
+    # Person edge (hair/shoulder over shadow): pixels are a MIX of person and shadowed wall, so
+    # only the wall's share is lifted: weight = background fraction (1 - matte). Person detail
+    # is therefore preserved exactly - no washed-out/cut-out edge.
+    alpha = np.clip(1 - m, 0, 1)
+    far = ramp(m, 0.12, 0.03)
+    edge_gate = ramp(Yhf, 236, 226)
+    # Physical unmixing at the body edge: an edge pixel is  a*person + (1-a)*shadowed_wall.
+    # Shadowed-wall level here = PY/gh; person level = local brightness of the solid body next to it.
+    # Background fraction (1-a) = (Y - person) / (wall - person). Continuous -> no patches or halos.
+    Lsh = PYh / np.maximum(gh, 1e-3)
+    pm = cv2.erode((m > 0.9).astype(np.uint8), np.ones((5, 5), np.uint8)).astype(np.float32)
+    Hd, hn = normconv(Yhf, pm, 6)
+    sep = Lsh - Hd
+    bgf = np.clip((Yhf - Hd) / np.maximum(sep, 1), 0, 1)
+    ok = ramp(sep, 12, 30) * ramp(hn, 0.02, 0.12)
+    edge_w = ok * bgf + (1 - ok) * np.maximum(alpha, wallish * smooth * ramp(rr, 0.42, 0.50))
+    if CARD[0]:
+        # intro card: grainy, low hair/wall contrast -> clean wall only, no edge/soft-region rules
+        wa = cv2.GaussianBlur(far * wh, (0, 0), 4) * far * (1 - frame_h)
+        through = np.zeros_like(through); allow = np.zeros_like(allow); wallish = np.zeros_like(wallish)
+    else:
+        wa = (far * wh + (1 - far) * edge_w * edge_gate) * (1 - frame_h)
+    wa = np.maximum(wa, through)
+    wa = np.maximum(wa, cv2.GaussianBlur(allow, (0, 0), 1.5))
+    # Edge-aware smoothing of the weight inside the edge zone: follows real image edges, so no
+    # isolated lifted blobs can appear where hair and shadow have similar brightness.
+    wa = far * wa + (1 - far) * np.clip(guided(Ih, wa.astype(np.float32), 8, 4e-3), 0, 1)
+    cgate = ramp(dd, 12, 6)                        # colour shift only on wall-coloured pixels (never skin)
+
+    # --- apply (additive): chroma at half res, luma at full res ---
+    Uo = np.clip(np.rint(Uf + dU * wa * cgate), 0, 255).astype(np.uint8)
+    Vo = np.clip(np.rint(Vf + dV * wa * cgate), 0, 255).astype(np.uint8)
+    delta = PYh * (1 - 1 / np.maximum(gh, 1e-3)) * wa          # lit-wall level minus shadow level
     Yf = Y.astype(np.float32)
-    PYf = cv2.resize(PYh, (W, H), interpolation=cv2.INTER_LINEAR)
-    rf = Yf / np.maximum(PYf, 1)
-    guard = ramp(rf, 0.28, 0.38) * ramp(rf, 1.10, 1.04) * ramp(Yf, 238, 228)
-    gf = 1 + (gf - 1) * guard
-    Yo = np.clip(np.rint(Yf * gf), 0, 255).astype(np.uint8)
-    return Yo, Uo, Vo, (gh - 1) * wh
+    df = cv2.resize(delta, (W, H), interpolation=cv2.INTER_LINEAR)
+    guard = ramp(Yf, 10, 20) * ramp(Yf, 238, 228)            # never touch black outlines / white text
+    Yo = np.clip(np.rint(Yf + df * guard), 0, 255).astype(np.uint8)
+    return Yo, Uo, Vo, delta / 100
+
+
+def card_vignette(Y):
+    """If the frame is the stylised intro card (black border touching the top), return a full-res
+    multiplicative vignette map V (1 = untouched, ->0 at the border); else None."""
+    Yq = cv2.resize(Y, (W4, H4), interpolation=cv2.INTER_AREA)
+    dark = (Yq < 16).astype(np.uint8)
+    n, lab = cv2.connectedComponents(dark)
+    ids = np.unique(lab[0][dark[0] > 0]); ids = ids[ids > 0]
+    border = np.isin(lab, ids).astype(np.uint8)
+    if border.sum() < 0.02 * border.size:
+        return None
+    d = cv2.distanceTransform(1 - border, cv2.DIST_L2, 5)            # quarter-res px from border
+    # vignette profile from clean lit wall on the right/top of the card (no shadow there)
+    sel = (np.arange(W4)[None, :] > 0.62 * W4) & (np.arange(H4)[:, None] < 0.45 * H4) & (Yq > 40) & (Yq < 235)
+    bins = np.arange(0, 61, 2.0)
+    prof = []
+    for b0 in bins:
+        mm = sel & (d >= b0) & (d < b0 + 2)
+        prof.append(np.percentile(Yq[mm], 70) if mm.sum() > 30 else np.nan)
+    prof = np.array(prof, np.float64)
+    ref = np.nanmedian(prof[-6:])
+    if not np.isfinite(ref) or ref <= 0:
+        return None
+    v = np.clip(prof / ref, 0.05, 1.0)
+    ok = np.isfinite(v)
+    v = np.interp(bins, bins[ok], v[ok]) if ok.sum() > 3 else np.ones_like(bins)
+    v = np.maximum.accumulate(v)                                     # monotone: darker toward the border
+    vm = np.interp(d, bins + 1.0, v, left=v[0], right=1.0).astype(np.float32)
+    vm[border > 0] = 0.0
+    return cv2.resize(vm, (W, H), interpolation=cv2.INTER_LINEAR)
+
+
+CARD = [False]
+
+
+def process_frame(Y, U, V, st, k=1.0):
+    vg = card_vignette(Y)
+    CARD[0] = vg is not None
+    if vg is None:
+        return process(Y, U, V, st, k)
+    vgc = cv2.resize(vg, (W2, H2), interpolation=cv2.INTER_AREA)
+    safe = np.maximum(vg, 0.25)
+    safec = np.maximum(vgc, 0.25)
+    Yu = np.clip(Y.astype(np.float32) / safe, 0, 255).astype(np.uint8)
+    Uu = np.clip(128 + (U.astype(np.float32) - 128) / safec, 0, 255).astype(np.uint8)
+    Vu = np.clip(128 + (V.astype(np.float32) - 128) / safec, 0, 255).astype(np.uint8)
+    Yo, Uo, Vo, dbg = process(Yu, Uu, Vu, st, k)
+    # re-apply the vignette to the CHANGE only, so untouched pixels stay bit-identical
+    dY = (Yo.astype(np.float32) - Yu.astype(np.float32)) * vg
+    dU = (Uo.astype(np.float32) - Uu.astype(np.float32)) * vgc
+    dV = (Vo.astype(np.float32) - Vu.astype(np.float32)) * vgc
+    # only where the card's vignette is mild: deep in the vignette, un-darkening amplifies grain
+    lock = ramp(vg, 0.6, 0.85); lockc = ramp(vgc, 0.6, 0.85)
+    Yr = np.clip(np.rint(Y + dY * lock), 0, 255).astype(np.uint8)
+    Ur = np.clip(np.rint(U + dU * lockc), 0, 255).astype(np.uint8)
+    Vr = np.clip(np.rint(V + dV * lockc), 0, 255).astype(np.uint8)
+    return Yr, Ur, Vr, dbg
 
 
 def read_planes(buf):
@@ -226,7 +324,7 @@ if preview:
         buf = subprocess.check_output(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{t}", "-i", src,
                                        "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "yuvj420p", "-"])
         Y, U, V = read_planes(buf)
-        Yo, Uo, Vo, dbg = process(Y, U, V, State())
+        Yo, Uo, Vo, dbg = process_frame(Y, U, V, State())
         to_bgr = lambda y, u, v: cv2.cvtColor(cv2.merge([cv2.resize(y, (W2, H2), interpolation=cv2.INTER_AREA), u, v]), cv2.COLOR_YUV2BGR)
         a, b = to_bgr(Y, U, V), to_bgr(Yo, Uo, Vo)
         dmap = np.zeros_like(a)
@@ -255,10 +353,12 @@ P99 = os.environ.get("BLUR_P99")
 strength = None
 if P99:
     p99 = np.load(P99)
-    blurred = np.where(p99 < 9.0)[0]
+    P99N = os.environ.get("BLUR_P99N")
+    bright = 150 * p99 / np.maximum(np.load(P99N), 1e-3) if P99N else np.full(len(p99), 200.0)
+    blurred = np.where((p99 < 9.0) & (bright > 90))[0]      # genuine motion blur only, not fades
     idx = np.arange(len(p99))
     dist = np.min(np.abs(idx[:, None] - blurred[None, :]), axis=1) if len(blurred) else np.full(len(p99), 99)
-    strength = np.clip(dist / 6.0, 0, 1)
+    strength = np.clip(dist / 3.0, 0, 1)
 st = State()
 i = 0
 while True:
@@ -271,7 +371,7 @@ while True:
         Yo, Uo, Vo = Y, U, V
         st.prevq = None                       # force a fresh start after the blurred run
     else:
-        Yo, Uo, Vo, _ = process(Y, U, V, st, k)
+        Yo, Uo, Vo, _ = process_frame(Y, U, V, st, k)
     writer.stdin.write(Yo.tobytes()); writer.stdin.write(Uo.tobytes()); writer.stdin.write(Vo.tobytes())
     i += 1
     if i % 50 == 0:

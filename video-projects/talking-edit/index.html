@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reel 2: The 4 Posts Every Trading Coach Needs — Stew Scales</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; }
+    #talking-edit { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }
+    #base { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }
+
+    /* Captions: bold, clean, white with a solid dark outline; key words in brand blue */
+    .cap {
+      position: absolute; left: 60px; right: 60px; top: 1040px; height: 180px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 68px; line-height: 1.12;
+      letter-spacing: 0.005em; text-transform: uppercase; text-align: center; color: #ffffff;
+      text-shadow: 7.00px 0.00px 0 #0a0a0a, 6.76px 1.81px 0 #0a0a0a, 6.06px 3.50px 0 #0a0a0a, 4.95px 4.95px 0 #0a0a0a, 3.50px 6.06px 0 #0a0a0a, 1.81px 6.76px 0 #0a0a0a, 0.00px 7.00px 0 #0a0a0a, -1.81px 6.76px 0 #0a0a0a, -3.50px 6.06px 0 #0a0a0a, -4.95px 4.95px 0 #0a0a0a, -6.06px 3.50px 0 #0a0a0a, -6.76px 1.81px 0 #0a0a0a, -7.00px 0.00px 0 #0a0a0a, -6.76px -1.81px 0 #0a0a0a, -6.06px -3.50px 0 #0a0a0a, -4.95px -4.95px 0 #0a0a0a, -3.50px -6.06px 0 #0a0a0a, -1.81px -6.76px 0 #0a0a0a, -0.00px -7.00px 0 #0a0a0a, 1.81px -6.76px 0 #0a0a0a, 3.50px -6.06px 0 #0a0a0a, 4.95px -4.95px 0 #0a0a0a, 6.06px -3.50px 0 #0a0a0a, 6.76px -1.81px 0 #0a0a0a, 4.00px 0.00px 0 #0a0a0a, 3.86px 1.04px 0 #0a0a0a, 3.46px 2.00px 0 #0a0a0a, 2.83px 2.83px 0 #0a0a0a, 2.00px 3.46px 0 #0a0a0a, 1.04px 3.86px 0 #0a0a0a, 0.00px 4.00px 0 #0a0a0a, -1.04px 3.86px 0 #0a0a0a, -2.00px 3.46px 0 #0a0a0a, -2.83px 2.83px 0 #0a0a0a, -3.46px 2.00px 0 #0a0a0a, -3.86px 1.04px 0 #0a0a0a, -4.00px 0.00px 0 #0a0a0a, -3.86px -1.04px 0 #0a0a0a, -3.46px -2.00px 0 #0a0a0a, -2.83px -2.83px 0 #0a0a0a, -2.00px -3.46px 0 #0a0a0a, -1.04px -3.86px 0 #0a0a0a, -0.00px -4.00px 0 #0a0a0a, 1.04px -3.86px 0 #0a0a0a, 2.00px -3.46px 0 #0a0a0a, 2.83px -2.83px 0 #0a0a0a, 3.46px -2.00px 0 #0a0a0a, 3.86px -1.04px 0 #0a0a0a, 0 8px 22px rgba(0,0,0,0.55);
+      z-index: 20; opacity: 0; transform-origin: 50% 50%;
+    }
+    .cap .ln { display: block; white-space: nowrap; }
+    .cap .hl { color: #2b95ff; }
+    .cap.hero { font-weight: 900; font-size: 98px; }
+
+    /* List counter pill (01-04), sits just above the caption */
+    .pill {
+      position: absolute; left: 50%; top: 948px; margin-left: -170px; width: 340px; height: 62px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      background: rgba(10,10,10,0.92); border: 2px solid #007fff; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: 0.08em;
+      z-index: 19; opacity: 0;
+    }
+    .pill .num { color: #2b95ff; }
+    .pill .lab { color: #ffffff; }
+  </style>
+</head>
+<body>
+
+<div id="talking-edit" data-composition-id="talking-edit" data-start="0" data-width="1080" data-height="1920">
+
+  <video id="base" data-start="0" data-duration="33.1667" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
+  <audio id="base-audio" data-start="0" data-duration="33.1667" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
+
+  <div id="pill-0" class="pill"><span class="num">01</span><span class="lab">TEACH</span></div>
+  <div id="pill-1" class="pill"><span class="num">02</span><span class="lab">PROCESS</span></div>
+  <div id="pill-2" class="pill"><span class="num">03</span><span class="lab">STORY</span></div>
+  <div id="pill-3" class="pill"><span class="num">04</span><span class="lab">OPINION</span></div>
+
+  <div id="cap-0" class="cap"><span class="ln">SCROLL YOUR</span><span class="ln"><span class="hl">INSTAGRAM</span></span></div>
+  <div id="cap-1" class="cap"><span class="ln">IF IT'S JUST</span><span class="ln">YOUR <span class="hl">CARS</span></span></div>
+  <div id="cap-2" class="cap"><span class="ln">AND YOUR</span><span class="ln"><span class="hl">WATCHES</span></span></div>
+  <div id="cap-3" class="cap"><span class="ln">AND YOUR</span><span class="ln"><span class="hl">FANCY</span> <span class="hl">DINNERS</span></span></div>
+  <div id="cap-4" class="cap"><span class="ln">JUST THE</span><span class="ln"><span class="hl">SAME</span> <span class="hl">POST</span></span></div>
+  <div id="cap-5" class="cap hero"><span class="ln"><span class="hl">10</span> <span class="hl">TIMES</span></span></div>
+  <div id="cap-6" class="cap"><span class="ln">IF THAT'S YOU</span></div>
+  <div id="cap-7" class="cap"><span class="ln">YOUR AUDIENCE</span></div>
+  <div id="cap-8" class="cap"><span class="ln">WILL LEARN</span><span class="ln"><span class="hl">ONE</span> <span class="hl">THING</span></span></div>
+  <div id="cap-9" class="cap"><span class="ln">ABOUT YOU</span></div>
+  <div id="cap-10" class="cap"><span class="ln">AND THEN JUST</span></div>
+  <div id="cap-11" class="cap"><span class="ln"><span class="hl">LOSE</span> <span class="hl">ATTENTION</span></span></div>
+  <div id="cap-12" class="cap"><span class="ln">AND THAT'S</span><span class="ln">THE <span class="hl">PROBLEM</span></span></div>
+  <div id="cap-13" class="cap"><span class="ln">SO HERE'S</span><span class="ln">THE <span class="hl">FIX</span></span></div>
+  <div id="cap-14" class="cap"><span class="ln"><span class="hl">4</span> <span class="hl">TYPES</span></span><span class="ln">OF POSTS</span></div>
+  <div id="cap-15" class="cap"><span class="ln">FIRST</span></div>
+  <div id="cap-16" class="cap hero"><span class="ln"><span class="hl">TEACH</span></span></div>
+  <div id="cap-17" class="cap"><span class="ln">ONE CONCEPT</span></div>
+  <div id="cap-18" class="cap"><span class="ln"><span class="hl">30</span> <span class="hl">SECONDS</span></span></div>
+  <div id="cap-19" class="cap"><span class="ln">NEXT</span></div>
+  <div id="cap-20" class="cap hero"><span class="ln">THE <span class="hl">PROCESS</span></span></div>
+  <div id="cap-21" class="cap"><span class="ln">HOW YOU PLAN</span></div>
+  <div id="cap-22" class="cap"><span class="ln">AND REVIEW</span></div>
+  <div id="cap-23" class="cap"><span class="ln">YOUR TRADES</span></div>
+  <div id="cap-24" class="cap"><span class="ln">NOT JUST</span><span class="ln">YOUR <span class="hl">WINS</span></span></div>
+  <div id="cap-25" class="cap"><span class="ln">THIRD</span></div>
+  <div id="cap-26" class="cap hero"><span class="ln">YOUR <span class="hl">STORY</span></span></div>
+  <div id="cap-27" class="cap"><span class="ln">WHERE DID</span><span class="ln">YOU START?</span></div>
+  <div id="cap-28" class="cap"><span class="ln">WHERE ARE</span><span class="ln">YOU NOW?</span></div>
+  <div id="cap-29" class="cap"><span class="ln">AND HOW</span><span class="ln">EXACTLY</span></div>
+  <div id="cap-30" class="cap"><span class="ln">DID YOU</span><span class="ln">GET THERE?</span></div>
+  <div id="cap-31" class="cap"><span class="ln">FINALLY</span></div>
+  <div id="cap-32" class="cap hero"><span class="ln">YOUR <span class="hl">OPINION</span></span></div>
+  <div id="cap-33" class="cap"><span class="ln">WHAT DOES THIS</span></div>
+  <div id="cap-34" class="cap"><span class="ln">INDUSTRY</span><span class="ln">GET <span class="hl">WRONG?</span></span></div>
+  <div id="cap-35" class="cap"><span class="ln">A <span class="hl">SKEPTICAL</span></span><span class="ln">AUDIENCE</span></div>
+  <div id="cap-36" class="cap"><span class="ln">NEEDS</span><span class="ln"><span class="hl">4</span> <span class="hl">REASONS</span></span></div>
+  <div id="cap-37" class="cap"><span class="ln">TO <span class="hl">TRUST</span> YOU</span></div>
+  <div id="cap-38" class="cap hero"><span class="ln"><span class="hl">NOT</span> <span class="hl">1</span></span></div>
+  <div id="cap-39" class="cap hero"><span class="ln"><span class="hl">SAVE</span> <span class="hl">THIS</span></span></div>
+  <div id="cap-40" class="cap"><span class="ln">AND CHECK YOUR</span></div>
+  <div id="cap-41" class="cap"><span class="ln">LAST <span class="hl">10</span> <span class="hl">POSTS</span></span></div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // Caption/pill times come from forced alignment of the script to the audio (scripts/build_captions.py)
+    tl.set("#cap-0", { opacity: 1, scale: 1 }, 0);
+    tl.set("#cap-0", { opacity: 0 }, 0.799);
+    tl.set("#cap-1", { opacity: 1 }, 0.799);
+    tl.fromTo("#cap-1", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 0.799);
+    tl.set("#cap-1", { opacity: 0 }, 1.8323);
+    tl.set("#cap-2", { opacity: 1 }, 1.8323);
+    tl.fromTo("#cap-2", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 1.8323);
+    tl.set("#cap-2", { opacity: 0 }, 2.599);
+    tl.set("#cap-3", { opacity: 1 }, 2.599);
+    tl.fromTo("#cap-3", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 2.599);
+    tl.set("#cap-3", { opacity: 0 }, 3.599);
+    tl.set("#cap-4", { opacity: 1 }, 3.599);
+    tl.fromTo("#cap-4", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 3.599);
+    tl.set("#cap-4", { opacity: 0 }, 4.7323);
+    tl.set("#cap-5", { opacity: 1 }, 4.7323);
+    tl.fromTo("#cap-5", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 4.7323);
+    tl.set("#cap-5", { opacity: 0 }, 5.599);
+    tl.set("#cap-6", { opacity: 1 }, 5.599);
+    tl.fromTo("#cap-6", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 5.599);
+    tl.set("#cap-6", { opacity: 0 }, 6.399);
+    tl.set("#cap-7", { opacity: 1 }, 6.399);
+    tl.fromTo("#cap-7", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 6.399);
+    tl.set("#cap-7", { opacity: 0 }, 6.799);
+    tl.set("#cap-8", { opacity: 1 }, 6.799);
+    tl.fromTo("#cap-8", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 6.799);
+    tl.set("#cap-8", { opacity: 0 }, 7.5323);
+    tl.set("#cap-9", { opacity: 1 }, 7.5323);
+    tl.fromTo("#cap-9", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 7.5323);
+    tl.set("#cap-9", { opacity: 0 }, 8.199);
+    tl.set("#cap-10", { opacity: 1 }, 8.199);
+    tl.fromTo("#cap-10", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 8.199);
+    tl.set("#cap-10", { opacity: 0 }, 8.5323);
+    tl.set("#cap-11", { opacity: 1 }, 8.5323);
+    tl.fromTo("#cap-11", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 8.5323);
+    tl.set("#cap-11", { opacity: 0 }, 9.4323);
+    tl.set("#cap-12", { opacity: 1 }, 9.4323);
+    tl.fromTo("#cap-12", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 9.4323);
+    tl.set("#cap-12", { opacity: 0 }, 10.4657);
+    tl.set("#cap-13", { opacity: 1 }, 10.4657);
+    tl.fromTo("#cap-13", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 10.4657);
+    tl.set("#cap-13", { opacity: 0 }, 11.399);
+    tl.set("#cap-14", { opacity: 1 }, 11.399);
+    tl.fromTo("#cap-14", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 11.399);
+    tl.set("#cap-14", { opacity: 0 }, 12.4657);
+    tl.set("#cap-15", { opacity: 1 }, 12.4657);
+    tl.fromTo("#cap-15", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 12.4657);
+    tl.set("#cap-15", { opacity: 0 }, 13.099);
+    tl.set("#cap-16", { opacity: 1 }, 13.099);
+    tl.fromTo("#cap-16", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 13.099);
+    tl.set("#cap-16", { opacity: 0 }, 13.7657);
+    tl.set("#cap-17", { opacity: 1 }, 13.7657);
+    tl.fromTo("#cap-17", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 13.7657);
+    tl.set("#cap-17", { opacity: 0 }, 14.6323);
+    tl.set("#cap-18", { opacity: 1 }, 14.6323);
+    tl.fromTo("#cap-18", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 14.6323);
+    tl.set("#cap-18", { opacity: 0 }, 15.499);
+    tl.set("#cap-19", { opacity: 1 }, 15.499);
+    tl.fromTo("#cap-19", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 15.499);
+    tl.set("#cap-19", { opacity: 0 }, 16.099);
+    tl.set("#cap-20", { opacity: 1 }, 16.099);
+    tl.fromTo("#cap-20", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 16.099);
+    tl.set("#cap-20", { opacity: 0 }, 16.799);
+    tl.set("#cap-21", { opacity: 1 }, 16.799);
+    tl.fromTo("#cap-21", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 16.799);
+    tl.set("#cap-21", { opacity: 0 }, 17.599);
+    tl.set("#cap-22", { opacity: 1 }, 17.599);
+    tl.fromTo("#cap-22", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 17.599);
+    tl.set("#cap-22", { opacity: 0 }, 17.999);
+    tl.set("#cap-23", { opacity: 1 }, 17.999);
+    tl.fromTo("#cap-23", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 17.999);
+    tl.set("#cap-23", { opacity: 0 }, 18.7323);
+    tl.set("#cap-24", { opacity: 1 }, 18.7323);
+    tl.fromTo("#cap-24", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 18.7323);
+    tl.set("#cap-24", { opacity: 0 }, 19.7657);
+    tl.set("#cap-25", { opacity: 1 }, 19.7657);
+    tl.fromTo("#cap-25", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 19.7657);
+    tl.set("#cap-25", { opacity: 0 }, 20.3323);
+    tl.set("#cap-26", { opacity: 1 }, 20.3323);
+    tl.fromTo("#cap-26", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 20.3323);
+    tl.set("#cap-26", { opacity: 0 }, 20.999);
+    tl.set("#cap-27", { opacity: 1 }, 20.999);
+    tl.fromTo("#cap-27", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 20.999);
+    tl.set("#cap-27", { opacity: 0 }, 22.0657);
+    tl.set("#cap-28", { opacity: 1 }, 22.0657);
+    tl.fromTo("#cap-28", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 22.0657);
+    tl.set("#cap-28", { opacity: 0 }, 22.7657);
+    tl.set("#cap-29", { opacity: 1 }, 22.7657);
+    tl.fromTo("#cap-29", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 22.7657);
+    tl.set("#cap-29", { opacity: 0 }, 23.599);
+    tl.set("#cap-30", { opacity: 1 }, 23.599);
+    tl.fromTo("#cap-30", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 23.599);
+    tl.set("#cap-30", { opacity: 0 }, 24.199);
+    tl.set("#cap-31", { opacity: 1 }, 24.199);
+    tl.fromTo("#cap-31", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 24.199);
+    tl.set("#cap-31", { opacity: 0 }, 24.799);
+    tl.set("#cap-32", { opacity: 1 }, 24.799);
+    tl.fromTo("#cap-32", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 24.799);
+    tl.set("#cap-32", { opacity: 0 }, 25.5323);
+    tl.set("#cap-33", { opacity: 1 }, 25.5323);
+    tl.fromTo("#cap-33", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 25.5323);
+    tl.set("#cap-33", { opacity: 0 }, 26.2657);
+    tl.set("#cap-34", { opacity: 1 }, 26.2657);
+    tl.fromTo("#cap-34", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 26.2657);
+    tl.set("#cap-34", { opacity: 0 }, 27.3657);
+    tl.set("#cap-35", { opacity: 1 }, 27.3657);
+    tl.fromTo("#cap-35", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 27.3657);
+    tl.set("#cap-35", { opacity: 0 }, 28.599);
+    tl.set("#cap-36", { opacity: 1 }, 28.599);
+    tl.fromTo("#cap-36", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 28.599);
+    tl.set("#cap-36", { opacity: 0 }, 29.399);
+    tl.set("#cap-37", { opacity: 1 }, 29.399);
+    tl.fromTo("#cap-37", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 29.399);
+    tl.set("#cap-37", { opacity: 0 }, 30.0657);
+    tl.set("#cap-38", { opacity: 1 }, 30.0657);
+    tl.fromTo("#cap-38", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 30.0657);
+    tl.set("#cap-38", { opacity: 0 }, 30.6323);
+    tl.set("#cap-39", { opacity: 1 }, 30.6323);
+    tl.fromTo("#cap-39", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 30.6323);
+    tl.set("#cap-39", { opacity: 0 }, 31.5323);
+    tl.set("#cap-40", { opacity: 1 }, 31.5323);
+    tl.fromTo("#cap-40", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 31.5323);
+    tl.set("#cap-40", { opacity: 0 }, 31.9323);
+    tl.set("#cap-41", { opacity: 1 }, 31.9323);
+    tl.fromTo("#cap-41", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 31.9323);
+    tl.set("#pill-0", { opacity: 1 }, 13.099);
+    tl.fromTo("#pill-0", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 13.099);
+    tl.set("#pill-0", { opacity: 0 }, 15.499);
+    tl.set("#pill-1", { opacity: 1 }, 16.099);
+    tl.fromTo("#pill-1", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 16.099);
+    tl.set("#pill-1", { opacity: 0 }, 19.7657);
+    tl.set("#pill-2", { opacity: 1 }, 20.3323);
+    tl.fromTo("#pill-2", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 20.3323);
+    tl.set("#pill-2", { opacity: 0 }, 24.199);
+    tl.set("#pill-3", { opacity: 1 }, 24.799);
+    tl.fromTo("#pill-3", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 24.799);
+    tl.set("#pill-3", { opacity: 0 }, 27.3657);
+    tl.set({}, {}, 33.1667);
+    window.__timelines["talking-edit"] = tl;
+  </script>
+</div>
+
+</body>
+</html>
