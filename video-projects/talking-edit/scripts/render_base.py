@@ -5,6 +5,7 @@ src, S, audio, dst = sys.argv[1:5]
 preview = [int(x) for x in sys.argv[6].split(',')] if len(sys.argv) > 6 else None
 edl = json.load(open(S + '/edl.json')); omap = edl['map']; segs = edl['segs']
 lm = np.load(S + '/lm.npy'); align = json.load(open(S + '/align.json'))
+UNF = np.load(S + '/unfade.npy')            # per-frame, per-channel (gain, offset) that maps a faded frame back to its clip's normal look
 SW, SH, W, H = 2160, 3840, 1080, 1920
 NOUT = len(omap)
 seg_start = []; t = 0
@@ -78,7 +79,9 @@ def make(frame4k, k):
     crop = frame4k[y0:y0 + int(round(ch)), x0:x0 + int(round(cw))]
     g = m['gain']
     if g > 1.0:
-        small = cv2.resize(crop.astype(np.float32), (W, H), interpolation=cv2.INTER_AREA) * (g / 255.0)
+        u = UNF[m['show']]
+        small = cv2.resize(crop.astype(np.float32), (W, H), interpolation=cv2.INTER_AREA) / 255.0
+        small = small * u[:, 0] + u[:, 1]
     else:
         small = cv2.resize(crop, (W, H), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
     small = np.clip(small, 0, 1)
