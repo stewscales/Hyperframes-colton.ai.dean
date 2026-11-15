@@ -11,7 +11,7 @@ day_src, night_src, photo_src, out = sys.argv[1:5]
 W_, H_ = 1080, 1920
 LEN = {name: b - a for name, a, b in BROLL}
 # first source frame (after conforming to 30 fps) of each driving section
-START = {'day': 70, 'night': 45, 'night2': 120}
+START = {'day': 70}
 
 yy, xx = np.mgrid[0:H_, 0:W_].astype(np.float32)
 RAD = np.sqrt(((xx - W_ / 2) / (W_ / 2)) ** 2 + ((yy - H_ / 2) / (H_ / 2)) ** 2) / np.sqrt(2)
@@ -51,8 +51,8 @@ def frames(src, start, n, w, h):
     return a
 
 # ---- full-screen driving clips ----
-for name, src in (('day', day_src), ('night2', night_src)):
-    if '--only-watch' in sys.argv: break
+for name, src in (('day', day_src),):
+    if '--only-watch' in sys.argv or '--wrist' in sys.argv: break
     n = LEN[name]; fr = frames(src, START[name], n, 2160, 3840); e = encoder(f'{out}/{name}.mp4')
     for k in range(n):
         # night clips: sit 7% tighter and slightly high so the phone UI's small "VIEW" label at the bottom-left edge is cropped out
@@ -61,7 +61,7 @@ for name, src in (('day', day_src), ('night2', night_src)):
     e.stdin.close(); e.wait(); del fr; print(name, n, 'frames', flush=True)
 
 # ---- watch clip (720x1280, full-range): opening shot of the watches in hand, upscaled, slow push-in ----
-if len(sys.argv) > 5:
+if len(sys.argv) > 5 and '--wrist' not in sys.argv:
     n = LEN['watch']; W0 = 3
     raw = subprocess.check_output(['ffmpeg', '-nostdin', '-v', 'error', '-i', sys.argv[5], '-vf',
         f'fps=30,trim=start_frame={W0}:end_frame={W0 + n},setpts=PTS-STARTPTS,scale=1440:2560:flags=lanczos:in_color_matrix=bt709:in_range=pc,format=rgb24', '-f', 'rawvideo', '-'])
@@ -74,12 +74,19 @@ if len(sys.argv) > 5:
     if '--only-watch' in sys.argv: raise SystemExit
 
 
+# ---- wrist photo (watch on the Lamborghini wheel): slow push-in towards the watch and dash ----
+if '--wrist' in sys.argv:
+    wp = cv2.cvtColor(cv2.imread(sys.argv[sys.argv.index('--wrist') + 1]), cv2.COLOR_BGR2RGB)
+    h9 = wp.shape[0]; w9 = int(round(h9 * 9 / 16)); x9 = (wp.shape[1] - w9) // 2; wp = wp[:, x9:x9 + w9]     # centre 9:16
+    n = LEN['wrist']; e = encoder(f'{out}/wrist.mp4')
+    for k in range(n):
+        u = k / max(1, n - 1); z = 1.04 + 0.12 * (1 - (1 - u) ** 2)
+        e.stdin.write(u8(look(crop_zoom(wp, z * settle(k), 0.47, 0.44).astype(np.float32) / 255, exp=0.94, con=1.08, sat=0.97, tint=(0.98, 1.0, 1.03), vig=0.36)).tobytes())
+    e.stdin.close(); e.wait(); print('wrist', n, 'frames', flush=True)
+    raise SystemExit
+
+# ---- Urus photo (grid tiles only) ----
 photo = cv2.cvtColor(cv2.imread(photo_src), cv2.COLOR_BGR2RGB)
-n = LEN['urus']; e = encoder(f'{out}/urus.mp4')
-for k in range(n):
-    u = k / max(1, n - 1); z = 1.10 + 0.10 * (1 - (1 - u) ** 2)
-    e.stdin.write(u8(look(crop_zoom(photo, z * settle(k), 0.55, 0.56).astype(np.float32) / 255, **LOOK['urus'])).tobytes())
-e.stdin.close(); e.wait(); print('urus', n, 'frames', flush=True)
 
 # ---- 3x3 grid ----
 n = LEN['grid']; TW, TH, GAP, MX = 324, 576, 14, 40
