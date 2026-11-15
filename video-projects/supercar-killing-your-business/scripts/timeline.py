@@ -18,7 +18,7 @@ def W(word, k=0, snap=True):
 # ---- B-roll (output frame ranges, end exclusive). Each starts on a word and ends on a word or a cut. ----
 BROLL = [
     ('day',    W('POSTING'),  W('AND', 0)),         # "Posting yourself in a Lamborghini"
-    ('night',  W('AND', 0),   CUTS[1]),             # "and flashing your watch"
+    ('watch',  W('AND', 0),   CUTS[1]),             # "and flashing your watch" (watch collection clip)
     ('grid',   W('EVERY'),    W('YOUR', 3)),        # "every other trading guru online"
     ('urus',   W('ABOUT', 0), CUTS[2]),             # "about your car"
     ('night2', W('FLEXING'),  W("THEY'RE")),        # "flexing their lifestyle"

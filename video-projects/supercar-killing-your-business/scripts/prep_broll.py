@@ -51,7 +51,8 @@ def frames(src, start, n, w, h):
     return a
 
 # ---- full-screen driving clips ----
-for name, src in (('day', day_src), ('night', night_src), ('night2', night_src)):
+for name, src in (('day', day_src), ('night2', night_src)):
+    if '--only-watch' in sys.argv: break
     n = LEN[name]; fr = frames(src, START[name], n, 2160, 3840); e = encoder(f'{out}/{name}.mp4')
     for k in range(n):
         # night clips: sit 7% tighter and slightly high so the phone UI's small "VIEW" label at the bottom-left edge is cropped out
@@ -59,7 +60,20 @@ for name, src in (('day', day_src), ('night', night_src), ('night2', night_src))
         e.stdin.write(u8(look(crop_zoom(fr[k], zz * settle(k), 0.5, cy).astype(np.float32) / 255, **LOOK[name])).tobytes())
     e.stdin.close(); e.wait(); del fr; print(name, n, 'frames', flush=True)
 
-# ---- Urus photo: slow push-in on the car ----
+# ---- watch clip (720x1280, full-range): opening shot of the watches in hand, upscaled, slow push-in ----
+if len(sys.argv) > 5:
+    n = LEN['watch']; W0 = 3
+    raw = subprocess.check_output(['ffmpeg', '-nostdin', '-v', 'error', '-i', sys.argv[5], '-vf',
+        f'fps=30,trim=start_frame={W0}:end_frame={W0 + n},setpts=PTS-STARTPTS,scale=1440:2560:flags=lanczos:in_color_matrix=bt709:in_range=pc,format=rgb24', '-f', 'rawvideo', '-'])
+    fr = np.frombuffer(raw, np.uint8).reshape(-1, 2560, 1440, 3); assert len(fr) == n
+    e = encoder(f'{out}/watch.mp4')
+    for k in range(n):
+        z = 1.0 + 0.05 * k / max(1, n - 1)
+        e.stdin.write(u8(look(crop_zoom(fr[k], z * settle(k), 0.5, 0.45).astype(np.float32) / 255, exp=0.90, con=1.10, sat=0.95, tint=(0.97, 1.0, 1.04), vig=0.38)).tobytes())
+    e.stdin.close(); e.wait(); print('watch', n, 'frames', flush=True)
+    if '--only-watch' in sys.argv: raise SystemExit
+
+
 photo = cv2.cvtColor(cv2.imread(photo_src), cv2.COLOR_BGR2RGB)
 n = LEN['urus']; e = encoder(f'{out}/urus.mp4')
 for k in range(n):
