@@ -1,36 +1,25 @@
 """Prepare the B-roll as 1080x1920 30 fps clips cut to the exact frame counts in timeline.py:
-  day / night / night2  Lamborghini POV driving clips (sections chosen before the dash shows its
-                        "120 km/h speed limit exceeded" warning), graded to sit with the dark talking head
-  urus                  the Urus photo with a slow push-in
-  grid                  3x3 wall of the same flex posts ("every other trading guru online")
-Every clip gets the same look (slightly darker, more contrast, a touch cooler, vignette) and a 5-frame settle on entry.
-Run from the project folder: python3 -I scripts/prep_broll.py <day.mov> <night.mov> <photo.jpg> <out_dir>"""
+  day    Lamborghini POV, daytime (section before the dash shows its speed warning)
+  watch  watch collection clip (720x1280, full range), opening shot of the watches in hand
+  night  Lamborghini POV, night
+  wrist  photo: watch on the Lamborghini wheel, slow push-in
+Every clip gets the same look (slightly darker, more contrast, a touch cooler, vignette) and a 5-frame settle on
+entry. Clips that hand back to the talking head carry FADE extra frames for the dissolve.
+Run from the project folder: python3 -I scripts/prep_broll.py <day.mov> <night.mov> <watch.mp4> <wrist.jpg> <out_dir>"""
 import sys, subprocess, numpy as np, cv2
 exec(open('scripts/timeline.py').read())
-day_src, night_src, photo_src, out = sys.argv[1:5]
+day_src, night_src, watch_src, wrist_src, out = sys.argv[1:6]
 W_, H_ = 1080, 1920
-LEN = {name: b - a for name, a, b in BROLL}
-# first source frame (after conforming to 30 fps) of each driving section
-START = {'day': 70}
+LEN = {name: b - a + (FADE if name in FADES_OUT else 0) for name, a, b in BROLL}
 
 yy, xx = np.mgrid[0:H_, 0:W_].astype(np.float32)
 RAD = np.sqrt(((xx - W_ / 2) / (W_ / 2)) ** 2 + ((yy - H_ / 2) / (H_ / 2)) ** 2) / np.sqrt(2)
 def look(img, exp=1.0, con=1.0, sat=1.0, tint=(1, 1, 1), vig=0.3):
     """img float RGB 0..1"""
-    img = img * exp
-    img = (img - 0.4) * con + 0.4
+    img = (img * exp - 0.4) * con + 0.4
     Y = (0.2126 * img[..., 0] + 0.7152 * img[..., 1] + 0.0722 * img[..., 2])[..., None]
-    img = Y + (img - Y) * sat
-    img = img * np.array(tint, np.float32)
-    if vig:
-        r = cv2.resize(RAD, (img.shape[1], img.shape[0])) if img.shape[:2] != (H_, W_) else RAD
-        img = img * (1 - vig * np.clip(r, 0, 1) ** 2.2)[..., None]
-    return np.clip(img, 0, 1)
-LOOK = {'day': dict(exp=0.90, con=1.16, sat=0.90, tint=(0.97, 1.0, 1.05), vig=0.38),
-        'night': dict(exp=1.0, con=1.08, sat=1.0, tint=(0.98, 1.0, 1.03), vig=0.28),
-        'urus': dict(exp=0.88, con=1.12, sat=0.95, tint=(0.97, 1.0, 1.04), vig=0.42)}
-LOOK['night2'] = LOOK['night']
-
+    img = (Y + (img - Y) * sat) * np.array(tint, np.float32)
+    return np.clip(img * (1 - vig * np.clip(RAD, 0, 1) ** 2.2)[..., None], 0, 1)
 def encoder(path):
     return subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W_}x{H_}', '-r', '30', '-i', '-',
                              '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p', '-c:v', 'libx264', '-preset', 'medium', '-crf', '14', '-g', '15',
@@ -43,93 +32,29 @@ def crop_zoom(src, z, cx=0.5, cy=0.5):
     M = np.float32([[W_ / cw, 0, -x0 * W_ / cw], [0, H_ / ch, -y0 * H_ / ch]])
     return cv2.warpAffine(src, M, (W_, H_), flags=cv2.INTER_AREA if cw >= W_ else cv2.INTER_CUBIC)
 settle = lambda k: 1 + 0.05 * (1 - min(1.0, k / 5)) ** 3          # 5-frame settle on entry
-
-def frames(src, start, n, w, h):
+def frames(src, start, n, w, h, rng='tv', flags='area'):
     raw = subprocess.check_output(['ffmpeg', '-nostdin', '-v', 'error', '-i', src, '-vf',
-        f'fps=30,trim=start_frame={start}:end_frame={start + n},setpts=PTS-STARTPTS,scale={w}:{h}:flags=area:in_color_matrix=bt709:in_range=tv,format=rgb24', '-f', 'rawvideo', '-'])
+        f'fps=30,trim=start_frame={start}:end_frame={start + n},setpts=PTS-STARTPTS,scale={w}:{h}:flags={flags}:in_color_matrix=bt709:in_range={rng},format=rgb24', '-f', 'rawvideo', '-'])
     a = np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3); assert len(a) == n, (src, len(a), n)
     return a
+def render(name, n, frame_fn, **lk):
+    e = encoder(f'{out}/{name}.mp4')
+    for k in range(n): e.stdin.write(u8(look(frame_fn(k).astype(np.float32) / 255, **lk)).tobytes())
+    e.stdin.close(); e.wait(); print(name, n, 'frames', flush=True)
 
-# ---- full-screen driving clips ----
-for name, src in (('day', day_src),):
-    if '--only-watch' in sys.argv or '--wrist' in sys.argv: break
-    n = LEN[name]; fr = frames(src, START[name], n, 2160, 3840); e = encoder(f'{out}/{name}.mp4')
-    for k in range(n):
-        # night clips: sit 7% tighter and slightly high so the phone UI's small "VIEW" label at the bottom-left edge is cropped out
-        zz, cy = (1.07, 0.46) if name.startswith('night') else (1.0, 0.5)
-        e.stdin.write(u8(look(crop_zoom(fr[k], zz * settle(k), 0.5, cy).astype(np.float32) / 255, **LOOK[name])).tobytes())
-    e.stdin.close(); e.wait(); del fr; print(name, n, 'frames', flush=True)
+fr = frames(day_src, 70, LEN['day'], 2160, 3840)
+render('day', LEN['day'], lambda k: crop_zoom(fr[k], settle(k)), exp=0.90, con=1.16, sat=0.90, tint=(0.97, 1.0, 1.05), vig=0.38)
 
-# ---- watch clip (720x1280, full-range): opening shot of the watches in hand, upscaled, slow push-in ----
-if len(sys.argv) > 5 and '--wrist' not in sys.argv:
-    n = LEN['watch']; W0 = 3
-    raw = subprocess.check_output(['ffmpeg', '-nostdin', '-v', 'error', '-i', sys.argv[5], '-vf',
-        f'fps=30,trim=start_frame={W0}:end_frame={W0 + n},setpts=PTS-STARTPTS,scale=1440:2560:flags=lanczos:in_color_matrix=bt709:in_range=pc,format=rgb24', '-f', 'rawvideo', '-'])
-    fr = np.frombuffer(raw, np.uint8).reshape(-1, 2560, 1440, 3); assert len(fr) == n
-    e = encoder(f'{out}/watch.mp4')
-    for k in range(n):
-        z = 1.0 + 0.05 * k / max(1, n - 1)
-        e.stdin.write(u8(look(crop_zoom(fr[k], z * settle(k), 0.5, 0.45).astype(np.float32) / 255, exp=0.90, con=1.10, sat=0.95, tint=(0.97, 1.0, 1.04), vig=0.38)).tobytes())
-    e.stdin.close(); e.wait(); print('watch', n, 'frames', flush=True)
-    if '--only-watch' in sys.argv: raise SystemExit
+fr = frames(watch_src, 3, LEN['watch'], 1440, 2560, rng='pc', flags='lanczos')
+nw = LEN['watch']
+render('watch', nw, lambda k: crop_zoom(fr[k], (1.0 + 0.05 * k / (nw - 1)) * settle(k), 0.5, 0.45), exp=0.90, con=1.10, sat=0.95, tint=(0.97, 1.0, 1.04), vig=0.38)
 
+# night: 7% tighter and slightly high so the car UI's small "VIEW" label at the bottom-left edge is cropped out
+fr = frames(night_src, 45, LEN['night'], 2160, 3840)
+render('night', LEN['night'], lambda k: crop_zoom(fr[k], 1.07 * settle(k), 0.5, 0.46), exp=1.0, con=1.08, sat=1.0, tint=(0.98, 1.0, 1.03), vig=0.28)
+del fr
 
-# ---- wrist photo (watch on the Lamborghini wheel): slow push-in towards the watch and dash ----
-if '--wrist' in sys.argv:
-    wp = cv2.cvtColor(cv2.imread(sys.argv[sys.argv.index('--wrist') + 1]), cv2.COLOR_BGR2RGB)
-    h9 = wp.shape[0]; w9 = int(round(h9 * 9 / 16)); x9 = (wp.shape[1] - w9) // 2; wp = wp[:, x9:x9 + w9]     # centre 9:16
-    n = LEN['wrist']; e = encoder(f'{out}/wrist.mp4')
-    for k in range(n):
-        u = k / max(1, n - 1); z = 1.04 + 0.12 * (1 - (1 - u) ** 2)
-        e.stdin.write(u8(look(crop_zoom(wp, z * settle(k), 0.47, 0.44).astype(np.float32) / 255, exp=0.94, con=1.08, sat=0.97, tint=(0.98, 1.0, 1.03), vig=0.36)).tobytes())
-    e.stdin.close(); e.wait(); print('wrist', n, 'frames', flush=True)
-    raise SystemExit
-
-# ---- Urus photo (grid tiles only) ----
-photo = cv2.cvtColor(cv2.imread(photo_src), cv2.COLOR_BGR2RGB)
-
-# ---- 3x3 grid ----
-n = LEN['grid']; TW, TH, GAP, MX = 324, 576, 14, 40
-MY = (H_ - 3 * TH - 2 * GAP) // 2
-SS = 2                                                           # supersample for clean rounded corners
-mask = np.zeros((TH * SS, TW * SS), np.float32)
-cv2.rectangle(mask, (18 * SS, 0), ((TW - 18) * SS - 1, TH * SS - 1), 1.0, -1); cv2.rectangle(mask, (0, 18 * SS), (TW * SS - 1, (TH - 18) * SS - 1), 1.0, -1)
-for cx_, cy_ in ((18, 18), (TW - 18, 18), (18, TH - 18), (TW - 18, TH - 18)): cv2.circle(mask, (cx_ * SS, cy_ * SS), 18 * SS, 1.0, -1)
-mask = cv2.resize(mask, (TW, TH), interpolation=cv2.INTER_AREA)
-tw, th = 432, 768
-dayf = frames(day_src, 0, 170, tw, th); nightf = frames(night_src, 0, 170, tw, th)
-ph = cv2.resize(photo, (tw * 2, th * 2), interpolation=cv2.INTER_AREA)
-def tile(kind, arg, k):
-    if kind == 'day': img = dayf[min(arg + k, 169)]
-    elif kind == 'night': img = nightf[min(arg + k, 169)]
-    else:
-        z, cx, cy = arg; z = z + 0.06 * k / n; cw, ch = ph.shape[1] / z, ph.shape[0] / z
-        x0 = min(max(cx * ph.shape[1] - cw / 2, 0), ph.shape[1] - cw); y0 = min(max(cy * ph.shape[0] - ch / 2, 0), ph.shape[0] - ch)
-        img = cv2.warpAffine(ph, np.float32([[tw / cw, 0, -x0 * tw / cw], [0, th / ch, -y0 * th / ch]]), (tw, th), flags=cv2.INTER_AREA)
-    key = 'urus' if kind == 'urus' else kind
-    return look(cv2.resize(img, (TW, TH), interpolation=cv2.INTER_AREA).astype(np.float32) / 255, **{**LOOK[key], 'vig': 0.2})
-TILES = [('day', 68), ('night', 40), ('urus', (1.25, 0.55, 0.58)),
-         ('urus', (1.6, 0.6, 0.55)), ('day', 15), ('night', 95),
-         ('night', 10), ('urus', (1.05, 0.5, 0.5)), ('day', 105)]
-BG = np.array([10, 10, 10], np.float32) / 255
-e = encoder(f'{out}/grid.mp4')
-for k in range(n):
-    canvas = np.empty((H_, W_, 3), np.float32); canvas[:] = BG
-    for i, (kind, arg) in enumerate(TILES):
-        r, c = divmod(i, 3); x = MX + c * (TW + GAP); y = MY + r * (TH + GAP)
-        u = np.clip((k + 4 - i) / 5, 0, 1)                       # one tile per frame, each pops over 5 frames; the first is already up on frame 0 (no black frame)
-        if u <= 0: continue
-        ez = 1 - (1 - u) ** 3; s = 0.82 + 0.18 * ez
-        t = tile(kind, arg, k) * 0.86                            # a little dimmer so the caption reads on top
-        if s < 0.999:
-            w2, h2 = max(2, int(round(TW * s))), max(2, int(round(TH * s)))
-            t2 = cv2.resize(t, (w2, h2), interpolation=cv2.INTER_AREA); m2 = cv2.resize(mask, (w2, h2), interpolation=cv2.INTER_AREA) * ez
-            xo, yo = x + (TW - w2) // 2, y + (TH - h2) // 2
-        else:
-            t2, m2, xo, yo = t, mask, x, y
-        roi = canvas[yo:yo + t2.shape[0], xo:xo + t2.shape[1]]
-        roi[:] = roi * (1 - m2[..., None]) + t2 * m2[..., None]
-    zg = 1.0 + 0.045 * k / max(1, n - 1)                         # slow push on the whole wall
-    M = cv2.getRotationMatrix2D((W_ / 2, H_ / 2), 0, zg)
-    e.stdin.write(u8(cv2.warpAffine(canvas, M, (W_, H_), flags=cv2.INTER_LINEAR, borderValue=tuple(float(v) for v in BG))).tobytes())
-e.stdin.close(); e.wait(); print('grid', n, 'frames')
+wp = cv2.cvtColor(cv2.imread(wrist_src), cv2.COLOR_BGR2RGB)
+h9 = wp.shape[0]; w9 = int(round(h9 * 9 / 16)); x9 = (wp.shape[1] - w9) // 2; wp = wp[:, x9:x9 + w9]     # centre 9:16
+nr = LEN['wrist']
+render('wrist', nr, lambda k: crop_zoom(wp, (1.04 + 0.10 * (1 - (1 - k / (nr - 1)) ** 2)) * settle(k), 0.47, 0.44), exp=0.94, con=1.08, sat=0.97, tint=(0.98, 1.0, 1.03), vig=0.36)

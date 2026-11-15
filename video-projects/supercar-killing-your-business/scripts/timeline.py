@@ -19,9 +19,11 @@ def W(word, k=0, snap=True):
 BROLL = [
     ('day',    W('POSTING'),  W('AND', 0)),         # "Posting yourself in a Lamborghini"
     ('watch',  W('AND', 0),   CUTS[1]),             # "and flashing your watch" (watch collection clip)
-    ('grid',   W('EVERY'),    W('YOUR', 3)),        # "every other trading guru online"
-    ('wrist',  W('FLEXING'),  W("THEY'RE")),        # "flexing their lifestyle" (watch on the Lamborghini wheel, photo)
+    ('night',  W('EVERY'),    W('YOUR', 3)),        # "every other trading guru online" (one clean clip: night drive)
+    ('wrist',  W('FLEXING'),  W('FLEXING') + 22),   # "flexing their..." (watch on the Lamborghini wheel, photo; kept short)
 ]
+FADE = 4                                            # frames of dissolve when a B-roll clip hands back to the talking head
+FADES_OUT = ('watch', 'night', 'wrist')             # day cuts straight into the watch clip
 # ---- talking-head punch-ins: (start, end, kind, args) per stretch of face time ----
 def zoom_schedule():
     z = [1.0] * NF

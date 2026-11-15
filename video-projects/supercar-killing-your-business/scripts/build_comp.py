@@ -6,35 +6,35 @@ import math
 exec(open('scripts/timeline.py').read())
 DUR = NF / 30
 tm = lambda f: round(f / 30 - 0.001, 4) if f > 0 else 0          # GSAP time that lands on frame f
-# captions: (frame, lines, hero?)   '*' marks blue words
+# captions: (frame, lines, hero?)   '*' marks blue words: only the key word of the main beats (killing / guru / don't care / trust / wrong / follow)
 CAPS = [
  (W('POSTING'),      ['POSTING YOURSELF'], 0),
- (W('IN'),           ['IN A *LAMBORGHINI'], 0),
- (W('AND', 0),       ['AND FLASHING', 'YOUR *WATCH'], 0),
+ (W('IN'),           ['IN A LAMBORGHINI'], 0),
+ (W('AND', 0),       ['AND FLASHING', 'YOUR WATCH'], 0),
  (W('IT', 0),        ["IT DOESN'T", 'MAKE PEOPLE'], 0),
- (W('WANT'),         ['WANT TO *BUY', 'FROM YOU'], 0),
+ (W('WANT'),         ['WANT TO BUY', 'FROM YOU'], 0),
  (W('IT', 1),        ['IT JUST MAKES', 'YOU LOOK LIKE'], 0),
  (W('EVERY'),        ['EVERY OTHER'], 0),
- (W('TRADING', 0),   ['*TRADING *GURU'], 1),
+ (W('TRADING', 0),   ['TRADING *GURU'], 1),
  (W('ONLINE', 0),    ['ONLINE'], 0),
  (W('YOUR', 3),      ['YOUR PROSPECTS'], 0),
  (W("DON'T"),        ["*DON'T *CARE", 'ABOUT YOUR CAR'], 0),
  (W('THEY'),         ['THEY CARE ABOUT'], 0),
  (W('WHETHER'),      ['WHETHER YOU CAN'], 0),
- (W('ACTUALLY', 0),  ['ACTUALLY *HELP THEM'], 0),
+ (W('ACTUALLY', 0),  ['ACTUALLY HELP THEM'], 0),
  (W('THE', 0),       ['THE BEST'], 0),
  (W('TRADING', 1),   ['TRADING COACHES', 'ONLINE'], 0),
- (W("AREN'T"),       ["AREN'T *FLEXING"], 0),
- (W('THEIR'),        ['THEIR *LIFESTYLE'], 0),
+ (W("AREN'T"),       ["AREN'T FLEXING"], 0),
+ (W('THEIR'),        ['THEIR LIFESTYLE'], 0),
  (W("THEY'RE"),      ["THEY'RE THE ONES"], 0),
  (W('BUILDING'),     ['BUILDING *TRUST'], 1),
- (W('IF'),           ['IF YOUR', 'WHOLE *BRAND'], 0),
- (W('IS', 1),        ['IS HOW *RICH', 'YOU LOOK'], 0),
+ (W('IF'),           ['IF YOUR', 'WHOLE BRAND'], 0),
+ (W('IS', 1),        ['IS HOW RICH', 'YOU LOOK'], 0),
  (W("YOU'RE"),       ["YOU'RE POSTING TO"], 0),
- (W('THE', 2),       ['THE *WRONG', '*AUDIENCE'], 1),
+ (W('THE', 2),       ['THE *WRONG', 'AUDIENCE'], 1),
  (W('FOLLOW'),       ['*FOLLOW'], 1),
  (W('AND', 1),       ["AND I'LL SHOW YOU"], 0),
- (W('WHAT'),         ['WHAT TO', 'ACTUALLY *POST'], 0),
+ (W('WHAT'),         ['WHAT TO', 'ACTUALLY POST'], 0),
 ]
 on = [f for f, _, _ in CAPS]
 assert on == sorted(on) and len(set(on)) == len(on), on
@@ -62,8 +62,11 @@ js += [f'tl.set("#t2", {{ color: "#ffffff" }}, {tm(T2)});', f'tl.set("#t2 .hl", 
 # B-roll clips: start on their frame, end 1 ms before the frame on which the talking head returns
 vids = []
 for i, (name, a, b) in enumerate(BROLL):
-    st = round(a / 30 - 0.0004, 4); dur = round(b / 30 - 0.001 - st, 4)        # a hair early so the clip is up on frame a
-    vids.append(f'  <video id="broll-{name}" class="broll" data-start="{st}" data-duration="{dur}" data-track-index="{2 + i % 2}" src="assets/broll/{name}.mp4" muted playsinline></video>')
+    fo = name in FADES_OUT
+    st = round(a / 30 - 0.0004, 4); dur = round((b + (FADE if fo else 0)) / 30 - 0.001 - st, 4)   # a hair early so the clip is up on frame a
+    vids.append(f'  <div id="wrap-{name}" class="broll-wrap"><video id="broll-{name}" class="broll" data-start="{st}" data-duration="{dur}" data-track-index="{2 + i % 2}" src="assets/broll/{name}.mp4" muted playsinline></video></div>')
+    if fo:   # short dissolve back to the talking head: frames b..b+FADE-1 at falling opacity, gone on frame b+FADE
+        js.append(f'tl.to("#wrap-{name}", {{ opacity: 0, duration: {round((FADE + 1) / 30, 4)}, ease: "none" }}, {round((b - 1) / 30, 4)});')
 ring = lambda r, c: ', '.join(f'{r*math.cos(x):.2f}px {r*math.sin(x):.2f}px 0 {c}' for x in [2 * math.pi * j / 24 for j in range(24)])
 html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -78,7 +81,8 @@ html = f'''<!DOCTYPE html>
     body {{ background: #000; }}
     #supercar-killing-your-business {{ position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }}
     #base {{ position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }}
-    .broll {{ position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 5; }}
+    .broll-wrap {{ position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; z-index: 5; pointer-events: none; }}
+    .broll {{ position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; }}
 
     /* Captions: bold, clean, white with a solid dark outline; key words in brand blue */
     .cap, #title {{
@@ -123,7 +127,7 @@ html = f'''<!DOCTYPE html>
   <video id="base" data-start="0" data-duration="{DUR:.4f}" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
   <audio id="base-audio" data-start="0" data-duration="{DUR:.4f}" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
 
-  <!-- B-roll: full-frame, hard cuts on word starts; each ends on the frame the talking head comes back -->
+  <!-- B-roll: full-frame, cut in on word starts; clips that return to the talking head dissolve out over 4 frames -->
 {chr(10).join(vids)}
 
   <div id="title">

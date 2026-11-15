@@ -11,7 +11,8 @@
     body { background: #000; }
     #supercar-killing-your-business { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }
     #base { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }
-    .broll { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 5; }
+    .broll-wrap { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; z-index: 5; pointer-events: none; }
+    .broll { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; }
 
     /* Captions: bold, clean, white with a solid dark outline; key words in brand blue */
     .cap, #title {
@@ -56,11 +57,11 @@
   <video id="base" data-start="0" data-duration="22.9000" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
   <audio id="base-audio" data-start="0" data-duration="22.9000" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
 
-  <!-- B-roll: full-frame, hard cuts on word starts; each ends on the frame the talking head comes back -->
-  <video id="broll-day" class="broll" data-start="2.0329" data-duration="1.7328" data-track-index="2" src="assets/broll/day.mp4" muted playsinline></video>
-  <video id="broll-watch" class="broll" data-start="3.7663" data-duration="1.1994" data-track-index="3" src="assets/broll/watch.mp4" muted playsinline></video>
-  <video id="broll-grid" class="broll" data-start="7.3996" data-duration="1.8994" data-track-index="2" src="assets/broll/grid.mp4" muted playsinline></video>
-  <video id="broll-wrist" class="broll" data-start="14.7329" data-duration="1.2994" data-track-index="3" src="assets/broll/wrist.mp4" muted playsinline></video>
+  <!-- B-roll: full-frame, cut in on word starts; clips that return to the talking head dissolve out over 4 frames -->
+  <div id="wrap-day" class="broll-wrap"><video id="broll-day" class="broll" data-start="2.0329" data-duration="1.7328" data-track-index="2" src="assets/broll/day.mp4" muted playsinline></video></div>
+  <div id="wrap-watch" class="broll-wrap"><video id="broll-watch" class="broll" data-start="3.7663" data-duration="1.3327" data-track-index="3" src="assets/broll/watch.mp4" muted playsinline></video></div>
+  <div id="wrap-night" class="broll-wrap"><video id="broll-night" class="broll" data-start="7.3996" data-duration="2.0327" data-track-index="2" src="assets/broll/night.mp4" muted playsinline></video></div>
+  <div id="wrap-wrist" class="broll-wrap"><video id="broll-wrist" class="broll" data-start="14.7329" data-duration="0.8661" data-track-index="3" src="assets/broll/wrist.mp4" muted playsinline></video></div>
 
   <div id="title">
     <span id="t1" class="ln">YOUR SUPERCAR</span>
@@ -71,32 +72,32 @@
   <div id="follow"><span class="num">FOLLOW</span><span class="lab">@JUDESTEWY</span></div>
 
   <div id="cap-0" class="cap"><span class="ln">POSTING YOURSELF</span></div>
-  <div id="cap-1" class="cap"><span class="ln">IN A <span class="hl">LAMBORGHINI</span></span></div>
-  <div id="cap-2" class="cap"><span class="ln">AND FLASHING</span><span class="ln">YOUR <span class="hl">WATCH</span></span></div>
+  <div id="cap-1" class="cap"><span class="ln">IN A LAMBORGHINI</span></div>
+  <div id="cap-2" class="cap"><span class="ln">AND FLASHING</span><span class="ln">YOUR WATCH</span></div>
   <div id="cap-3" class="cap"><span class="ln">IT DOESN'T</span><span class="ln">MAKE PEOPLE</span></div>
-  <div id="cap-4" class="cap"><span class="ln">WANT TO <span class="hl">BUY</span></span><span class="ln">FROM YOU</span></div>
+  <div id="cap-4" class="cap"><span class="ln">WANT TO BUY</span><span class="ln">FROM YOU</span></div>
   <div id="cap-5" class="cap"><span class="ln">IT JUST MAKES</span><span class="ln">YOU LOOK LIKE</span></div>
   <div id="cap-6" class="cap"><span class="ln">EVERY OTHER</span></div>
-  <div id="cap-7" class="cap hero"><span class="ln"><span class="hl">TRADING</span> <span class="hl">GURU</span></span></div>
+  <div id="cap-7" class="cap hero"><span class="ln">TRADING <span class="hl">GURU</span></span></div>
   <div id="cap-8" class="cap"><span class="ln">ONLINE</span></div>
   <div id="cap-9" class="cap"><span class="ln">YOUR PROSPECTS</span></div>
   <div id="cap-10" class="cap"><span class="ln"><span class="hl">DON'T</span> <span class="hl">CARE</span></span><span class="ln">ABOUT YOUR CAR</span></div>
   <div id="cap-11" class="cap"><span class="ln">THEY CARE ABOUT</span></div>
   <div id="cap-12" class="cap"><span class="ln">WHETHER YOU CAN</span></div>
-  <div id="cap-13" class="cap"><span class="ln">ACTUALLY <span class="hl">HELP</span> THEM</span></div>
+  <div id="cap-13" class="cap"><span class="ln">ACTUALLY HELP THEM</span></div>
   <div id="cap-14" class="cap"><span class="ln">THE BEST</span></div>
   <div id="cap-15" class="cap"><span class="ln">TRADING COACHES</span><span class="ln">ONLINE</span></div>
-  <div id="cap-16" class="cap"><span class="ln">AREN'T <span class="hl">FLEXING</span></span></div>
-  <div id="cap-17" class="cap"><span class="ln">THEIR <span class="hl">LIFESTYLE</span></span></div>
+  <div id="cap-16" class="cap"><span class="ln">AREN'T FLEXING</span></div>
+  <div id="cap-17" class="cap"><span class="ln">THEIR LIFESTYLE</span></div>
   <div id="cap-18" class="cap"><span class="ln">THEY'RE THE ONES</span></div>
   <div id="cap-19" class="cap hero"><span class="ln">BUILDING <span class="hl">TRUST</span></span></div>
-  <div id="cap-20" class="cap"><span class="ln">IF YOUR</span><span class="ln">WHOLE <span class="hl">BRAND</span></span></div>
-  <div id="cap-21" class="cap"><span class="ln">IS HOW <span class="hl">RICH</span></span><span class="ln">YOU LOOK</span></div>
+  <div id="cap-20" class="cap"><span class="ln">IF YOUR</span><span class="ln">WHOLE BRAND</span></div>
+  <div id="cap-21" class="cap"><span class="ln">IS HOW RICH</span><span class="ln">YOU LOOK</span></div>
   <div id="cap-22" class="cap"><span class="ln">YOU'RE POSTING TO</span></div>
-  <div id="cap-23" class="cap hero"><span class="ln">THE <span class="hl">WRONG</span></span><span class="ln"><span class="hl">AUDIENCE</span></span></div>
+  <div id="cap-23" class="cap hero"><span class="ln">THE <span class="hl">WRONG</span></span><span class="ln">AUDIENCE</span></div>
   <div id="cap-24" class="cap hero"><span class="ln"><span class="hl">FOLLOW</span></span></div>
   <div id="cap-25" class="cap"><span class="ln">AND I'LL SHOW YOU</span></div>
-  <div id="cap-26" class="cap"><span class="ln">WHAT TO</span><span class="ln">ACTUALLY <span class="hl">POST</span></span></div>
+  <div id="cap-26" class="cap"><span class="ln">WHAT TO</span><span class="ln">ACTUALLY POST</span></div>
 
   <script>
     window.__timelines = window.__timelines || {};
@@ -190,6 +191,9 @@
     tl.set("#title", { opacity: 0 }, 2.0323);
     tl.set("#follow", { opacity: 1 }, 21.299);
     tl.fromTo("#follow", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 21.299);
+    tl.to("#wrap-watch", { opacity: 0, duration: 0.1667, ease: "none" }, 4.9333);
+    tl.to("#wrap-night", { opacity: 0, duration: 0.1667, ease: "none" }, 9.2667);
+    tl.to("#wrap-wrist", { opacity: 0, duration: 0.1667, ease: "none" }, 15.4333);
     tl.set({}, {}, 22.9000);
     window.__timelines["supercar-killing-your-business"] = tl;
   </script>
