@@ -19,7 +19,7 @@ def W(word, k=0, snap=True):
 BROLL = [
     ('day',    W('POSTING'),  W('AND', 0)),         # "Posting yourself in a Lamborghini"
     ('watch',  W('AND', 0),   CUTS[1]),             # "and flashing your watch" (watch collection clip)
-    ('night',  W('EVERY'),    W('YOUR', 3)),        # "every other trading guru online" (one clean clip: night drive)
+    ('night',  W('EVERY'),    W('GURU')),           # "every other trading..." (night drive; back on the face for "guru online" to keep momentum)
     ('wrist',  W('FLEXING'),  W('FLEXING') + 22),   # "flexing their..." (watch on the Lamborghini wheel, photo; kept short)
 ]
 FADE = 4                                            # frames of dissolve when a B-roll clip hands back to the talking head
