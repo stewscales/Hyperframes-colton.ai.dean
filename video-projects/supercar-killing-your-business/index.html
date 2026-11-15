@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Supercar Is Killing Your Business — Stew Scales</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; }
+    #supercar-killing-your-business { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }
+    #base { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }
+    .broll { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 5; }
+
+    /* Captions: bold, clean, white with a solid dark outline; key words in brand blue */
+    .cap, #title {
+      position: absolute; left: 60px; right: 60px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; text-transform: uppercase; text-align: center; color: #ffffff;
+      z-index: 20; transform-origin: 50% 50%;
+    }
+    .cap {
+      top: 1040px; height: 180px; font-weight: 800; font-size: 68px; line-height: 1.12; letter-spacing: 0.005em;
+      text-shadow: 7.00px 0.00px 0 #0a0a0a, 6.76px 1.81px 0 #0a0a0a, 6.06px 3.50px 0 #0a0a0a, 4.95px 4.95px 0 #0a0a0a, 3.50px 6.06px 0 #0a0a0a, 1.81px 6.76px 0 #0a0a0a, 0.00px 7.00px 0 #0a0a0a, -1.81px 6.76px 0 #0a0a0a, -3.50px 6.06px 0 #0a0a0a, -4.95px 4.95px 0 #0a0a0a, -6.06px 3.50px 0 #0a0a0a, -6.76px 1.81px 0 #0a0a0a, -7.00px 0.00px 0 #0a0a0a, -6.76px -1.81px 0 #0a0a0a, -6.06px -3.50px 0 #0a0a0a, -4.95px -4.95px 0 #0a0a0a, -3.50px -6.06px 0 #0a0a0a, -1.81px -6.76px 0 #0a0a0a, -0.00px -7.00px 0 #0a0a0a, 1.81px -6.76px 0 #0a0a0a, 3.50px -6.06px 0 #0a0a0a, 4.95px -4.95px 0 #0a0a0a, 6.06px -3.50px 0 #0a0a0a, 6.76px -1.81px 0 #0a0a0a, 4.00px 0.00px 0 #0a0a0a, 3.86px 1.04px 0 #0a0a0a, 3.46px 2.00px 0 #0a0a0a, 2.83px 2.83px 0 #0a0a0a, 2.00px 3.46px 0 #0a0a0a, 1.04px 3.86px 0 #0a0a0a, 0.00px 4.00px 0 #0a0a0a, -1.04px 3.86px 0 #0a0a0a, -2.00px 3.46px 0 #0a0a0a, -2.83px 2.83px 0 #0a0a0a, -3.46px 2.00px 0 #0a0a0a, -3.86px 1.04px 0 #0a0a0a, -4.00px 0.00px 0 #0a0a0a, -3.86px -1.04px 0 #0a0a0a, -3.46px -2.00px 0 #0a0a0a, -2.83px -2.83px 0 #0a0a0a, -2.00px -3.46px 0 #0a0a0a, -1.04px -3.86px 0 #0a0a0a, -0.00px -4.00px 0 #0a0a0a, 1.04px -3.86px 0 #0a0a0a, 2.00px -3.46px 0 #0a0a0a, 2.83px -2.83px 0 #0a0a0a, 3.46px -2.00px 0 #0a0a0a, 3.86px -1.04px 0 #0a0a0a, 0 8px 22px rgba(0,0,0,0.55);
+      opacity: 0;
+    }
+    .ln { display: block; white-space: nowrap; }
+    .hl { color: #2b95ff; }
+    .cap.hero { font-weight: 900; font-size: 98px; }
+
+    /* Hook title: the claim, three lines, same family as the hero captions */
+    #title {
+      top: 950px; height: 340px; font-weight: 900; font-size: 104px; line-height: 1.07; letter-spacing: 0.0em;
+      text-shadow: 8.00px 0.00px 0 #0a0a0a, 7.73px 2.07px 0 #0a0a0a, 6.93px 4.00px 0 #0a0a0a, 5.66px 5.66px 0 #0a0a0a, 4.00px 6.93px 0 #0a0a0a, 2.07px 7.73px 0 #0a0a0a, 0.00px 8.00px 0 #0a0a0a, -2.07px 7.73px 0 #0a0a0a, -4.00px 6.93px 0 #0a0a0a, -5.66px 5.66px 0 #0a0a0a, -6.93px 4.00px 0 #0a0a0a, -7.73px 2.07px 0 #0a0a0a, -8.00px 0.00px 0 #0a0a0a, -7.73px -2.07px 0 #0a0a0a, -6.93px -4.00px 0 #0a0a0a, -5.66px -5.66px 0 #0a0a0a, -4.00px -6.93px 0 #0a0a0a, -2.07px -7.73px 0 #0a0a0a, -0.00px -8.00px 0 #0a0a0a, 2.07px -7.73px 0 #0a0a0a, 4.00px -6.93px 0 #0a0a0a, 5.66px -5.66px 0 #0a0a0a, 6.93px -4.00px 0 #0a0a0a, 7.73px -2.07px 0 #0a0a0a, 5.00px 0.00px 0 #0a0a0a, 4.83px 1.29px 0 #0a0a0a, 4.33px 2.50px 0 #0a0a0a, 3.54px 3.54px 0 #0a0a0a, 2.50px 4.33px 0 #0a0a0a, 1.29px 4.83px 0 #0a0a0a, 0.00px 5.00px 0 #0a0a0a, -1.29px 4.83px 0 #0a0a0a, -2.50px 4.33px 0 #0a0a0a, -3.54px 3.54px 0 #0a0a0a, -4.33px 2.50px 0 #0a0a0a, -4.83px 1.29px 0 #0a0a0a, -5.00px 0.00px 0 #0a0a0a, -4.83px -1.29px 0 #0a0a0a, -4.33px -2.50px 0 #0a0a0a, -3.54px -3.54px 0 #0a0a0a, -2.50px -4.33px 0 #0a0a0a, -1.29px -4.83px 0 #0a0a0a, -0.00px -5.00px 0 #0a0a0a, 1.29px -4.83px 0 #0a0a0a, 2.50px -4.33px 0 #0a0a0a, 3.54px -3.54px 0 #0a0a0a, 4.33px -2.50px 0 #0a0a0a, 4.83px -1.29px 0 #0a0a0a, 0 10px 26px rgba(0,0,0,0.6);
+    }
+    #title .ln { transform-origin: 50% 50%; }
+    #t2, #t3, #t2 .hl { color: #7c7c7c; }   /* not yet spoken: solid grey with the full outline (stays crisp over the white shirt) */
+
+    /* Follow pill on the CTA, sits just above the caption (same pill as the list counters in Reel 2) */
+    #follow {
+      position: absolute; left: 50%; top: 936px; margin-left: -245px; width: 490px; height: 70px;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      background: rgba(10,10,10,0.92); border: 2px solid #007fff; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 34px; letter-spacing: 0.06em;
+      z-index: 19; opacity: 0;
+    }
+    #follow .num { color: #2b95ff; }
+    #follow .lab { color: #ffffff; }
+  </style>
+</head>
+<body>
+
+<div id="supercar-killing-your-business" data-composition-id="supercar-killing-your-business" data-start="0" data-width="1080" data-height="1920">
+
+  <video id="base" data-start="0" data-duration="22.9000" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
+  <audio id="base-audio" data-start="0" data-duration="22.9000" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
+
+  <!-- B-roll: full-frame, hard cuts on word starts; each ends on the frame the talking head comes back -->
+  <video id="broll-day" class="broll" data-start="2.0329" data-duration="1.7328" data-track-index="2" src="assets/broll/day.mp4" muted playsinline></video>
+  <video id="broll-night" class="broll" data-start="3.7663" data-duration="1.1994" data-track-index="3" src="assets/broll/night.mp4" muted playsinline></video>
+  <video id="broll-grid" class="broll" data-start="7.3996" data-duration="1.8994" data-track-index="2" src="assets/broll/grid.mp4" muted playsinline></video>
+  <video id="broll-urus" class="broll" data-start="10.2329" data-duration="0.7661" data-track-index="3" src="assets/broll/urus.mp4" muted playsinline></video>
+  <video id="broll-night2" class="broll" data-start="14.7329" data-duration="1.2994" data-track-index="2" src="assets/broll/night2.mp4" muted playsinline></video>
+
+  <div id="title">
+    <span id="t1" class="ln">YOUR SUPERCAR</span>
+    <span id="t2" class="ln">IS <span class="hl">KILLING</span></span>
+    <span id="t3" class="ln">YOUR BUSINESS</span>
+  </div>
+
+  <div id="follow"><span class="num">FOLLOW</span><span class="lab">@JUDESTEWY</span></div>
+
+  <div id="cap-0" class="cap"><span class="ln">POSTING YOURSELF</span></div>
+  <div id="cap-1" class="cap"><span class="ln">IN A <span class="hl">LAMBORGHINI</span></span></div>
+  <div id="cap-2" class="cap"><span class="ln">AND FLASHING</span><span class="ln">YOUR <span class="hl">WATCH</span></span></div>
+  <div id="cap-3" class="cap"><span class="ln">IT DOESN'T</span><span class="ln">MAKE PEOPLE</span></div>
+  <div id="cap-4" class="cap"><span class="ln">WANT TO <span class="hl">BUY</span></span><span class="ln">FROM YOU</span></div>
+  <div id="cap-5" class="cap"><span class="ln">IT JUST MAKES</span><span class="ln">YOU LOOK LIKE</span></div>
+  <div id="cap-6" class="cap"><span class="ln">EVERY OTHER</span></div>
+  <div id="cap-7" class="cap hero"><span class="ln"><span class="hl">TRADING</span> <span class="hl">GURU</span></span></div>
+  <div id="cap-8" class="cap"><span class="ln">ONLINE</span></div>
+  <div id="cap-9" class="cap"><span class="ln">YOUR PROSPECTS</span></div>
+  <div id="cap-10" class="cap"><span class="ln"><span class="hl">DON'T</span> <span class="hl">CARE</span></span><span class="ln">ABOUT YOUR CAR</span></div>
+  <div id="cap-11" class="cap"><span class="ln">THEY CARE ABOUT</span></div>
+  <div id="cap-12" class="cap"><span class="ln">WHETHER YOU CAN</span></div>
+  <div id="cap-13" class="cap"><span class="ln">ACTUALLY <span class="hl">HELP</span> THEM</span></div>
+  <div id="cap-14" class="cap"><span class="ln">THE BEST</span></div>
+  <div id="cap-15" class="cap"><span class="ln">TRADING COACHES</span><span class="ln">ONLINE</span></div>
+  <div id="cap-16" class="cap"><span class="ln">AREN'T <span class="hl">FLEXING</span></span></div>
+  <div id="cap-17" class="cap"><span class="ln">THEIR <span class="hl">LIFESTYLE</span></span></div>
+  <div id="cap-18" class="cap"><span class="ln">THEY'RE THE ONES</span></div>
+  <div id="cap-19" class="cap hero"><span class="ln">BUILDING <span class="hl">TRUST</span></span></div>
+  <div id="cap-20" class="cap"><span class="ln">IF YOUR</span><span class="ln">WHOLE <span class="hl">BRAND</span></span></div>
+  <div id="cap-21" class="cap"><span class="ln">IS HOW <span class="hl">RICH</span></span><span class="ln">YOU LOOK</span></div>
+  <div id="cap-22" class="cap"><span class="ln">YOU'RE POSTING TO</span></div>
+  <div id="cap-23" class="cap hero"><span class="ln">THE <span class="hl">WRONG</span></span><span class="ln"><span class="hl">AUDIENCE</span></span></div>
+  <div id="cap-24" class="cap hero"><span class="ln"><span class="hl">FOLLOW</span></span></div>
+  <div id="cap-25" class="cap"><span class="ln">AND I'LL SHOW YOU</span></div>
+  <div id="cap-26" class="cap"><span class="ln">WHAT TO</span><span class="ln">ACTUALLY <span class="hl">POST</span></span></div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // Times come from forced alignment of the script to the audio (scripts/timeline.py + scripts/build_comp.py)
+    tl.set("#cap-0", { opacity: 1 }, 2.0323);
+    tl.fromTo("#cap-0", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 2.0323);
+    tl.set("#cap-0", { opacity: 0 }, 2.6657);
+    tl.set("#cap-1", { opacity: 1 }, 2.6657);
+    tl.fromTo("#cap-1", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 2.6657);
+    tl.set("#cap-1", { opacity: 0 }, 3.7657);
+    tl.set("#cap-2", { opacity: 1 }, 3.7657);
+    tl.fromTo("#cap-2", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 3.7657);
+    tl.set("#cap-2", { opacity: 0 }, 4.9657);
+    tl.set("#cap-3", { opacity: 1 }, 4.9657);
+    tl.fromTo("#cap-3", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 4.9657);
+    tl.set("#cap-3", { opacity: 0 }, 5.6657);
+    tl.set("#cap-4", { opacity: 1 }, 5.6657);
+    tl.fromTo("#cap-4", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 5.6657);
+    tl.set("#cap-4", { opacity: 0 }, 6.499);
+    tl.set("#cap-5", { opacity: 1 }, 6.499);
+    tl.fromTo("#cap-5", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 6.499);
+    tl.set("#cap-5", { opacity: 0 }, 7.399);
+    tl.set("#cap-6", { opacity: 1 }, 7.399);
+    tl.fromTo("#cap-6", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 7.399);
+    tl.set("#cap-6", { opacity: 0 }, 7.8323);
+    tl.set("#cap-7", { opacity: 1 }, 7.8323);
+    tl.fromTo("#cap-7", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 7.8323);
+    tl.set("#cap-7", { opacity: 0 }, 8.6323);
+    tl.set("#cap-8", { opacity: 1 }, 8.6323);
+    tl.fromTo("#cap-8", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 8.6323);
+    tl.set("#cap-8", { opacity: 0 }, 9.299);
+    tl.set("#cap-9", { opacity: 1 }, 9.299);
+    tl.fromTo("#cap-9", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 9.299);
+    tl.set("#cap-9", { opacity: 0 }, 9.8323);
+    tl.set("#cap-10", { opacity: 1 }, 9.8323);
+    tl.fromTo("#cap-10", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 9.8323);
+    tl.set("#cap-10", { opacity: 0 }, 10.999);
+    tl.set("#cap-11", { opacity: 1 }, 10.999);
+    tl.fromTo("#cap-11", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 10.999);
+    tl.set("#cap-11", { opacity: 0 }, 11.6323);
+    tl.set("#cap-12", { opacity: 1 }, 11.6323);
+    tl.fromTo("#cap-12", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 11.6323);
+    tl.set("#cap-12", { opacity: 0 }, 12.0323);
+    tl.set("#cap-13", { opacity: 1 }, 12.0323);
+    tl.fromTo("#cap-13", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 12.0323);
+    tl.set("#cap-13", { opacity: 0 }, 12.799);
+    tl.set("#cap-14", { opacity: 1 }, 12.799);
+    tl.fromTo("#cap-14", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 12.799);
+    tl.set("#cap-14", { opacity: 0 }, 13.2323);
+    tl.set("#cap-15", { opacity: 1 }, 13.2323);
+    tl.fromTo("#cap-15", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 13.2323);
+    tl.set("#cap-15", { opacity: 0 }, 14.4657);
+    tl.set("#cap-16", { opacity: 1 }, 14.4657);
+    tl.fromTo("#cap-16", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 14.4657);
+    tl.set("#cap-16", { opacity: 0 }, 15.099);
+    tl.set("#cap-17", { opacity: 1 }, 15.099);
+    tl.fromTo("#cap-17", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 15.099);
+    tl.set("#cap-17", { opacity: 0 }, 16.0323);
+    tl.set("#cap-18", { opacity: 1 }, 16.0323);
+    tl.fromTo("#cap-18", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 16.0323);
+    tl.set("#cap-18", { opacity: 0 }, 16.5323);
+    tl.set("#cap-19", { opacity: 1 }, 16.5323);
+    tl.fromTo("#cap-19", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 16.5323);
+    tl.set("#cap-19", { opacity: 0 }, 17.3657);
+    tl.set("#cap-20", { opacity: 1 }, 17.3657);
+    tl.fromTo("#cap-20", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 17.3657);
+    tl.set("#cap-20", { opacity: 0 }, 18.3657);
+    tl.set("#cap-21", { opacity: 1 }, 18.3657);
+    tl.fromTo("#cap-21", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 18.3657);
+    tl.set("#cap-21", { opacity: 0 }, 19.199);
+    tl.set("#cap-22", { opacity: 1 }, 19.199);
+    tl.fromTo("#cap-22", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 19.199);
+    tl.set("#cap-22", { opacity: 0 }, 19.8657);
+    tl.set("#cap-23", { opacity: 1 }, 19.8657);
+    tl.fromTo("#cap-23", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 19.8657);
+    tl.set("#cap-23", { opacity: 0 }, 20.7323);
+    tl.set("#cap-24", { opacity: 1 }, 20.7323);
+    tl.fromTo("#cap-24", { scale: 0.82 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 20.7323);
+    tl.set("#cap-24", { opacity: 0 }, 21.299);
+    tl.set("#cap-25", { opacity: 1 }, 21.299);
+    tl.fromTo("#cap-25", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 21.299);
+    tl.set("#cap-25", { opacity: 0 }, 21.7323);
+    tl.set("#cap-26", { opacity: 1 }, 21.7323);
+    tl.fromTo("#cap-26", { scale: 0.9 }, { scale: 1, duration: 0.1, ease: "power3.out", immediateRender: false }, 21.7323);
+    tl.set("#t2", { color: "#ffffff" }, 0.8657);
+    tl.set("#t2 .hl", { color: "#2b95ff" }, 0.8657);
+    tl.fromTo("#t2", { scale: 0.86 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 0.8657);
+    tl.set("#t3", { color: "#ffffff" }, 1.2657);
+    tl.fromTo("#t3", { scale: 0.86 }, { scale: 1, duration: 0.14, ease: "back.out(2.2)", immediateRender: false }, 1.2657);
+    tl.set("#title", { opacity: 0 }, 2.0323);
+    tl.set("#follow", { opacity: 1 }, 21.299);
+    tl.fromTo("#follow", { y: 14, scale: 0.9 }, { y: 0, scale: 1, duration: 0.16, ease: "power3.out", immediateRender: false }, 21.299);
+    tl.set({}, {}, 22.9000);
+    window.__timelines["supercar-killing-your-business"] = tl;
+  </script>
+</div>
+
+</body>
+</html>

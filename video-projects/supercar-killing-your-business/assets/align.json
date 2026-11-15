@@ -1,0 +1,536 @@
+[
+{
+"word": "YOUR",
+"start": 0.08,
+"end": 0.28,
+"score": 0.986
+},
+{
+"word": "SUPERCAR",
+"start": 0.38,
+"end": 0.82,
+"score": 0.661
+},
+{
+"word": "IS",
+"start": 0.88,
+"end": 0.94,
+"score": 0.9
+},
+{
+"word": "KILLING",
+"start": 1.0,
+"end": 1.241,
+"score": 0.965
+},
+{
+"word": "YOUR",
+"start": 1.281,
+"end": 1.401,
+"score": 0.955
+},
+{
+"word": "BUSINESS",
+"start": 1.481,
+"end": 1.821,
+"score": 0.986
+},
+{
+"word": "POSTING",
+"start": 2.061,
+"end": 2.341,
+"score": 0.868
+},
+{
+"word": "YOURSELF",
+"start": 2.361,
+"end": 2.601,
+"score": 0.622
+},
+{
+"word": "IN",
+"start": 2.681,
+"end": 2.721,
+"score": 0.669
+},
+{
+"word": "A",
+"start": 2.781,
+"end": 2.801,
+"score": 0.549
+},
+{
+"word": "LAMBORGHINI",
+"start": 2.841,
+"end": 3.622,
+"score": 0.539
+},
+{
+"word": "AND",
+"start": 3.782,
+"end": 3.882,
+"score": 0.969
+},
+{
+"word": "FLASHING",
+"start": 4.062,
+"end": 4.422,
+"score": 0.861
+},
+{
+"word": "YOUR",
+"start": 4.462,
+"end": 4.562,
+"score": 0.747
+},
+{
+"word": "WATCH",
+"start": 4.602,
+"end": 4.802,
+"score": 0.997
+},
+{
+"word": "IT",
+"start": 5.042,
+"end": 5.082,
+"score": 0.968
+},
+{
+"word": "DOESN'T",
+"start": 5.102,
+"end": 5.242,
+"score": 0.418
+},
+{
+"word": "MAKE",
+"start": 5.282,
+"end": 5.402,
+"score": 0.898
+},
+{
+"word": "PEOPLE",
+"start": 5.442,
+"end": 5.663,
+"score": 0.921
+},
+{
+"word": "WANT",
+"start": 5.683,
+"end": 5.783,
+"score": 0.98
+},
+{
+"word": "TO",
+"start": 5.823,
+"end": 5.863,
+"score": 0.991
+},
+{
+"word": "BUY",
+"start": 5.903,
+"end": 6.023,
+"score": 0.974
+},
+{
+"word": "FROM",
+"start": 6.123,
+"end": 6.223,
+"score": 0.989
+},
+{
+"word": "YOU",
+"start": 6.263,
+"end": 6.363,
+"score": 0.973
+},
+{
+"word": "IT",
+"start": 6.523,
+"end": 6.563,
+"score": 0.225
+},
+{
+"word": "JUST",
+"start": 6.603,
+"end": 6.703,
+"score": 0.852
+},
+{
+"word": "MAKES",
+"start": 6.723,
+"end": 6.843,
+"score": 0.826
+},
+{
+"word": "YOU",
+"start": 6.883,
+"end": 6.943,
+"score": 0.449
+},
+{
+"word": "LOOK",
+"start": 6.963,
+"end": 7.063,
+"score": 0.328
+},
+{
+"word": "LIKE",
+"start": 7.103,
+"end": 7.223,
+"score": 0.724
+},
+{
+"word": "EVERY",
+"start": 7.403,
+"end": 7.603,
+"score": 0.969
+},
+{
+"word": "OTHER",
+"start": 7.663,
+"end": 7.824,
+"score": 0.787
+},
+{
+"word": "TRADING",
+"start": 7.864,
+"end": 8.224,
+"score": 0.895
+},
+{
+"word": "GURU",
+"start": 8.264,
+"end": 8.544,
+"score": 0.548
+},
+{
+"word": "ONLINE",
+"start": 8.644,
+"end": 9.044,
+"score": 0.754
+},
+{
+"word": "YOUR",
+"start": 9.324,
+"end": 9.444,
+"score": 0.815
+},
+{
+"word": "PROSPECTS",
+"start": 9.464,
+"end": 9.824,
+"score": 0.989
+},
+{
+"word": "DON'T",
+"start": 9.844,
+"end": 10.005,
+"score": 0.975
+},
+{
+"word": "CARE",
+"start": 10.045,
+"end": 10.205,
+"score": 0.998
+},
+{
+"word": "ABOUT",
+"start": 10.245,
+"end": 10.405,
+"score": 0.98
+},
+{
+"word": "YOUR",
+"start": 10.445,
+"end": 10.525,
+"score": 0.74
+},
+{
+"word": "CAR",
+"start": 10.545,
+"end": 10.785,
+"score": 0.979
+},
+{
+"word": "THEY",
+"start": 11.085,
+"end": 11.165,
+"score": 0.742
+},
+{
+"word": "CARE",
+"start": 11.205,
+"end": 11.345,
+"score": 0.989
+},
+{
+"word": "ABOUT",
+"start": 11.405,
+"end": 11.605,
+"score": 0.983
+},
+{
+"word": "WHETHER",
+"start": 11.645,
+"end": 11.805,
+"score": 0.437
+},
+{
+"word": "YOU",
+"start": 11.825,
+"end": 11.885,
+"score": 0.282
+},
+{
+"word": "CAN",
+"start": 11.945,
+"end": 12.045,
+"score": 0.673
+},
+{
+"word": "ACTUALLY",
+"start": 12.065,
+"end": 12.266,
+"score": 0.111
+},
+{
+"word": "HELP",
+"start": 12.286,
+"end": 12.446,
+"score": 0.983
+},
+{
+"word": "THEM",
+"start": 12.506,
+"end": 12.606,
+"score": 0.437
+},
+{
+"word": "THE",
+"start": 12.866,
+"end": 12.926,
+"score": 0.996
+},
+{
+"word": "BEST",
+"start": 12.986,
+"end": 13.146,
+"score": 0.999
+},
+{
+"word": "TRADING",
+"start": 13.246,
+"end": 13.546,
+"score": 0.906
+},
+{
+"word": "COACHES",
+"start": 13.586,
+"end": 13.906,
+"score": 0.855
+},
+{
+"word": "ONLINE",
+"start": 13.966,
+"end": 14.347,
+"score": 0.821
+},
+{
+"word": "AREN'T",
+"start": 14.487,
+"end": 14.667,
+"score": 0.973
+},
+{
+"word": "FLEXING",
+"start": 14.747,
+"end": 15.067,
+"score": 0.497
+},
+{
+"word": "THEIR",
+"start": 15.107,
+"end": 15.207,
+"score": 0.583
+},
+{
+"word": "LIFESTYLE",
+"start": 15.227,
+"end": 15.727,
+"score": 0.86
+},
+{
+"word": "THEY'RE",
+"start": 16.047,
+"end": 16.247,
+"score": 0.425
+},
+{
+"word": "THE",
+"start": 16.267,
+"end": 16.327,
+"score": 0.0
+},
+{
+"word": "ONES",
+"start": 16.347,
+"end": 16.447,
+"score": 0.267
+},
+{
+"word": "BUILDING",
+"start": 16.548,
+"end": 16.868,
+"score": 0.833
+},
+{
+"word": "TRUST",
+"start": 16.908,
+"end": 17.248,
+"score": 0.929
+},
+{
+"word": "IF",
+"start": 17.468,
+"end": 17.508,
+"score": 0.998
+},
+{
+"word": "YOUR",
+"start": 17.568,
+"end": 17.668,
+"score": 0.984
+},
+{
+"word": "WHOLE",
+"start": 17.728,
+"end": 17.908,
+"score": 0.949
+},
+{
+"word": "BRAND",
+"start": 17.988,
+"end": 18.268,
+"score": 0.966
+},
+{
+"word": "IS",
+"start": 18.368,
+"end": 18.428,
+"score": 0.998
+},
+{
+"word": "HOW",
+"start": 18.488,
+"end": 18.588,
+"score": 0.985
+},
+{
+"word": "RICH",
+"start": 18.688,
+"end": 18.849,
+"score": 0.986
+},
+{
+"word": "YOU",
+"start": 18.949,
+"end": 19.009,
+"score": 0.058
+},
+{
+"word": "LOOK",
+"start": 19.029,
+"end": 19.129,
+"score": 0.134
+},
+{
+"word": "YOU'RE",
+"start": 19.249,
+"end": 19.389,
+"score": 0.513
+},
+{
+"word": "POSTING",
+"start": 19.409,
+"end": 19.769,
+"score": 0.863
+},
+{
+"word": "TO",
+"start": 19.789,
+"end": 19.849,
+"score": 0.962
+},
+{
+"word": "THE",
+"start": 19.889,
+"end": 19.949,
+"score": 0.947
+},
+{
+"word": "WRONG",
+"start": 19.989,
+"end": 20.129,
+"score": 0.957
+},
+{
+"word": "AUDIENCE",
+"start": 20.249,
+"end": 20.629,
+"score": 0.981
+},
+{
+"word": "FOLLOW",
+"start": 20.809,
+"end": 21.09,
+"score": 0.993
+},
+{
+"word": "AND",
+"start": 21.31,
+"end": 21.37,
+"score": 0.98
+},
+{
+"word": "I'LL",
+"start": 21.39,
+"end": 21.51,
+"score": 0.929
+},
+{
+"word": "SHOW",
+"start": 21.53,
+"end": 21.61,
+"score": 0.831
+},
+{
+"word": "YOU",
+"start": 21.65,
+"end": 21.71,
+"score": 0.996
+},
+{
+"word": "WHAT",
+"start": 21.75,
+"end": 21.85,
+"score": 0.87
+},
+{
+"word": "TO",
+"start": 21.89,
+"end": 21.95,
+"score": 0.507
+},
+{
+"word": "ACTUALLY",
+"start": 21.99,
+"end": 22.31,
+"score": 0.496
+},
+{
+"word": "POST",
+"start": 22.37,
+"end": 22.63,
+"score": 0.971
+}
+]
