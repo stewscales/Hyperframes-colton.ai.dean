@@ -1,39 +1,47 @@
-"""Render the talking head (video only): cut to the EDL, baked-in fade removed, punch-ins per timeline.py,
-slight shadow lift on the face only (same grade as the other reels). Source and output are both 1080x1920.
-Run from the project folder: python3 -I scripts/render_th.py <facelm.task> <out.mp4> [--preview f1,f2,...]"""
+"""Render the talking head (video only) from the two 4K takes: cut to the EDL, framed as in v1 (BASE crop per
+take), punch-ins per timeline.py, slight shadow lift on the face only. Output 1080x1920, always downscaled from 4K.
+Run from the project folder: python3 -I scripts/render_th.py <clipA.mov> <clipB.mov> <facelm.task> <out.mp4>"""
 import sys, subprocess, numpy as np, cv2, mediapipe as mp
 from mediapipe.tasks import python as mpt
 from mediapipe.tasks.python import vision
 exec(open('scripts/timeline.py').read())
-model, dst = sys.argv[1:3]
-preview = [int(x) for x in sys.argv[4].split(',')] if len(sys.argv) > 4 else None
-W_, H_ = 1080, 1920; FB = W_ * H_ * 3
-GAIN = np.load('assets/ungain.npy'); z = zoom_schedule()
+SRC = {'A': sys.argv[1], 'B': sys.argv[2]}; model, dst = sys.argv[3:5]
+preview = None
+W_, H_ = 1080, 1920; SW, SH = 2160, 3840; FB = SW * SH * 3
+z = zoom_schedule()
 OVAL = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109]
 def reader():
-    p = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-i', 'assets/raw.mov', '-vf', 'scale=in_color_matrix=bt709:in_range=tv,format=rgb24', '-f', 'rawvideo', '-'], stdout=subprocess.PIPE, bufsize=FB)
-    cur = -1; img = None
-    for k in range(NF):
-        while cur < SHOW[k]:
-            buf = p.stdout.read(FB); cur += 1; assert len(buf) == FB, f'decode ended at {cur}'
-            if cur == SHOW[k]:
-                img = np.frombuffer(buf, np.uint8).reshape(H_, W_, 3).astype(np.float32) / 255
-                if not np.allclose(GAIN[cur], 1): img = np.clip(img * GAIN[cur], 0, 1)        # undo the baked-in fade
-        yield k, img
-    p.kill()
+    """Yields (output frame index, 4K frame uint8 RGB) in order."""
+    k = 0
+    for clip, a, b in SEGS:
+        p = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-i', SRC[clip], '-vf',
+                              f'trim=start_frame={a}:end_frame={b},setpts=PTS-STARTPTS,scale=in_color_matrix=bt709:in_range=tv,format=rgb24', '-f', 'rawvideo', '-'], stdout=subprocess.PIPE, bufsize=FB)
+        for _ in range(a, b):
+            buf = p.stdout.read(FB); assert len(buf) == FB, f'decode ended at output frame {k}'
+            fr = np.frombuffer(buf, np.uint8).reshape(SH, SW, 3)
+            yield k, fr; k += 1
+        p.kill()
+    for _ in range(END_HOLD):                                   # hold the last frame (see edl.py)
+        yield k, fr; k += 1
+    assert k == NF
+def view(fr, k, zz, x0, y0):
+    """The 1080x1920 picture for v1-frame window (x0, y0, 1080/zz, 1920/zz), cut from the 4K frame and downscaled."""
+    s_, tx, ty = BASE[SHOW[k][0]]
+    X0 = 2 * (x0 - tx) / s_; Y0 = 2 * (y0 - ty) / s_; Wc = 2 * (W_ / zz) / s_; Hc = 2 * (H_ / zz) / s_
+    xi, yi, wi, hi = int(round(X0)), int(round(Y0)), int(round(Wc)), int(round(Hc))
+    assert xi >= 0 and yi >= 0 and xi + wi <= SW and yi + hi <= SH and wi >= W_, (k, xi, yi, wi, hi)
+    return cv2.resize(fr[yi:yi + hi, xi:xi + wi], (W_, H_), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
 # ---- pass 1: face landmarks ----
 lmk = vision.FaceLandmarker.create_from_options(vision.FaceLandmarkerOptions(
     base_options=mpt.BaseOptions(model_asset_path=model), running_mode=vision.RunningMode.IMAGE, num_faces=1))
 LM = []; cache = {}
-for k, img in reader():
-    s = SHOW[k]
-    if s not in cache:
-        r = lmk.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=np.ascontiguousarray(np.rint(img * 255).astype(np.uint8))))
-        if r.face_landmarks:
-            pts = np.array([(l.x * W_, l.y * H_) for l in r.face_landmarks[0]]); cache[s] = np.vstack([pts[OVAL], pts[1:2]])
-        else:
-            print('no face at output frame', k, '(reusing previous)'); cache[s] = LM[-1]
-    LM.append(cache[s])
+for k, fr in reader():
+    img = view(fr, k, 1.0, 0.0, 0.0)
+    r = lmk.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=np.ascontiguousarray(np.rint(img * 255).astype(np.uint8))))
+    if r.face_landmarks:
+        pts = np.array([(l.x * W_, l.y * H_) for l in r.face_landmarks[0]]); LM.append(np.vstack([pts[OVAL], pts[1:2]]))
+    else:
+        print('no face at output frame', k, '(reusing previous)'); LM.append(LM[-1])
 LM = np.array(LM); cen = np.zeros((NF, 2), np.float32)
 for a, b in centre_parts(): cen[a:b] = np.median(LM[a:b, -1, :], axis=0)
 print('landmarks done; centres', [(a, np.round(cen[a]).tolist()) for a, _ in centre_parts()], flush=True)
@@ -56,23 +64,18 @@ def grade(img, pts):
     o = Yo + (o - Yo) * (1 - 0.35 * np.clip(lift / 0.6, 0, 1))[..., None]
     img[y0:y1, x0:x1] = np.clip(o, 0, 1)
     return img
-def make(img, k):
+def make(fr, k):
     zz = float(z[k]); cx, cy = cen[k]; cw, ch = W_ / zz, H_ / zz
     x0 = min(max(cx * (1 - 1 / zz), 0), W_ - cw); y0 = min(max(cy * (1 - 1 / zz), 0), H_ - ch)      # keeps the nose where it is
-    if zz > 1.0005:
-        M = np.float32([[zz, 0, -x0 * zz], [0, zz, -y0 * zz]])
-        out = np.clip(cv2.warpAffine(img, M, (W_, H_), flags=cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REPLICATE), 0, 1)
-    else: out = img.copy(); x0 = y0 = 0.0; zz = 1.0
+    out = view(fr, k, zz, x0, y0)
     return np.clip(np.rint(grade(out, (LM[k, :-1, :] - [x0, y0]) * zz) * 255), 0, 255).astype(np.uint8)
 enc = None
 if not preview:
     enc = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W_}x{H_}', '-r', '30', '-i', '-',
                             '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p', '-c:v', 'libx264', '-preset', 'medium', '-crf', '13',
                             '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv', '-movflags', '+faststart', dst], stdin=subprocess.PIPE)
-for k, img in reader():
-    if preview:
-        if k in preview: cv2.imwrite(f'{dst}-{k:04d}.png', cv2.cvtColor(make(img, k), cv2.COLOR_RGB2BGR))
-        continue
-    enc.stdin.write(make(img, k).tobytes())
-if enc: enc.stdin.close(); enc.wait()
+for k, fr in reader():
+    enc.stdin.write(make(fr, k).tobytes())
+    if k % 100 == 0: print('frame', k, flush=True)
+enc.stdin.close(); enc.wait()
 print('done', NF)

@@ -1,15 +1,14 @@
-"""Cut list. The source is one 14 s clip (1080x1920, 30 fps) with a fade-to-black dip baked in between two takes
-(darkest at frame 201). The edit: start as the hands reach for the laptop, remove the dip, hold the last good
-frame so the final line can land.
-  SEGS      source frame ranges kept (end exclusive); audio follows these exactly
-  show(f)   which source frame is displayed for source time f (frames too dark to restore show the nearest good one)
-  END_HOLD  extra frames at the end showing the last frame before he blinks"""
-SEGS = [(22, 198), (200, 413)]
-FADE_MIN = 0.33                     # frames faded darker than this are not restored; the nearest usable frame is held
-TAKE2_FIRST_GOOD = 204              # first frame of take 2 with fade >= FADE_MIN
+"""Cut list (v2, from the two original 4K takes; same edit as v1).
+  clip A = IMG_3362.MOV    laptop close + "Coaches are so focused ... build a business."
+  clip B = IMG_3366_1.MOV  "Everyone's so focused ... isn't converting."
+SEGS: (clip, first frame, end frame exclusive). Audio follows these exactly.
+BASE: the framing v1 was built on (how the earlier 1080p export was cropped from the 4K), per clip:
+      old_1080 = s * (4K px / 2) + (tx, ty). Punch-ins are applied on top of this framing.
+After the last word (clip B frame 534) he blinks and then starts to move, so, as in v1, the last eyes-open
+frame is held for END_HOLD frames to let the line land (the audio keeps running: real room tone)."""
+SEGS = [('A', 272, 448), ('B', 323, 535)]
 END_HOLD = 14
-def show(f):
-    return TAKE2_FIRST_GOOD if 200 <= f < TAKE2_FIRST_GOOD else f
-SHOW = [show(f) for a, b in SEGS for f in range(a, b)] + [SEGS[-1][1] - 1] * END_HOLD
+BASE = {'A': (1.1393, -0.4, -36.65), 'B': (1.1869, -77.1, -179.3)}
+SHOW = [(c, f) for c, a, b in SEGS for f in range(a, b)] + [(SEGS[-1][0], SEGS[-1][2] - 1)] * END_HOLD
 NF = len(SHOW)
-CUTS = [0, SEGS[0][1] - SEGS[0][0]]
+CUTS = [0, SEGS[0][2] - SEGS[0][1]]

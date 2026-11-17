@@ -10,7 +10,7 @@ def W(word, k=0, snap=True):
     f = int(math.floor(_st[word][k] * 30 + 1e-6))
     if snap and 0 <= f - CUTS[1] <= 4: return CUTS[1]
     return f
-LOOK_UP = 27                        # he looks up from the closed laptop (source frame 49)
+LOOK_UP = 27                        # he looks up from the closed laptop (clip A frame 299)
 def zoom_schedule():
     z = [1.0] * NF
     def creep(a, b, v0, v1):
