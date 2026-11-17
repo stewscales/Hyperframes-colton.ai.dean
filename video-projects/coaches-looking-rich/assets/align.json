@@ -1,0 +1,242 @@
+[
+{
+"word": "COACHES",
+"start": 1.241,
+"end": 1.682,
+"score": 0.927
+},
+{
+"word": "ARE",
+"start": 1.742,
+"end": 1.822,
+"score": 0.985
+},
+{
+"word": "SO",
+"start": 1.902,
+"end": 2.022,
+"score": 0.999
+},
+{
+"word": "FOCUSED",
+"start": 2.302,
+"end": 2.803,
+"score": 0.959
+},
+{
+"word": "ON",
+"start": 2.863,
+"end": 2.903,
+"score": 0.547
+},
+{
+"word": "TRYING",
+"start": 2.983,
+"end": 3.163,
+"score": 0.489
+},
+{
+"word": "TO",
+"start": 3.183,
+"end": 3.223,
+"score": 0.35
+},
+{
+"word": "LOOK",
+"start": 3.263,
+"end": 3.403,
+"score": 0.808
+},
+{
+"word": "RICH",
+"start": 3.523,
+"end": 3.784,
+"score": 0.998
+},
+{
+"word": "THEY'VE",
+"start": 3.984,
+"end": 4.164,
+"score": 0.697
+},
+{
+"word": "COMPLETELY",
+"start": 4.204,
+"end": 4.545,
+"score": 0.78
+},
+{
+"word": "FORGOT",
+"start": 4.625,
+"end": 4.965,
+"score": 0.563
+},
+{
+"word": "HOW",
+"start": 5.005,
+"end": 5.065,
+"score": 0.001
+},
+{
+"word": "TO",
+"start": 5.085,
+"end": 5.125,
+"score": 0.997
+},
+{
+"word": "BUILD",
+"start": 5.165,
+"end": 5.325,
+"score": 0.948
+},
+{
+"word": "A",
+"start": 5.385,
+"end": 5.405,
+"score": 0.399
+},
+{
+"word": "BUSINESS",
+"start": 5.465,
+"end": 5.846,
+"score": 0.943
+},
+{
+"word": "EVERYONE'S",
+"start": 5.946,
+"end": 6.226,
+"score": 0.736
+},
+{
+"word": "SO",
+"start": 6.246,
+"end": 6.326,
+"score": 0.998
+},
+{
+"word": "FOCUSED",
+"start": 6.486,
+"end": 6.987,
+"score": 0.967
+},
+{
+"word": "ON",
+"start": 7.067,
+"end": 7.127,
+"score": 0.949
+},
+{
+"word": "POSTING",
+"start": 7.227,
+"end": 7.648,
+"score": 0.942
+},
+{
+"word": "THEIR",
+"start": 7.728,
+"end": 7.848,
+"score": 0.545
+},
+{
+"word": "WATCHES",
+"start": 7.888,
+"end": 8.408,
+"score": 0.993
+},
+{
+"word": "AND",
+"start": 8.508,
+"end": 8.568,
+"score": 0.676
+},
+{
+"word": "THEIR",
+"start": 8.609,
+"end": 8.709,
+"score": 0.443
+},
+{
+"word": "CARS",
+"start": 8.729,
+"end": 9.129,
+"score": 0.733
+},
+{
+"word": "AND",
+"start": 9.189,
+"end": 9.249,
+"score": 0.753
+},
+{
+"word": "THEIR",
+"start": 9.289,
+"end": 9.389,
+"score": 0.478
+},
+{
+"word": "LIFESTYLE",
+"start": 9.409,
+"end": 9.97,
+"score": 0.682
+},
+{
+"word": "NONE",
+"start": 10.41,
+"end": 10.53,
+"score": 0.542
+},
+{
+"word": "OF",
+"start": 10.55,
+"end": 10.59,
+"score": 0.031
+},
+{
+"word": "IT",
+"start": 10.631,
+"end": 10.671,
+"score": 0.002
+},
+{
+"word": "ACTUALLY",
+"start": 10.711,
+"end": 10.971,
+"score": 0.154
+},
+{
+"word": "MATTERS",
+"start": 11.011,
+"end": 11.291,
+"score": 0.328
+},
+{
+"word": "BECAUSE",
+"start": 11.431,
+"end": 11.612,
+"score": 0.905
+},
+{
+"word": "THE",
+"start": 11.652,
+"end": 11.712,
+"score": 0.969
+},
+{
+"word": "CONTENT",
+"start": 11.752,
+"end": 12.092,
+"score": 0.972
+},
+{
+"word": "ISN'T",
+"start": 12.152,
+"end": 12.332,
+"score": 0.947
+},
+{
+"word": "CONVERTING",
+"start": 12.372,
+"end": 12.913,
+"score": 0.977
+}
+]
