@@ -1,0 +1,11 @@
+# Render outputs (large, regenerable)
+renders/
+
+# CLI internal state
+.hyperframes/
+
+# per-clip media (regenerable from the source video)
+clips/*/assets/*.wav
+clips/*/assets/*.mp4
+clips/*/renders/
+
