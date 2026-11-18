@@ -25,7 +25,7 @@ CLIPS = {
    fix={1789: '"DOC"'}, hl={6, 24, 25, 190, 1789}, hero={24, 1789}, brk={2, 5, 7, 23, 72, 76, 187, 1774, 1776, 1779, 1788, 1790}, wide={92, 1790}),
  '02-the-bucket': dict(
    title='Picture a bucket',
-   snips=[dict(w=(238, 270), z='M', steps={245: 'T', 258: 'W'}),
+   snips=[dict(w=(238, 270), z='M', start=1881, steps={245: 'T', 258: 'W'}),
           dict(w=(749, 774), z='M', steps={760: 'T'}),
           dict(w=(1378, 1419), z='W', steps={1384: 'M', 1394: 'T', 1401: 'W', 1409: 'T'}),
           dict(w=(1729, 1745), z='M', steps={1739: 'T'}, end=15322)],
