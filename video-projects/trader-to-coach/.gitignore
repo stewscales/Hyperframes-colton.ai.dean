@@ -1,0 +1,9 @@
+# Render outputs (large, regenerable)
+renders/
+
+# CLI internal state
+.hyperframes/
+
+# Regenerable large media (see scripts/): 1080p proxy of the source and the final audio mix
+assets/base-proxy.mp4
+assets/audio/mix.wav
