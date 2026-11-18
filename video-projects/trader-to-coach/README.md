@@ -12,3 +12,9 @@
 Not in git (regenerable, too large): the source video, `assets/base-proxy.mp4` (1080p proxy used by `index.html`
 for Studio preview: `ffmpeg -i <source> -vf scale=1920:1080 -c:v libx264 -preset veryfast -crf 24 -c:a aac assets/base-proxy.mp4`),
 `assets/audio/mix.wav` and everything under `renders/`.
+
+## Thumbnail
+
+`thumbnail/trader-to-coach-thumbnail.jpg` (1280x720). Sources: `frame-4130.png` (source frame 4130, "show up every time"),
+`build_cutout.py` (cutout + outline -> `person.png`, needs a MediaPipe selfie-segmenter `.tflite`), `thumbnail.html` (layout),
+`render.js` (Playwright render at 2x; downscale to 1280x720 with ffmpeg).
