@@ -15,6 +15,7 @@ for _k in range(1, len(SIL) - 3):                   # a 1-2 frame blip barely ov
 MIRO = (6895, 11060)                               # screen recording in the long-form: never used
 KEEP_AFTER, KEEP_BEFORE, MIN_PAUSE = 0.12, 0.07, 0.30   # a tightened pause keeps 0.12 s after the word and 0.07 s before the next
 LEAD, TRAIL, TAIL = 0.07, 0.09, 0.36               # snippet lead-in / lead-out; the last snippet of a clip breathes for TAIL
+SNAP = 6                                           # a word that starts within 6 frames after a cut switches on the cut
 ZOOM = {'W': 1.02, 'M': 1.065, 'T': 1.11}; CREEP = 0.015; ZMAX = 1.125
 
 def onset(t):
@@ -52,6 +53,7 @@ def build(cid):
             elif not SIL[int(a / FPS * 100) + 1:int(on * 100)].all(): a += 1
         tail = C.get('tail')
         if last and tail: b = int(math.ceil((tail['cut'] + tail['hold']) * FPS))
+        elif 'end' in s: b = s['end']
         else:
             if not ok2: warn.append(f'snippet {si}: no pause after word {j}')
             want = off + (TAIL if last else TRAIL)
@@ -61,6 +63,12 @@ def build(cid):
         cuts = []
         for ps, pe in pauses(a / FPS, (tail['cut'] if last and tail else off)):
             ca = int(math.ceil((ps + KEEP_AFTER) * FPS)); cb = int(math.floor((pe - KEEP_BEFORE) * FPS))
+            nxt = [w for w in range(i, j + 1) if WORDS[w]['start'] * FPS >= cb - 1][:1]     # first word after the pause
+            if nxt:                                           # a lip smack / breath before it: start the shot just before the word instead
+                ws = WORDS[nxt[0]]['start']
+                on_w = onset(ws)[0]
+                if math.floor(ws * FPS) - cb > 5 and int(on_w * 100) - 1 > int(cb / FPS * 100) and DB[int(cb / FPS * 100):int(on_w * 100) - 1].max() < THR + 9:
+                    cb = max(cb, int(math.floor((on_w - LEAD) * FPS)))
             if cb - ca >= 4: cuts.append((ca, cb))
         p = a
         for ca, cb in cuts:
@@ -73,7 +81,7 @@ def build(cid):
         f = int(math.floor(t * FPS + 1e-6))
         for (a, b), o in zip(pieces, starts):
             if f < a: return o
-            if f < b: return o if (snap and f - a <= 4) else o + f - a
+            if f < b: return o if (snap and f - a <= SNAP) else o + f - a
         return NF - 1
     return dict(C=C, pieces=pieces, starts=starts, NF=NF, snip_of=snip_of, warn=warn, out_frame=out_frame)
 
@@ -83,10 +91,10 @@ def word_list(E):
     for si, s in enumerate(E['C']['snips']):
         ps = [(p, o) for p, o, k in zip(E['pieces'], E['starts'], E['snip_of']) if k == si]
         for wi in range(s['w'][0], s['w'][1] + 1):
-            f = int(math.floor(WORDS[wi]['start'] * FPS + 1e-6)); fo = None
+            f = int(math.floor(E['C'].get('onset', {}).get(wi, WORDS[wi]['start']) * FPS + 1e-6)); fo = None
             for (a, b), o in ps:
                 if f < a: fo = o; break
-                if f < b: fo = o if f - a <= 4 else o + f - a; break
+                if f < b: fo = o if f - a <= SNAP else o + f - a; break
             if fo is None: fo = ps[-1][1] + ps[-1][0][1] - ps[-1][0][0] - 1
             out.append((wi, fo))
     return out
