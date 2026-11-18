@@ -14,6 +14,7 @@ import json, re, math
 
 FPS = 30
 NF = 15871                      # source frames (529.03 s)
+START = 12                       # the video starts here: the source opens with 0.4 s of him looking down
 MIRO_IN, MIRO_OUT = 6895, 11060  # first / one-past-last frame of the Miro screen recording
 BLUE, BONE, BLACK, GREY = '#2F6FED', '#F2EFE9', '#0A0A0A', '#E8E5DF'
 
@@ -41,6 +42,7 @@ P = lambda f: round(f / FPS, 5)              # frame -> GSAP time
 LEAD = 2                                     # graphics land this many frames before their word
 
 html, js, sfx, zooms = [], [], [], []
+js.append('tl.set("#bar", { y: 132 }, 0);'); js.append('tl.set("#cta", { y: 306 }, 0);')    # both start off-screen below the frame
 def hl(s):   # *word* -> blue
     return re.sub(r'\*(.+?)\*', r'<b>\1</b>', s)
 
@@ -73,21 +75,23 @@ def card(cid, t_in, t_out, label=None, head=None, rows=(), chips=(), width=None,
     if head: h.append(f'  <div class="hd">{hl(head)}</div>')
     h.append(extra_html)
     if chips:
-        h.append('  <div class="chips">')
+        h.append(f'  <div class="chipw" id="{cid}-cw"><div class="chips">')
         for i, (t, txt, st) in enumerate(chips):
             h.append(f'    <div class="chip {st}" id="{cid}-c{i}">{txt}</div>')
-        h.append('  </div>')
+        h.append('  </div></div>')
     if rows:
         h.append('  <div class="rows">')
         for i, (t, txt, ic) in enumerate(rows):
             icon = ICON.get(ic, f'<span class="num">{ic}</span>' if ic else '')
-            h.append(f'    <div class="row" id="{cid}-r{i}">{icon}<span>{hl(txt)}</span></div>')
+            h.append(f'    <div class="rw{" on" if t is None else ""}" id="{cid}-r{i}"><div class="row">{icon}<span>{hl(txt)}</span></div></div>')
         h.append('  </div>')
     h.append('</div>'); html.append('\n'.join(x for x in h if x))
     show(f'#{cid}', f0)
     for i, (t, _, _) in enumerate(rows):
-        if t is None: js.append(f'tl.set("#{cid}-r{i}", {{ opacity: 1 }}, {P(f0)});')
-        else: show(f'#{cid}-r{i}', F(t) - LEAD, 5, 12)
+        if t is not None:   # the card grows upward by one line as the row fades in
+            js.append(f'tl.fromTo("#{cid}-r{i}", {{ height: 0, opacity: 0 }}, {{ height: "auto", opacity: 1, duration: {P(6)}, ease: "power2.out" }}, {P(max(F(t) - LEAD, f0))});')
+    if chips and chips[0][0] is not None and F(chips[0][0]) - LEAD > f0 + 2:      # no empty chip row before the first chip is said
+        js.append(f'tl.fromTo("#{cid}-cw", {{ height: 0 }}, {{ height: "auto", duration: {P(6)}, ease: "power2.out" }}, {P(F(chips[0][0]) - LEAD - 2)});')
     for i, (t, _, _) in enumerate(chips):
         if t is None: js.append(f'tl.set("#{cid}-c{i}", {{ opacity: 1 }}, {P(f0)});')
         else: js.append(f'tl.fromTo("#{cid}-c{i}", {{ opacity: 0, scale: 0.7 }}, {{ opacity: 1, scale: 1, duration: {P(6)}, ease: "back.out(2)" }}, {P(F(t) - LEAD)});')
@@ -99,7 +103,7 @@ def impact(iid, t_in, t_out, text, sub=None, hit=True):
     words = text.split(); fs = 104 if len(text) <= 16 else 86 if len(text) <= 20 else 72
     html.append(f'<div class="impact" id="{iid}"><div class="box" style="font-size:{fs}px">' + ' '.join(f'<span id="{iid}-w{i}">{w}</span>' for i, w in enumerate(words)) + '</div>'
                 + (f'<div class="isub" id="{iid}-s">{hl(sub[1])}</div>' if sub else '') + '</div>')
-    js.append(f'tl.set("#{iid}", {{ opacity: 1, scale: 1 }}, {P(f0)});')
+    js.append(f'tl.fromTo("#{iid}", {{ opacity: 0, scale: 0.92 }}, {{ opacity: 1, scale: 1, duration: {P(4)}, ease: "power2.out" }}, {P(f0)});')
     for i in range(len(words)):
         js.append(f'tl.fromTo("#{iid}-w{i}", {{ opacity: 0, scale: 0.2 }}, {{ opacity: 1, scale: 1, duration: {P(8)}, ease: "back.out(2.2)" }}, {P(f0 + 2 * i)});')
     if sub: show(f'#{iid}-s', F(sub[0]) - LEAD, 5, 10)
@@ -152,7 +156,7 @@ def drops(bid, f, f_end, land=280, every=7):
     k = 0; ff = f
     while ff + 12 < f_end:
         d = f'#{bid}-d{k % 6}'
-        js.append(f'tl.fromTo("{d}", {{ attr: {{ cy: 10 }}, opacity: 1 }}, {{ attr: {{ cy: {land} }}, duration: {P(11)}, ease: "power1.in" }}, {P(ff)});')
+        js.append(f'tl.fromTo("{d}", {{ attr: {{ cy: 10 }}, opacity: 1 }}, {{ attr: {{ cy: {land} }}, duration: {P(11)}, ease: "power1.in", immediateRender: false }}, {P(ff)});')
         js.append(f'tl.set("{d}", {{ opacity: 0 }}, {P(ff + 11)});')
         ff += every; k += 1
 def leak(bid, i, f, f_end, drip=True):
@@ -192,7 +196,7 @@ for n in (1, 2, 3): lit(n, F(T("so what's the wrong order")) - 4, on=False)
 slot('l', T("so what's the wrong order"), T('someone will get into coaching') - 0.1, 'THE PROBLEM', 'The *wrong* order')
 bar_down(F(T('someone will get into coaching')) - 2)
 
-card('k1', T('spend all the money'), T("here's the problem") - 0.25, label='DAY ONE: SPEND ALL THE MONEY',
+card('k1', T('ads', 0) - 0.3, T("here's the problem") - 0.25, label='DAY ONE: SPEND ALL THE MONEY',
      chips=[(T('ads', 0), 'ADS', 'on'), (T('setter', 0), 'A SETTER', 'on'), (T('closer', 0), 'A CLOSER', 'on'), (T('content manager'), 'A CONTENT MANAGER', 'on')], width=630)
 card('k2', T("here's the problem"), T('if what you have works') - 0.15, label='THE PROBLEM',
      head="Ads and people don't *create* anything.", rows=[(T('you just add to what'), "They only add to what you've already got.", 'arr')], width=670)
@@ -248,7 +252,7 @@ card('n4b', T("don't build a big course"), T('then go and have') - 0.15, label='
 card('n4c', T('not a setter'), T('i know this might seem') - 0.1, label='WHO HAS THE CONVERSATIONS?',
      chips=[(T('not a setter'), 'A SETTER', 'x'), (T('not a closer'), 'A CLOSER', 'x'), (TL('not a closer you'), 'YOU', 'ok')], width=630)
 zoom(TL('not a closer you'), T('i know this might seem') - 0.1, 1.10)
-card('n4d', T('every conversation every call'), T('if you hire someone on day one') - 0.2, label='EVERY CALL IS RESEARCH',
+card('n4d', T('every conversation every call'), T('if you hire someone on day one') - 0.2, label='DO IT YOURSELF', head='Every call is *research*',
      rows=[(T('you hear the questions'), 'The questions people ask', 'dot'), (T('you hear why they say no'), 'Why they say no', 'dot'),
            (T('you hear their problems'), 'Their problems, in their own words', 'dot'), (T('and all of this goes back'), 'It all feeds your *content* and your *offer*', 'arr')], width=670)
 zoom(T('if you hire someone on day one'), T("so that's phase one") - 0.05, 1.07)
@@ -280,7 +284,7 @@ NODES = ['SEES YOUR CONTENT', 'FOLLOWS', 'TALKS TO YOU', 'BUYS']
 html.append('<div class="pipe" id="pipe"><div class="lab">DRAW THE PATH</div><div class="prow">' +
             ''.join((f'<svg class="parr" id="pa{i}" viewBox="0 0 60 24"><path d="M2 12h50M42 3l11 9-11 9" fill="none" stroke="{BONE}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>' if i else '') + f'<div class="pnode" id="pn{i}">{n}</div>' for i, n in enumerate(NODES)) + '</div></div>')
 show('#pipe', pf0)
-pstart = F(T('you draw the path')) - LEAD
+pstart = pf0 + 3          # the path builds as soon as the panel is up (an empty panel reads as a glitch)
 for i in range(4):
     f = pstart + 7 * i
     if i: js.append(f'tl.fromTo("#pa{i}", {{ opacity: 0, x: -14 }}, {{ opacity: 1, x: 0, duration: {P(6)}, ease: "power2.out" }}, {P(f - 3)});')
@@ -320,7 +324,7 @@ slot('l', p3 + 2, F(T('this is the part everyone')) - 4, 'PHASE 3', 'Scale', fra
 slot('r', F(T('day 61')) - LEAD, F(T('this is the part everyone')) - 4, 'DAYS', '*61 &ndash; 90*', frames=True)
 bar_down(F(T('this is the part everyone')) - 2)
 
-card('s1', T('this is the part everyone'), T('but first check the bucket') - 0.2, label='THE PART EVERYONE WANTS TO START WITH',
+card('s1', T('this is the part everyone'), T('but first check the bucket') - 0.2, label='PHASE 3', head='The part everyone wants to start with',
      chips=[(T('the ads'), 'THE ADS', 'on'), (T('the team'), 'THE TEAM', 'on')], rows=[(T('and now it all'), '*Now* it finally makes sense', 'ok')], width=670)
 impact('i3', T('check the bucket'), T('before we start with anything') - 0.1, 'CHECK THE BUCKET')
 zoom(T('but first check the bucket'), T('before we start with anything') - 0.1, 1.10)
@@ -356,9 +360,9 @@ card('s5', T('when your inbox'), T("if you don't have time to be") - 0.15, label
 card('s6', T('the work comes first'), T('and this is where phase one') - 0.15, label='THE ORDER',
      rows=[(T('the work comes first'), 'The work comes *first*', 'ok'), (T('the hire comes second'), 'The hire comes *second*', 'arr')], width=580)
 zoom(T('the work comes first'), T('and this is where phase one') - 0.15, 1.07)
-card('s7', T('and this is where phase one'), T('now you can tell the sales team') + 0.2, label='PHASE 1 PAYS YOU BACK',
+card('s7', T('and this is where phase one'), T('now you can tell the sales team') + 0.2, label='THE PAYOFF', head='Phase 1 pays you back',
      rows=[(T('you already know the job'), 'You already know the job', 'ok'), (T('you know what people are'), 'You know what people ask', 'ok'), (T('you know how to message'), 'You know how to message people', 'ok')], width=630)
-card('s8', T('the one thing you never'), T('and the last rule') - 0.3, label='NEVER HAND OVER',
+card('s8', T('the one thing you never'), T('and the last rule') - 0.3, label='KEEP IT YOURS', head='Never hand over',
      chips=[(T('your face'), 'YOUR FACE', 'ok'), (T('your voice'), 'YOUR VOICE', 'ok'), (TL('and your content'), 'YOUR CONTENT', 'ok')],
      rows=[(T("they're buying from you"), "They're buying from *you*", 'arr')], width=670)
 zoom(T("they're buying from you"), T('and the last rule') - 0.3, 1.08)
@@ -418,11 +422,14 @@ b {{ color: {BLUE}; font-weight: inherit; }}
 .card {{ position: absolute; left: 72px; bottom: 140px; max-width: 720px; padding: 28px 34px 30px; background: rgba(10,10,10,0.93);
   border: 1.5px solid rgba(47,111,237,0.6); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.45); opacity: 0; z-index: 10; }}
 .card .hd {{ margin-top: 10px; font-weight: 800; font-size: 48px; line-height: 1.12; letter-spacing: -0.03em; }}
-.card .rows {{ margin-top: 18px; display: flex; flex-direction: column; gap: 13px; }}
-.card .row {{ display: flex; align-items: flex-start; gap: 14px; font-weight: 600; font-size: 34px; line-height: 1.2; letter-spacing: -0.015em; opacity: 0; }}
+.card .rows {{ margin-top: 5px; }}
+.card .rw {{ overflow: hidden; height: 0; opacity: 0; }}
+.card .rw.on {{ height: auto; opacity: 1; }}
+.card .row {{ display: flex; align-items: flex-start; gap: 14px; padding-top: 13px; font-weight: 600; font-size: 34px; line-height: 1.2; letter-spacing: -0.015em; }}
 .card .row .ic {{ flex: none; width: 36px; height: 36px; margin-top: 3px; }}
 .card .row .num {{ flex: none; width: 44px; height: 44px; margin-top: -1px; border-radius: 10px; background: {BLUE}; color: #fff; font-weight: 800; font-size: 24px; display: flex; align-items: center; justify-content: center; }}
-.card .chips {{ margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; }}
+.card .chipw {{ overflow: hidden; }}
+.card .chips {{ padding: 16px 2px 4px; display: flex; flex-wrap: wrap; gap: 12px; }}
 .chip {{ padding: 11px 20px 12px; border-radius: 999px; font-weight: 700; font-size: 28px; letter-spacing: 0.04em; opacity: 0; transform-origin: 50% 50%;
   background: rgba(242,239,233,0.1); border: 1.5px solid rgba(242,239,233,0.4); color: {BONE}; }}
 .chip.ok {{ background: {BLUE}; border-color: {BLUE}; color: #fff; }}
@@ -453,7 +460,7 @@ b {{ color: {BLUE}; font-weight: inherit; }}
 #thin {{ position: absolute; left: 192px; width: 1536px; top: 1056px; height: 4px; display: flex; gap: 12px; opacity: 0; z-index: 5; }}
 #thin .seg {{ position: relative; flex: 1; height: 4px; border-radius: 2px; background: rgba(242,239,233,0.3); }}
 #thin .seg i {{ position: absolute; inset: 0; border-radius: 2px; background: {BLUE}; opacity: 0; }}
-#bar {{ position: absolute; left: 0; right: 0; bottom: 0; height: 128px; background: {BLACK}; border-top: 2px solid {BLUE}; transform: translateY(132px); z-index: 20; }}
+#bar {{ position: absolute; left: 0; right: 0; bottom: 0; height: 128px; background: {BLACK}; border-top: 2px solid {BLUE}; z-index: 20; }}
 #bar .side {{ position: absolute; top: 0; height: 126px; width: 520px; }}
 #bar-l {{ left: 56px; }} #bar-r {{ right: 56px; }}
 #bar .sl {{ position: absolute; top: 0; height: 126px; display: flex; flex-direction: column; justify-content: center; gap: 4px; opacity: 0; white-space: nowrap; }}
@@ -476,7 +483,7 @@ b {{ color: {BLUE}; font-weight: inherit; }}
 
 /* disclaimer + CTA */
 .disc {{ position: absolute; left: 72px; bottom: 140px; width: 760px; padding: 18px 24px 20px; background: rgba(10,10,10,0.93); border-left: 5px solid {BLUE}; border-radius: 10px; font-weight: 500; font-size: 27px; line-height: 1.3; opacity: 0; z-index: 10; }}
-#cta {{ position: absolute; left: 0; right: 0; bottom: 0; height: 302px; background: rgba(10,10,10,0.94); border-top: 2px solid {BLUE}; transform: translateY(306px); z-index: 25; display: flex; align-items: center; padding: 0 110px; gap: 44px; }}
+#cta {{ position: absolute; left: 0; right: 0; bottom: 0; height: 302px; background: rgba(10,10,10,0.94); border-top: 2px solid {BLUE}; z-index: 25; display: flex; align-items: center; padding: 0 110px; gap: 44px; }}
 #cta .doc {{ width: 112px; height: 140px; flex: none; }}
 #cta .ctxt {{ flex: 1; }}
 #cta .lab {{ font-size: 24px; }}
@@ -530,7 +537,7 @@ open('index.html', 'w').write(page)
 zooms.sort()
 for (a0, a1, *_), (b0, *_r) in zip(zooms, zooms[1:]): assert b0 > a1 + 12, ('zooms too close', a0, a1, b0)
 for a, b, *_ in zooms: assert not (a < MIRO_OUT and b > MIRO_IN), 'no punch-ins over the screen recording'
-json.dump({'nf': NF, 'fps': FPS, 'miro': [MIRO_IN, MIRO_OUT], 'zooms': zooms, 'sfx': sorted(sfx, key=lambda s: s[1]),
+json.dump({'nf': NF, 'fps': FPS, 'start': START, 'miro': [MIRO_IN, MIRO_OUT], 'zooms': zooms, 'sfx': sorted(sfx, key=lambda s: s[1]),
            'cards': sorted(_cards)}, open('assets/edit.json', 'w'), indent=1)
 for side in 'lr':
     ss = sorted(x for x in SLOTS if x[0] == side)

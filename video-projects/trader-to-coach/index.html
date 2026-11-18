@@ -23,11 +23,14 @@ b { color: #2F6FED; font-weight: inherit; }
 .card { position: absolute; left: 72px; bottom: 140px; max-width: 720px; padding: 28px 34px 30px; background: rgba(10,10,10,0.93);
   border: 1.5px solid rgba(47,111,237,0.6); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.45); opacity: 0; z-index: 10; }
 .card .hd { margin-top: 10px; font-weight: 800; font-size: 48px; line-height: 1.12; letter-spacing: -0.03em; }
-.card .rows { margin-top: 18px; display: flex; flex-direction: column; gap: 13px; }
-.card .row { display: flex; align-items: flex-start; gap: 14px; font-weight: 600; font-size: 34px; line-height: 1.2; letter-spacing: -0.015em; opacity: 0; }
+.card .rows { margin-top: 5px; }
+.card .rw { overflow: hidden; height: 0; opacity: 0; }
+.card .rw.on { height: auto; opacity: 1; }
+.card .row { display: flex; align-items: flex-start; gap: 14px; padding-top: 13px; font-weight: 600; font-size: 34px; line-height: 1.2; letter-spacing: -0.015em; }
 .card .row .ic { flex: none; width: 36px; height: 36px; margin-top: 3px; }
 .card .row .num { flex: none; width: 44px; height: 44px; margin-top: -1px; border-radius: 10px; background: #2F6FED; color: #fff; font-weight: 800; font-size: 24px; display: flex; align-items: center; justify-content: center; }
-.card .chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; }
+.card .chipw { overflow: hidden; }
+.card .chips { padding: 16px 2px 4px; display: flex; flex-wrap: wrap; gap: 12px; }
 .chip { padding: 11px 20px 12px; border-radius: 999px; font-weight: 700; font-size: 28px; letter-spacing: 0.04em; opacity: 0; transform-origin: 50% 50%;
   background: rgba(242,239,233,0.1); border: 1.5px solid rgba(242,239,233,0.4); color: #F2EFE9; }
 .chip.ok { background: #2F6FED; border-color: #2F6FED; color: #fff; }
@@ -58,7 +61,7 @@ b { color: #2F6FED; font-weight: inherit; }
 #thin { position: absolute; left: 192px; width: 1536px; top: 1056px; height: 4px; display: flex; gap: 12px; opacity: 0; z-index: 5; }
 #thin .seg { position: relative; flex: 1; height: 4px; border-radius: 2px; background: rgba(242,239,233,0.3); }
 #thin .seg i { position: absolute; inset: 0; border-radius: 2px; background: #2F6FED; opacity: 0; }
-#bar { position: absolute; left: 0; right: 0; bottom: 0; height: 128px; background: #0A0A0A; border-top: 2px solid #2F6FED; transform: translateY(132px); z-index: 20; }
+#bar { position: absolute; left: 0; right: 0; bottom: 0; height: 128px; background: #0A0A0A; border-top: 2px solid #2F6FED; z-index: 20; }
 #bar .side { position: absolute; top: 0; height: 126px; width: 520px; }
 #bar-l { left: 56px; } #bar-r { right: 56px; }
 #bar .sl { position: absolute; top: 0; height: 126px; display: flex; flex-direction: column; justify-content: center; gap: 4px; opacity: 0; white-space: nowrap; }
@@ -81,7 +84,7 @@ b { color: #2F6FED; font-weight: inherit; }
 
 /* disclaimer + CTA */
 .disc { position: absolute; left: 72px; bottom: 140px; width: 760px; padding: 18px 24px 20px; background: rgba(10,10,10,0.93); border-left: 5px solid #2F6FED; border-radius: 10px; font-weight: 500; font-size: 27px; line-height: 1.3; opacity: 0; z-index: 10; }
-#cta { position: absolute; left: 0; right: 0; bottom: 0; height: 302px; background: rgba(10,10,10,0.94); border-top: 2px solid #2F6FED; transform: translateY(306px); z-index: 25; display: flex; align-items: center; padding: 0 110px; gap: 44px; }
+#cta { position: absolute; left: 0; right: 0; bottom: 0; height: 302px; background: rgba(10,10,10,0.94); border-top: 2px solid #2F6FED; z-index: 25; display: flex; align-items: center; padding: 0 110px; gap: 44px; }
 #cta .doc { width: 112px; height: 140px; flex: none; }
 #cta .ctxt { flex: 1; }
 #cta .lab { font-size: 24px; }
@@ -107,44 +110,44 @@ b { color: #2F6FED; font-weight: inherit; }
 <div id="title"><div class="t1">TRADER TO COACH</div><div class="t2">The 90-Day Blueprint</div><div class="t3">Building a Coaching Business from Scratch</div></div>
 <div class="card" id="k1" style="width:630px">
   <div class="lab">DAY ONE: SPEND ALL THE MONEY</div>
-  <div class="chips">
+  <div class="chipw" id="k1-cw"><div class="chips">
     <div class="chip on" id="k1-c0">ADS</div>
     <div class="chip on" id="k1-c1">A SETTER</div>
     <div class="chip on" id="k1-c2">A CLOSER</div>
     <div class="chip on" id="k1-c3">A CONTENT MANAGER</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="k2" style="width:670px">
   <div class="lab">THE PROBLEM</div>
   <div class="hd">Ads and people don't <b>create</b> anything.</div>
   <div class="rows">
-    <div class="row" id="k2-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>They only add to what you've already got.</span></div>
+    <div class="rw" id="k2-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>They only add to what you've already got.</span></div></div>
   </div>
 </div>
 <div class="card" id="k3" style="width:630px">
   <div class="lab">ADS + PEOPLE MULTIPLY</div>
   <div class="rows">
-    <div class="row" id="k3-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It works &rarr; <b>more</b> of what works</span></div>
-    <div class="row" id="k3-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>It doesn't &rarr; <b>more</b> mess</span></div>
+    <div class="rw" id="k3-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It works &rarr; <b>more</b> of what works</span></div></div>
+    <div class="rw" id="k3-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>It doesn't &rarr; <b>more</b> mess</span></div></div>
   </div>
 </div>
 <div class="card" id="k4" style="width:650px">
   <div class="lab">AT THE START, YOU DON'T KNOW</div>
   <div class="rows">
-    <div class="row" id="k4-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>What works</span></div>
-    <div class="row" id="k4-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>Which message lands</span></div>
-    <div class="row" id="k4-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>What people say before they buy</span></div>
-    <div class="row" id="k4-r3"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>Your sales process</span></div>
+    <div class="rw" id="k4-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>What works</span></div></div>
+    <div class="rw" id="k4-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>Which message lands</span></div></div>
+    <div class="rw" id="k4-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>What people say before they buy</span></div></div>
+    <div class="rw" id="k4-r3"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#2F6FED" stroke-width="2.5"/><text x="16" y="22.5" text-anchor="middle" font-family="Inter" font-weight="800" font-size="19" fill="#2F6FED">?</text></svg><span>Your sales process</span></div></div>
   </div>
 </div>
 <div class="impact" id="i1"><div class="box" style="font-size:104px"><span id="i1-w0">VOLUME</span> <span id="i1-w1">FIRST</span></div></div>
 <div class="card" id="k5" style="width:630px">
   <div class="lab">AT THE START</div>
-  <div class="chips">
+  <div class="chipw" id="k5-cw"><div class="chips">
     <div class="chip on" id="k5-c0">LOTS OF CONTENT</div>
     <div class="chip on" id="k5-c1">LOTS OF MESSAGES</div>
     <div class="chip ok" id="k5-c2">DONE BY YOU</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="bA" style="width:560px">
   <div class="lab">PICTURE A BUCKET</div>
@@ -162,58 +165,58 @@ b { color: #2F6FED; font-weight: inherit; }
     <g id="bA-hose" opacity="0"><path d="M452 4 C 380 -8, 310 -6, 268 16" stroke="#E8E5DF" stroke-width="16" fill="none" stroke-linecap="round"/><rect x="236" y="12" width="34" height="22" rx="5" fill="#E8E5DF" transform="rotate(-24 253 23)"/></g>
   </svg>
   <div class="rows">
-    <div class="row" id="bA-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The bucket = <b>your business</b></span></div>
-    <div class="row" id="bA-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The water = <b>people</b></span></div>
-    <div class="row" id="bA-r2"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Days 1&ndash;30: <b>fill it</b></span></div>
+    <div class="rw" id="bA-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The bucket = <b>your business</b></span></div></div>
+    <div class="rw" id="bA-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The water = <b>people</b></span></div></div>
+    <div class="rw" id="bA-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Days 1&ndash;30: <b>fill it</b></span></div></div>
   </div>
 </div>
 <div class="card" id="n1" style="width:670px">
   <div class="lab">1 OF 4</div>
   <div class="hd"><b>01</b> &nbsp;Positioning</div>
   <div class="rows">
-    <div class="row" id="n1-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Who you help + what you help them with</span></div>
+    <div class="rw" id="n1-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Who you help + what you help them with</span></div></div>
   </div>
 </div>
 <div class="card" id="n1b" style="width:690px">
   <div class="lab">YOUR ONE SENTENCE</div>
   <div class="rows">
-    <div class="row" id="n1b-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>&ldquo;I coach traders&rdquo; &mdash; too wide</span></div>
-    <div class="row" id="n1b-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>&ldquo;I help young people travel the world with trading&rdquo;</span></div>
+    <div class="rw" id="n1b-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>&ldquo;I coach traders&rdquo; &mdash; too wide</span></div></div>
+    <div class="rw" id="n1b-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>&ldquo;I help young people travel the world with trading&rdquo;</span></div></div>
   </div>
 </div>
 <div class="card" id="n2" style="width:670px">
   <div class="lab">2 OF 4</div>
   <div class="hd"><b>02</b> &nbsp;Brand foundation</div>
-  <div class="chips">
+  <div class="chipw" id="n2-cw"><div class="chips">
     <div class="chip on" id="n2-c0">PROFILE</div>
     <div class="chip on" id="n2-c1">BIO</div>
     <div class="chip on" id="n2-c2">PROOF</div>
     <div class="chip on" id="n2-c3">YOUR STORY</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="n2b" style="width:670px">
   <div class="lab">SKIP FOR NOW</div>
-  <div class="chips">
+  <div class="chipw" id="n2b-cw"><div class="chips">
     <div class="chip x" id="n2b-c0">LOGO</div>
     <div class="chip x" id="n2b-c1">WEBSITE</div>
-  </div>
+  </div></div>
   <div class="rows">
-    <div class="row" id="n2b-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your brand gets sharp <b>as</b> you post, not before</span></div>
+    <div class="rw" id="n2b-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your brand gets sharp <b>as</b> you post, not before</span></div></div>
   </div>
 </div>
 <div class="card" id="n3" style="width:670px">
   <div class="lab">3 OF 4</div>
   <div class="hd"><b>03</b> &nbsp;Content engine</div>
   <div class="rows">
-    <div class="row" id="n3-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The volume part: the most important part of the 90 days</span></div>
+    <div class="rw" id="n3-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The volume part: the most important part of the 90 days</span></div></div>
   </div>
 </div>
 <div class="card" id="n3b" style="width:670px">
   <div class="lab">PICK YOUR OWN PACE</div>
   <div class="rows">
-    <div class="row" id="n3b-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>4&ndash;5</b> Instagram Reels a week</span></div>
-    <div class="row" id="n3b-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>2&ndash;3</b> long-form YouTube videos</span></div>
-    <div class="row" id="n3b-r2"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Repurpose across every other platform</span></div>
+    <div class="rw" id="n3b-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>4&ndash;5</b> Instagram Reels a week</span></div></div>
+    <div class="rw" id="n3b-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>2&ndash;3</b> long-form YouTube videos</span></div></div>
+    <div class="rw" id="n3b-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Repurpose across every other platform</span></div></div>
   </div>
 </div>
 <div class="impact" id="i2"><div class="box" style="font-size:86px"><span id="i2-w0">SHOW</span> <span id="i2-w1">UP</span> <span id="i2-w2">EVERY</span> <span id="i2-w3">TIME</span></div></div>
@@ -221,52 +224,53 @@ b { color: #2F6FED; font-weight: inherit; }
   <div class="lab">EARLY CONTENT</div>
   <div class="hd">Isn't there to be perfect.</div>
   <div class="rows">
-    <div class="row" id="n3c-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It's there to <b>teach</b> you what people respond to</span></div>
+    <div class="rw" id="n3c-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It's there to <b>teach</b> you what people respond to</span></div></div>
   </div>
 </div>
 <div class="card" id="n4" style="width:690px">
   <div class="lab">4 OF 4</div>
   <div class="hd"><b>04</b> &nbsp;Offer + conversations</div>
-  <div class="chips">
+  <div class="chipw" id="n4-cw"><div class="chips">
     <div class="chip on" id="n4-c0">WHO IT'S FOR</div>
     <div class="chip on" id="n4-c1">WHAT THEY GET</div>
     <div class="chip on" id="n4-c2">HOW LONG</div>
     <div class="chip on" id="n4-c3">THE PRICE</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="n4b" style="width:580px">
   <div class="lab">A SIMPLE OFFER</div>
   <div class="rows">
-    <div class="row" id="n4b-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>A big course</span></div>
-    <div class="row" id="n4b-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Hundreds of videos</span></div>
-    <div class="row" id="n4b-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Keep it <b>simple</b></span></div>
+    <div class="rw" id="n4b-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>A big course</span></div></div>
+    <div class="rw" id="n4b-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Hundreds of videos</span></div></div>
+    <div class="rw" id="n4b-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Keep it <b>simple</b></span></div></div>
   </div>
 </div>
 <div class="card" id="n4c" style="width:630px">
   <div class="lab">WHO HAS THE CONVERSATIONS?</div>
-  <div class="chips">
+  <div class="chipw" id="n4c-cw"><div class="chips">
     <div class="chip x" id="n4c-c0">A SETTER</div>
     <div class="chip x" id="n4c-c1">A CLOSER</div>
     <div class="chip ok" id="n4c-c2">YOU</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="n4d" style="width:670px">
-  <div class="lab">EVERY CALL IS RESEARCH</div>
+  <div class="lab">DO IT YOURSELF</div>
+  <div class="hd">Every call is <b>research</b></div>
   <div class="rows">
-    <div class="row" id="n4d-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The questions people ask</span></div>
-    <div class="row" id="n4d-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Why they say no</span></div>
-    <div class="row" id="n4d-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Their problems, in their own words</span></div>
-    <div class="row" id="n4d-r3"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It all feeds your <b>content</b> and your <b>offer</b></span></div>
+    <div class="rw" id="n4d-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>The questions people ask</span></div></div>
+    <div class="rw" id="n4d-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Why they say no</span></div></div>
+    <div class="rw" id="n4d-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Their problems, in their own words</span></div></div>
+    <div class="rw" id="n4d-r3"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It all feeds your <b>content</b> and your <b>offer</b></span></div></div>
   </div>
 </div>
 <div class="card" id="n5" style="width:630px">
   <div class="lab">PHASE 1 &middot; RECAP</div>
   <div class="rows">
-    <div class="row" id="n5-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>One clear sentence</span></div>
-    <div class="row" id="n5-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A simple profile</span></div>
-    <div class="row" id="n5-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lots of content</span></div>
-    <div class="row" id="n5-r3"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A simple offer</span></div>
-    <div class="row" id="n5-r4"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lots of conversations, by you</span></div>
+    <div class="rw" id="n5-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>One clear sentence</span></div></div>
+    <div class="rw" id="n5-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A simple profile</span></div></div>
+    <div class="rw" id="n5-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lots of content</span></div></div>
+    <div class="rw" id="n5-r3"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A simple offer</span></div></div>
+    <div class="rw" id="n5-r4"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lots of conversations, by you</span></div></div>
   </div>
 </div>
 <div class="card" id="bB" style="width:560px">
@@ -285,37 +289,38 @@ b { color: #2F6FED; font-weight: inherit; }
     <g id="bB-hose" opacity="0"><path d="M452 4 C 380 -8, 310 -6, 268 16" stroke="#E8E5DF" stroke-width="16" fill="none" stroke-linecap="round"/><rect x="236" y="12" width="34" height="22" rx="5" fill="#E8E5DF" transform="rotate(-24 253 23)"/></g>
   </svg>
   <div class="rows">
-    <div class="row" id="bB-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Your business is a bucket with <b>holes</b></span></div>
-    <div class="row" id="bB-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>Every</b> bucket leaks. Yours will too</span></div>
-    <div class="row" id="bB-r2"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fix the <b>biggest</b> holes first</span></div>
+    <div class="rw" id="bB-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Your business is a bucket with <b>holes</b></span></div></div>
+    <div class="rw" id="bB-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span><b>Every</b> bucket leaks. Yours will too</span></div></div>
+    <div class="rw" id="bB-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fix the <b>biggest</b> holes first</span></div></div>
   </div>
 </div>
 <div class="pipe" id="pipe"><div class="lab">DRAW THE PATH</div><div class="prow"><div class="pnode" id="pn0">SEES YOUR CONTENT</div><svg class="parr" id="pa1" viewBox="0 0 60 24"><path d="M2 12h50M42 3l11 9-11 9" fill="none" stroke="#F2EFE9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="pnode" id="pn1">FOLLOWS</div><svg class="parr" id="pa2" viewBox="0 0 60 24"><path d="M2 12h50M42 3l11 9-11 9" fill="none" stroke="#F2EFE9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="pnode" id="pn2">TALKS TO YOU</div><svg class="parr" id="pa3" viewBox="0 0 60 24"><path d="M2 12h50M42 3l11 9-11 9" fill="none" stroke="#F2EFE9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="pnode" id="pn3">BUYS</div></div></div>
 <div class="card" id="s1" style="width:670px">
-  <div class="lab">THE PART EVERYONE WANTS TO START WITH</div>
-  <div class="chips">
+  <div class="lab">PHASE 3</div>
+  <div class="hd">The part everyone wants to start with</div>
+  <div class="chipw" id="s1-cw"><div class="chips">
     <div class="chip on" id="s1-c0">THE ADS</div>
     <div class="chip on" id="s1-c1">THE TEAM</div>
-  </div>
+  </div></div>
   <div class="rows">
-    <div class="row" id="s1-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Now</b> it finally makes sense</span></div>
+    <div class="rw" id="s1-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Now</b> it finally makes sense</span></div></div>
   </div>
 </div>
 <div class="impact" id="i3"><div class="box" style="font-size:104px"><span id="i3-w0">CHECK</span> <span id="i3-w1">THE</span> <span id="i3-w2">BUCKET</span></div></div>
 <div class="card" id="s2" style="width:720px">
   <div class="lab">DOES THE PATH WORK?</div>
-  <div class="chips">
+  <div class="chipw" id="s2-cw"><div class="chips">
     <div class="chip on" id="s2-c0">CONTENT</div>
     <div class="chip on" id="s2-c1">FOLLOWING</div>
     <div class="chip on" id="s2-c2">TALKING</div>
     <div class="chip on" id="s2-c3">SELLING</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="s3" style="width:650px">
   <div class="lab">STILL ONE BIG HOLE?</div>
   <div class="hd">Go back to <b>Phase 2</b> and fix it.</div>
   <div class="rows">
-    <div class="row" id="s3-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It doesn't have to be day 61</span></div>
+    <div class="rw" id="s3-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>It doesn't have to be day 61</span></div></div>
   </div>
 </div>
 <div class="card" id="bD" style="width:560px">
@@ -334,89 +339,91 @@ b { color: #2F6FED; font-weight: inherit; }
     <g id="bD-hose" opacity="0"><path d="M452 4 C 380 -8, 310 -6, 268 16" stroke="#E8E5DF" stroke-width="16" fill="none" stroke-linecap="round"/><rect x="236" y="12" width="34" height="22" rx="5" fill="#E8E5DF" transform="rotate(-24 253 23)"/></g>
   </svg>
   <div class="rows">
-    <div class="row" id="bD-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>By hand: slow</span></div>
-    <div class="row" id="bD-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Good bucket + hose = <b>great</b></span></div>
-    <div class="row" id="bD-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Leaky bucket + hose = <b>wet floor</b></span></div>
+    <div class="rw" id="bD-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>By hand: slow</span></div></div>
+    <div class="rw" id="bD-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Good bucket + hose = <b>great</b></span></div></div>
+    <div class="rw" id="bD-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Leaky bucket + hose = <b>wet floor</b></span></div></div>
   </div>
 </div>
 <div class="card" id="s4" style="width:630px">
   <div class="lab">TURNING ADS ON</div>
   <div class="rows">
-    <div class="row" id="s4-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Start small</span></div>
-    <div class="row" id="s4-r1"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>If it works, increase it</span></div>
-    <div class="row" id="s4-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Numbers not there yet? <b>Wait</b></span></div>
-    <div class="row" id="s4-r3"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No ads is perfectly fine</span></div>
+    <div class="rw" id="s4-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Start small</span></div></div>
+    <div class="rw" id="s4-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>If it works, increase it</span></div></div>
+    <div class="rw" id="s4-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>Numbers not there yet? <b>Wait</b></span></div></div>
+    <div class="rw" id="s4-r3"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No ads is perfectly fine</span></div></div>
   </div>
 </div>
 <div class="impact" id="i4"><div class="box" style="font-size:72px"><span id="i4-w0">HIRE</span> <span id="i4-w1">WHEN</span> <span id="i4-w2">YOU'RE</span> <span id="i4-w3">DROWNING</span></div><div class="isub" id="i4-s">Not before.</div></div>
 <div class="card" id="s5" style="width:670px">
   <div class="lab">WHEN TO HIRE</div>
   <div class="rows">
-    <div class="row" id="s5-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Your inbox is full</span></div>
-    <div class="row" id="s5-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>No time to reply</span></div>
-    <div class="row" id="s5-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>People left on delivered for 12+ hours</span></div>
-    <div class="row" id="s5-r3"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>That's</b> when you hire</span></div>
+    <div class="rw" id="s5-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>Your inbox is full</span></div></div>
+    <div class="rw" id="s5-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>No time to reply</span></div></div>
+    <div class="rw" id="s5-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="#2F6FED"/></svg><span>People left on delivered for 12+ hours</span></div></div>
+    <div class="rw" id="s5-r3"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>That's</b> when you hire</span></div></div>
   </div>
 </div>
 <div class="card" id="s6" style="width:580px">
   <div class="lab">THE ORDER</div>
   <div class="rows">
-    <div class="row" id="s6-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The work comes <b>first</b></span></div>
-    <div class="row" id="s6-r1"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The hire comes <b>second</b></span></div>
+    <div class="rw" id="s6-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The work comes <b>first</b></span></div></div>
+    <div class="rw" id="s6-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The hire comes <b>second</b></span></div></div>
   </div>
 </div>
 <div class="card" id="s7" style="width:630px">
-  <div class="lab">PHASE 1 PAYS YOU BACK</div>
+  <div class="lab">THE PAYOFF</div>
+  <div class="hd">Phase 1 pays you back</div>
   <div class="rows">
-    <div class="row" id="s7-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You already know the job</span></div>
-    <div class="row" id="s7-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You know what people ask</span></div>
-    <div class="row" id="s7-r2"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You know how to message people</span></div>
+    <div class="rw" id="s7-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You already know the job</span></div></div>
+    <div class="rw" id="s7-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You know what people ask</span></div></div>
+    <div class="rw" id="s7-r2"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>You know how to message people</span></div></div>
   </div>
 </div>
 <div class="card" id="s8" style="width:670px">
-  <div class="lab">NEVER HAND OVER</div>
-  <div class="chips">
+  <div class="lab">KEEP IT YOURS</div>
+  <div class="hd">Never hand over</div>
+  <div class="chipw" id="s8-cw"><div class="chips">
     <div class="chip ok" id="s8-c0">YOUR FACE</div>
     <div class="chip ok" id="s8-c1">YOUR VOICE</div>
     <div class="chip ok" id="s8-c2">YOUR CONTENT</div>
-  </div>
+  </div></div>
   <div class="rows">
-    <div class="row" id="s8-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>They're buying from <b>you</b></span></div>
+    <div class="rw" id="s8-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>They're buying from <b>you</b></span></div></div>
   </div>
 </div>
 <div class="impact" id="i5"><div class="box" style="font-size:86px"><span id="i5-w0">ONE</span> <span id="i5-w1">THING</span> <span id="i5-w2">AT</span> <span id="i5-w3">A</span> <span id="i5-w4">TIME</span></div></div>
 <div class="card" id="s9" style="width:720px">
   <div class="lab">THE LAST RULE</div>
-  <div class="chips">
+  <div class="chipw" id="s9-cw"><div class="chips">
     <div class="chip on" id="s9-c0">ADD ONE THING</div>
     <div class="chip on" id="s9-c1">WAIT</div>
     <div class="chip on" id="s9-c2">CHECK</div>
     <div class="chip ok" id="s9-c3">ADD THE NEXT</div>
-  </div>
+  </div></div>
 </div>
 <div class="card" id="s10" style="width:690px">
   <div class="lab">NOT ALL IN THE SAME WEEK</div>
-  <div class="chips">
+  <div class="chipw" id="s10-cw"><div class="chips">
     <div class="chip x" id="s10-c0">ADS</div>
     <div class="chip x" id="s10-c1">TWO OR THREE HIRES</div>
-  </div>
+  </div></div>
   <div class="rows">
-    <div class="row" id="s10-r0"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>If something breaks, you won't know what broke</span></div>
+    <div class="rw" id="s10-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><path d="M6 16h18M17 9l7 7-7 7" fill="none" stroke="#2F6FED" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>If something breaks, you won't know what broke</span></div></div>
   </div>
 </div>
 <div class="card" id="z1" style="width:540px">
   <div class="lab">THE WHOLE 90 DAYS</div>
   <div class="rows">
-    <div class="row" id="z1-r0"><span class="num">1</span><span>Pour water in</span></div>
-    <div class="row" id="z1-r1"><span class="num">2</span><span>Fix the holes</span></div>
-    <div class="row" id="z1-r2"><span class="num">3</span><span>Get your hose on</span></div>
+    <div class="rw" id="z1-r0"><div class="row"><span class="num">1</span><span>Pour water in</span></div></div>
+    <div class="rw" id="z1-r1"><div class="row"><span class="num">2</span><span>Fix the holes</span></div></div>
+    <div class="rw" id="z1-r2"><div class="row"><span class="num">3</span><span>Get your hose on</span></div></div>
   </div>
 </div>
 <div class="card" id="z2" style="width:630px">
   <div class="lab">MOST PEOPLE DO IT BACKWARDS</div>
   <div class="rows">
-    <div class="row" id="z2-r0"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>They buy the hose first</span></div>
-    <div class="row" id="z2-r1"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Now you know the <b>right order</b></span></div>
+    <div class="rw" id="z2-r0"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="none" stroke="#E8E5DF" stroke-opacity=".55" stroke-width="2.5"/><path d="M11 11l10 10M21 11l-10 10" fill="none" stroke="#E8E5DF" stroke-opacity=".8" stroke-width="3.2" stroke-linecap="round"/></svg><span>They buy the hose first</span></div></div>
+    <div class="rw" id="z2-r1"><div class="row"><svg class="ic" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2F6FED"/><path d="M9 16.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Now you know the <b>right order</b></span></div></div>
   </div>
 </div>
 <div class="disc" id="disc">Business coaching only. Not financial or trading advice. Results vary and nothing in this video is promised.</div>
@@ -428,6 +435,8 @@ b { color: #2F6FED; font-weight: inherit; }
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
     // Generated by scripts/build_overlay.py. Times are frames / 30, taken from the forced-aligned transcript.
+    tl.set("#bar", { y: 132 }, 0);
+    tl.set("#cta", { y: 306 }, 0);
     tl.fromTo("#c1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 0.2);
     tl.to("#c1", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 4.0);
     tl.fromTo("#c2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 5.13333);
@@ -465,26 +474,27 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#sl3", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 17.66667);
     tl.to("#bar", { y: 132, duration: 0.26667, ease: "power2.in" }, 17.9);
     tl.to("#thin", { opacity: 1, duration: 0.2 }, 18.06667);
-    tl.fromTo("#k1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 19.53333);
+    tl.fromTo("#k1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 21.16667);
+    tl.fromTo("#k1-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 21.4);
     tl.fromTo("#k1-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 21.46667);
     tl.fromTo("#k1-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 22.56667);
     tl.fromTo("#k1-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 23.76667);
     tl.fromTo("#k1-c3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 24.86667);
     tl.to("#k1", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 26.76667);
     tl.fromTo("#k2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 26.96667);
-    tl.fromTo("#k2-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 30.0);
+    tl.fromTo("#k2-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 30.0);
     tl.to("#k2", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 31.66667);
     tl.fromTo("#k3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 31.83333);
-    tl.fromTo("#k3-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 31.76667);
-    tl.fromTo("#k3-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 34.7);
+    tl.fromTo("#k3-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 31.83333);
+    tl.fromTo("#k3-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 34.7);
     tl.to("#k3", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 38.36667);
     tl.fromTo("#k4", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 38.53333);
-    tl.fromTo("#k4-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 39.13333);
-    tl.fromTo("#k4-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 40.56667);
-    tl.fromTo("#k4-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 42.23333);
-    tl.fromTo("#k4-r3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 44.5);
+    tl.fromTo("#k4-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 39.13333);
+    tl.fromTo("#k4-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 40.56667);
+    tl.fromTo("#k4-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 42.23333);
+    tl.fromTo("#k4-r3", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 44.5);
     tl.to("#k4", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 46.7);
-    tl.set("#i1", { opacity: 1, scale: 1 }, 49.93333);
+    tl.fromTo("#i1", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.13333, ease: "power2.out" }, 49.93333);
     tl.fromTo("#i1-w0", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 49.93333);
     tl.fromTo("#i1-w1", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 50.0);
     tl.to("#i1", { opacity: 0, scale: 1.12, duration: 0.16667, ease: "power2.in" }, 51.53333);
@@ -505,100 +515,103 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bar", { y: 132, duration: 0.26667, ease: "power2.in" }, 62.8);
     tl.to("#thin", { opacity: 1, duration: 0.2 }, 62.96667);
     tl.fromTo("#bA", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 62.9);
-    tl.fromTo("#bA-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 64.46667);
-    tl.fromTo("#bA-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 65.96667);
-    tl.fromTo("#bA-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 68.2);
+    tl.fromTo("#bA-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 64.46667);
+    tl.fromTo("#bA-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 65.96667);
+    tl.fromTo("#bA-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 68.2);
     tl.to("#bA", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 71.53333);
-    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 66.03333);
+    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 66.03333);
     tl.set("#bA-d0", { opacity: 0 }, 66.4);
-    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 66.26667);
+    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 66.26667);
     tl.set("#bA-d1", { opacity: 0 }, 66.63333);
-    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 66.5);
+    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 66.5);
     tl.set("#bA-d2", { opacity: 0 }, 66.86667);
-    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 66.73333);
+    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 66.73333);
     tl.set("#bA-d3", { opacity: 0 }, 67.1);
-    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 66.96667);
+    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 66.96667);
     tl.set("#bA-d4", { opacity: 0 }, 67.33333);
-    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 67.2);
+    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 67.2);
     tl.set("#bA-d5", { opacity: 0 }, 67.56667);
-    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 67.43333);
+    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 67.43333);
     tl.set("#bA-d0", { opacity: 0 }, 67.8);
-    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 67.66667);
+    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 67.66667);
     tl.set("#bA-d1", { opacity: 0 }, 68.03333);
-    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 67.9);
+    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 67.9);
     tl.set("#bA-d2", { opacity: 0 }, 68.26667);
-    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 68.13333);
+    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 68.13333);
     tl.set("#bA-d3", { opacity: 0 }, 68.5);
-    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 68.36667);
+    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 68.36667);
     tl.set("#bA-d4", { opacity: 0 }, 68.73333);
-    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 68.6);
+    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 68.6);
     tl.set("#bA-d5", { opacity: 0 }, 68.96667);
-    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 68.83333);
+    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 68.83333);
     tl.set("#bA-d0", { opacity: 0 }, 69.2);
-    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 69.06667);
+    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 69.06667);
     tl.set("#bA-d1", { opacity: 0 }, 69.43333);
-    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 69.3);
+    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 69.3);
     tl.set("#bA-d2", { opacity: 0 }, 69.66667);
-    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 69.53333);
+    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 69.53333);
     tl.set("#bA-d3", { opacity: 0 }, 69.9);
-    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 69.76667);
+    tl.fromTo("#bA-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 69.76667);
     tl.set("#bA-d4", { opacity: 0 }, 70.13333);
-    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 70.0);
+    tl.fromTo("#bA-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 70.0);
     tl.set("#bA-d5", { opacity: 0 }, 70.36667);
-    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 70.23333);
+    tl.fromTo("#bA-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 70.23333);
     tl.set("#bA-d0", { opacity: 0 }, 70.6);
-    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 70.46667);
+    tl.fromTo("#bA-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 70.46667);
     tl.set("#bA-d1", { opacity: 0 }, 70.83333);
-    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 70.7);
+    tl.fromTo("#bA-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 70.7);
     tl.set("#bA-d2", { opacity: 0 }, 71.06667);
-    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 70.93333);
+    tl.fromTo("#bA-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 70.93333);
     tl.set("#bA-d3", { opacity: 0 }, 71.3);
     tl.to("#bA-w", { attr: { y: 150 }, duration: 4.9, ease: "none" }, 66.36667);
     tl.fromTo("#n1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 73.0);
-    tl.fromTo("#n1-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 77.2);
+    tl.fromTo("#n1-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 77.2);
     tl.to("#n1", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 79.53333);
     tl.fromTo("#n1b", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 79.7);
-    tl.fromTo("#n1b-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 79.6);
-    tl.fromTo("#n1b-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 86.3);
+    tl.fromTo("#n1b-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 79.7);
+    tl.fromTo("#n1b-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 86.3);
     tl.to("#n1b", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 92.7);
     tl.fromTo("#n2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 92.86667);
+    tl.fromTo("#n2-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 96.63333);
     tl.fromTo("#n2-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 96.7);
     tl.fromTo("#n2-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 97.6);
     tl.fromTo("#n2-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 98.86667);
     tl.fromTo("#n2-c3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 101.66667);
     tl.to("#n2", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 103.73333);
     tl.fromTo("#n2b", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 108.13333);
-    tl.fromTo("#n2b-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 110.13333);
+    tl.fromTo("#n2b-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 110.13333);
+    tl.fromTo("#n2b-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 108.5);
     tl.fromTo("#n2b-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 108.56667);
     tl.fromTo("#n2b-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 109.36667);
     tl.to("#n2b", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 113.53333);
     tl.fromTo("#n3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 113.7);
-    tl.fromTo("#n3-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 115.8);
+    tl.fromTo("#n3-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 115.8);
     tl.to("#n3", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 119.6);
     tl.fromTo("#n3b", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 127.46667);
-    tl.fromTo("#n3b-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 128.46667);
-    tl.fromTo("#n3b-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 130.73333);
-    tl.fromTo("#n3b-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 132.83333);
+    tl.fromTo("#n3b-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 128.46667);
+    tl.fromTo("#n3b-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 130.73333);
+    tl.fromTo("#n3b-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 132.83333);
     tl.to("#n3b", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 136.43333);
-    tl.set("#i2", { opacity: 1, scale: 1 }, 136.8);
+    tl.fromTo("#i2", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.13333, ease: "power2.out" }, 136.8);
     tl.fromTo("#i2-w0", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 136.8);
     tl.fromTo("#i2-w1", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 136.86667);
     tl.fromTo("#i2-w2", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 136.93333);
     tl.fromTo("#i2-w3", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 137.0);
     tl.to("#i2", { opacity: 0, scale: 1.12, duration: 0.16667, ease: "power2.in" }, 138.73333);
     tl.fromTo("#n3c", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 145.46667);
-    tl.fromTo("#n3c-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 148.1);
+    tl.fromTo("#n3c-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 148.1);
     tl.to("#n3c", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 151.8);
     tl.fromTo("#n4", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 151.96667);
+    tl.fromTo("#n4-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 156.03333);
     tl.fromTo("#n4-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 156.1);
     tl.fromTo("#n4-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 157.33333);
     tl.fromTo("#n4-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 158.46667);
     tl.fromTo("#n4-c3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 159.9);
     tl.to("#n4", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 162.16667);
     tl.fromTo("#n4b", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 162.33333);
-    tl.fromTo("#n4b-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 162.26667);
-    tl.fromTo("#n4b-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 163.8);
-    tl.fromTo("#n4b-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 166.0);
+    tl.fromTo("#n4b-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 162.33333);
+    tl.fromTo("#n4b-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 163.8);
+    tl.fromTo("#n4b-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 166.0);
     tl.to("#n4b", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 167.5);
     tl.fromTo("#n4c", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 169.43333);
     tl.fromTo("#n4c-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 169.43333);
@@ -606,17 +619,17 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.fromTo("#n4c-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 171.33333);
     tl.to("#n4c", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 174.6);
     tl.fromTo("#n4d", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 177.3);
-    tl.fromTo("#n4d-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 180.46667);
-    tl.fromTo("#n4d-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 182.6);
-    tl.fromTo("#n4d-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 184.43333);
-    tl.fromTo("#n4d-r3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 187.56667);
+    tl.fromTo("#n4d-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 180.46667);
+    tl.fromTo("#n4d-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 182.6);
+    tl.fromTo("#n4d-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 184.43333);
+    tl.fromTo("#n4d-r3", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 187.56667);
     tl.to("#n4d", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 191.4);
     tl.fromTo("#n5", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 194.86667);
-    tl.fromTo("#n5-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 196.33333);
-    tl.fromTo("#n5-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 197.7);
-    tl.fromTo("#n5-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 199.1);
-    tl.fromTo("#n5-r3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 155.23333);
-    tl.fromTo("#n5-r4", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 202.0);
+    tl.fromTo("#n5-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 196.33333);
+    tl.fromTo("#n5-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 197.7);
+    tl.fromTo("#n5-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 199.1);
+    tl.fromTo("#n5-r3", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 194.86667);
+    tl.fromTo("#n5-r4", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 202.0);
     tl.to("#n5", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 204.73333);
     tl.to("#bar", { y: 0, duration: 0.3, ease: "power3.out" }, 204.96667);
     tl.to("#thin", { opacity: 0, duration: 0.13333 }, 204.96667);
@@ -630,9 +643,9 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bar", { y: 132, duration: 0.26667, ease: "power2.in" }, 208.36667);
     tl.to("#thin", { opacity: 1, duration: 0.2 }, 208.53333);
     tl.fromTo("#bB", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 208.46667);
-    tl.fromTo("#bB-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 210.7);
-    tl.fromTo("#bB-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 219.16667);
-    tl.fromTo("#bB-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 224.63333);
+    tl.fromTo("#bB-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 210.7);
+    tl.fromTo("#bB-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 219.16667);
+    tl.fromTo("#bB-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 224.63333);
     tl.to("#bB", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 226.53333);
     tl.set("#bB-w", { attr: { y: 150 } }, 208.46667);
     tl.fromTo("#bB-h0", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", transformOrigin: "50% 50%" }, 211.46667);
@@ -647,13 +660,13 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bB-w", { attr: { y: 228 }, duration: 14.73333, ease: "none" }, 211.66667);
     tl.to("#bB-pud", { attr: { rx: 180, ry: 7 }, duration: 14.53333, ease: "power1.out" }, 211.93333);
     tl.fromTo("#pipe", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 226.7);
-    tl.fromTo("#pn0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 227.86667);
-    tl.fromTo("#pa1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 228.0);
-    tl.fromTo("#pn1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 228.1);
-    tl.fromTo("#pa2", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 228.23333);
-    tl.fromTo("#pn2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 228.33333);
-    tl.fromTo("#pa3", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 228.46667);
-    tl.fromTo("#pn3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 228.56667);
+    tl.fromTo("#pn0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 226.8);
+    tl.fromTo("#pa1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 226.93333);
+    tl.fromTo("#pn1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 227.03333);
+    tl.fromTo("#pa2", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 227.16667);
+    tl.fromTo("#pn2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 227.26667);
+    tl.fromTo("#pa3", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power2.out" }, 227.4);
+    tl.fromTo("#pn3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.23333, ease: "back.out(2)" }, 227.5);
     tl.set("#pipe", { opacity: 0 }, 229.83333);
     tl.set("#bar", { y: 0 }, 229.83333);
     tl.set("#thin", { opacity: 0 }, 229.83333);
@@ -711,41 +724,43 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bar", { y: 132, duration: 0.26667, ease: "power2.in" }, 373.0);
     tl.to("#thin", { opacity: 1, duration: 0.2 }, 373.16667);
     tl.fromTo("#s1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 373.0);
-    tl.fromTo("#s1-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 377.56667);
+    tl.fromTo("#s1-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 377.56667);
+    tl.fromTo("#s1-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 374.96667);
     tl.fromTo("#s1-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 375.03333);
     tl.fromTo("#s1-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 376.26667);
     tl.to("#s1", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 382.83333);
-    tl.set("#i3", { opacity: 1, scale: 1 }, 383.7);
+    tl.fromTo("#i3", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.13333, ease: "power2.out" }, 383.7);
     tl.fromTo("#i3-w0", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 383.7);
     tl.fromTo("#i3-w1", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 383.76667);
     tl.fromTo("#i3-w2", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 383.83333);
     tl.to("#i3", { opacity: 0, scale: 1.12, duration: 0.16667, ease: "power2.in" }, 384.86667);
     tl.fromTo("#s2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 389.16667);
+    tl.fromTo("#s2-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 390.03333);
     tl.fromTo("#s2-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 390.1);
     tl.fromTo("#s2-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 390.9);
     tl.fromTo("#s2-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 391.8);
     tl.fromTo("#s2-c3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 392.96667);
     tl.to("#s2", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 393.73333);
     tl.fromTo("#s3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 393.9);
-    tl.fromTo("#s3-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 397.23333);
+    tl.fromTo("#s3-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 397.23333);
     tl.to("#s3", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 399.43333);
     tl.fromTo("#bD", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 405.46667);
-    tl.fromTo("#bD-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 407.86667);
-    tl.fromTo("#bD-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 413.4);
-    tl.fromTo("#bD-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 415.4);
+    tl.fromTo("#bD-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 407.86667);
+    tl.fromTo("#bD-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 413.4);
+    tl.fromTo("#bD-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 415.4);
     tl.to("#bD", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 418.26667);
     tl.set("#bD-w", { attr: { y: 232 } }, 405.46667);
-    tl.fromTo("#bD-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 408.66667);
+    tl.fromTo("#bD-d0", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 408.66667);
     tl.set("#bD-d0", { opacity: 0 }, 409.03333);
-    tl.fromTo("#bD-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 409.13333);
+    tl.fromTo("#bD-d1", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 409.13333);
     tl.set("#bD-d1", { opacity: 0 }, 409.5);
-    tl.fromTo("#bD-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 409.6);
+    tl.fromTo("#bD-d2", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 409.6);
     tl.set("#bD-d2", { opacity: 0 }, 409.96667);
-    tl.fromTo("#bD-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 410.06667);
+    tl.fromTo("#bD-d3", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 410.06667);
     tl.set("#bD-d3", { opacity: 0 }, 410.43333);
-    tl.fromTo("#bD-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 410.53333);
+    tl.fromTo("#bD-d4", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 410.53333);
     tl.set("#bD-d4", { opacity: 0 }, 410.9);
-    tl.fromTo("#bD-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in" }, 411.0);
+    tl.fromTo("#bD-d5", { attr: { cy: 10 }, opacity: 1 }, { attr: { cy: 280 }, duration: 0.36667, ease: "power1.in", immediateRender: false }, 411.0);
     tl.set("#bD-d5", { opacity: 0 }, 411.36667);
     tl.to("#bD-w", { attr: { y: 222 }, duration: 2.9, ease: "none" }, 408.66667);
     tl.to("#bD-hose", { opacity: 1, duration: 0.2 }, 406.53333);
@@ -764,12 +779,12 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bD-w", { attr: { y: 150 }, duration: 2.53333, ease: "none" }, 415.66667);
     tl.to("#bD-pud", { attr: { rx: 196, ry: 9 }, duration: 2.33333, ease: "power1.out" }, 415.86667);
     tl.fromTo("#s4", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 423.33333);
-    tl.fromTo("#s4-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 423.33333);
-    tl.fromTo("#s4-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 425.93333);
-    tl.fromTo("#s4-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 428.4);
-    tl.fromTo("#s4-r3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 430.36667);
+    tl.fromTo("#s4-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 423.33333);
+    tl.fromTo("#s4-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 425.93333);
+    tl.fromTo("#s4-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 428.4);
+    tl.fromTo("#s4-r3", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 430.36667);
     tl.to("#s4", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 433.76667);
-    tl.set("#i4", { opacity: 1, scale: 1 }, 435.33333);
+    tl.fromTo("#i4", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.13333, ease: "power2.out" }, 435.33333);
     tl.fromTo("#i4-w0", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 435.33333);
     tl.fromTo("#i4-w1", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 435.4);
     tl.fromTo("#i4-w2", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 435.46667);
@@ -777,27 +792,28 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.fromTo("#i4-s", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 436.8);
     tl.to("#i4", { opacity: 0, scale: 1.12, duration: 0.16667, ease: "power2.in" }, 438.03333);
     tl.fromTo("#s5", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 438.2);
-    tl.fromTo("#s5-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 438.1);
-    tl.fromTo("#s5-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 440.1);
-    tl.fromTo("#s5-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 443.36667);
-    tl.fromTo("#s5-r3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 444.36667);
+    tl.fromTo("#s5-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 438.2);
+    tl.fromTo("#s5-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 440.1);
+    tl.fromTo("#s5-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 443.36667);
+    tl.fromTo("#s5-r3", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 444.36667);
     tl.to("#s5", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 445.96667);
     tl.fromTo("#s6", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 454.23333);
-    tl.fromTo("#s6-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 454.23333);
-    tl.fromTo("#s6-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 455.4);
+    tl.fromTo("#s6-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 454.23333);
+    tl.fromTo("#s6-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 455.4);
     tl.to("#s6", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 456.86667);
     tl.fromTo("#s7", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 457.03333);
-    tl.fromTo("#s7-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 459.16667);
-    tl.fromTo("#s7-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 460.46667);
-    tl.fromTo("#s7-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 461.9);
+    tl.fromTo("#s7-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 459.16667);
+    tl.fromTo("#s7-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 460.46667);
+    tl.fromTo("#s7-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 461.9);
     tl.to("#s7", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 464.1);
     tl.fromTo("#s8", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 468.76667);
-    tl.fromTo("#s8-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 473.23333);
+    tl.fromTo("#s8-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 473.23333);
+    tl.fromTo("#s8-cw", { height: 0 }, { height: "auto", duration: 0.2, ease: "power2.out" }, 470.13333);
     tl.fromTo("#s8-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 470.2);
     tl.fromTo("#s8-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 471.36667);
     tl.fromTo("#s8-c2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 472.76667);
     tl.to("#s8", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 476.76667);
-    tl.set("#i5", { opacity: 1, scale: 1 }, 478.16667);
+    tl.fromTo("#i5", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.13333, ease: "power2.out" }, 478.16667);
     tl.fromTo("#i5-w0", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 478.16667);
     tl.fromTo("#i5-w1", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 478.23333);
     tl.fromTo("#i5-w2", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.26667, ease: "back.out(2.2)" }, 478.3);
@@ -811,7 +827,7 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.fromTo("#s9-c3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 483.26667);
     tl.to("#s9", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 484.56667);
     tl.fromTo("#s10", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 484.73333);
-    tl.fromTo("#s10-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 488.9);
+    tl.fromTo("#s10-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 488.9);
     tl.fromTo("#s10-c0", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 484.7);
     tl.fromTo("#s10-c1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 486.1);
     tl.to("#s10", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 491.73333);
@@ -825,13 +841,13 @@ b { color: #2F6FED; font-weight: inherit; }
     tl.to("#bar", { y: 132, duration: 0.26667, ease: "power2.in" }, 496.76667);
     tl.to("#thin", { opacity: 1, duration: 0.2 }, 496.93333);
     tl.fromTo("#z1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 499.66667);
-    tl.fromTo("#z1-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 499.86667);
-    tl.fromTo("#z1-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 501.76667);
-    tl.fromTo("#z1-r2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 503.66667);
+    tl.fromTo("#z1-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 499.86667);
+    tl.fromTo("#z1-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 501.76667);
+    tl.fromTo("#z1-r2", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 503.66667);
     tl.to("#z1", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 506.16667);
     tl.fromTo("#z2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 506.33333);
-    tl.fromTo("#z2-r0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 507.46667);
-    tl.fromTo("#z2-r1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.16667, ease: "power3.out" }, 509.0);
+    tl.fromTo("#z2-r0", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 507.46667);
+    tl.fromTo("#z2-r1", { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.2, ease: "power2.out" }, 509.0);
     tl.to("#z2", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 510.9);
     tl.fromTo("#disc", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 510.96667);
     tl.to("#disc", { opacity: 0, duration: 0.13333, ease: "power1.in" }, 518.8);
