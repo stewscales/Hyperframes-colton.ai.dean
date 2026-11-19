@@ -57,6 +57,7 @@ CLIPS = {
    hl={105, 134, 183}, hero={183}, brk={104, 110, 148, 174, 183}, wide={110, 148, 174}),
  '08-one-thing-at-a-time': dict(
    title='One thing at a time',
-   snips=[dict(w=(1640, 1686), start=14335, end=14754)],
+   snips=[dict(w=(0, 25), end=225),                       # hook from 01: "Most traders who try coaching will quit in the first 90 days..."
+          dict(w=(1640, 1686), start=14335, end=14754)],
    fix={1666: '2-3', 1667: ''}, hl={1642, 1643, 1650}, hero={1642}, brk={1642, 1669, 1678, 1684}, wide={1674, 1678}),
 }

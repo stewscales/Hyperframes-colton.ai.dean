@@ -34,17 +34,24 @@ class Scene:
         self.cid, self.title = cid, title; self.E = build(cid); self.NF = self.E['NF']; self.wl = dict(word_list(self.E))
         self.geom = json.load(open(f'clips/{cid}/geom.json')); self.behind, self.front, self.js, self.css, self.sfx = [], [], [], [], []
         self.cuts = self.E['starts'][1:-1]
+        self.match = None                                   # dict(ref=<snippet>, strength=0..1): colour-match the other snippets to this one
     def F(self, wi, d=0): return self.wl[wi] + d                       # output frame on which a spoken word starts
     def head(self, si=0):
         g = self.geom[si]; fh = g['chin_y'] - g['forehead_y']
         return dict(cx=g['nose'][0], top=PY + g['forehead_y'] - 0.30 * fh, forehead=PY + g['forehead_y'], chin=PY + g['chin_y'], left=g['face_x'][0], right=g['face_x'][1], fh=fh)
     # ---- pinned title above the panel ----
     def pinned_title(self, line1, bar, f0=3, f1=None):
-        self.front.append(f'<div id="ttl" class="ttl"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
-        self.js += [f'tl.set("#ttl", {{ opacity: 1 }}, {tm(f0)});',
-                    f'tl.fromTo("#ttl .t1", {{ y: -18, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "power3.out", immediateRender: false }}, {tm(f0)});',
-                    f'tl.fromTo("#ttl .t2", {{ scaleX: 0.6, opacity: 0 }}, {{ scaleX: 1, opacity: 1, duration: 0.34, ease: "back.out(1.6)", immediateRender: false }}, {tm(f0 + 3)});']
-        if f1: self.js.append(f'tl.to("#ttl", {{ opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }}, {tm(f1 - 6)});')
+        """Two-line title above the panel (second line in the blue bar). Call again for a second title later in the clip."""
+        i = sum(1 for x in self.front if 'class="ttl' in x); t = f'#ttl{i}'
+        if f0 == 0:                                         # the opening title is already there on the very first frame (it is the cover frame)
+            self.front.append(f'<div id="ttl{i}" class="ttl on"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
+            if f1: self.js.append(f'tl.to("{t}", {{ opacity: 0, duration: 0.14, ease: "power2.in" }}, {tm(f1 - 4)});')
+            return
+        self.front.append(f'<div id="ttl{i}" class="ttl"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
+        self.js += [f'tl.set("{t}", {{ opacity: 1 }}, {tm(f0)});',
+                    f'tl.fromTo("{t} .t1", {{ y: -18, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "power3.out", immediateRender: false }}, {tm(f0)});',
+                    f'tl.fromTo("{t} .t2", {{ scaleX: 0.6, opacity: 0 }}, {{ scaleX: 1, opacity: 1, duration: 0.34, ease: "back.out(1.6)", immediateRender: false }}, {tm(f0 + 3)});']
+        if f1: self.js.append(f'tl.to("{t}", {{ opacity: 0, duration: 0.14, ease: "power2.in" }}, {tm(f1 - 4)});')
     # ---- captions: small, sentence case; they move between spots around him ----
     ENTER = {'chest': '{ y: 16, filter: "blur(7px)" }', 'low': '{ y: 16, filter: "blur(7px)" }', 'left': '{ x: -26, filter: "blur(7px)" }', 'right': '{ x: 26, filter: "blur(7px)" }', 'top': '{ y: -16, filter: "blur(7px)" }'}
     def captions(self, items):
@@ -52,22 +59,22 @@ class Scene:
         items = sorted(items, key=lambda c: c[0])
         for i, c in enumerate(items):
             f, text, spot = c[:3]; end = c[3] if len(c) > 3 else (items[i + 1][0] if i + 1 < len(items) else None)
-            self.front.append(f'<div id="cap{i}" class="cap {spot}">{rich(text)}</div>')
-            self.js += [f'tl.set("#cap{i}", {{ opacity: 1 }}, {tm(f)});',
+            side = spot in ('left', 'right')                    # nothing may run off the frame or into his face
+            for ln in text.replace('*', '').split('|'):
+                w = text_width(ln, 46 if side else 52, 800 if side else 700, -0.03); assert w <= (360 if side else 980), f'caption line too wide for the {spot} spot ({w:.0f}px): {ln!r}'
+            self.front.append(f'<div id="cap{i}" class="cap {spot}"' + (' style="opacity:1"' if f == 0 else '') + f'>{rich(text)}</div>')
+            self.js += ([] if f == 0 else [f'tl.set("#cap{i}", {{ opacity: 1 }}, {tm(f)});',
                         f'tl.fromTo("#cap{i}", {self.ENTER[spot]}, {{ x: 0, y: 0, filter: "blur(0px)", duration: 0.2, ease: "power3.out", immediateRender: false }}, {tm(f)});'
-                        ] + ([f'tl.set("#cap{i}", {{ opacity: 0 }}, {tm(end)});'] if end is not None and end < self.NF else [])
+                        ]) + ([f'tl.set("#cap{i}", {{ opacity: 0 }}, {tm(end)});'] if end is not None and end < self.NF else [])
         self.caps = items
     # ---- big word(s) behind his head ----
-    def behind_text(self, f0, f1, left=None, right=None, color=BLUE, si=0, max_size=150, stagger=3, tuck=12):
+    def behind_text(self, f0, f1, left=None, right=None, color=BLUE, si=0, max_size=150, stagger=3, tuck=2):
         """Heavy caps either side of his head at forehead height, each word tucked a little way behind him (the matte hides the
         tucked part) and following his head as it moves, so the tuck stays the same. Both words share one size: the largest at
         which each fits its side of the frame."""
         g = self.geom[si]; fh = g['chin_y'] - g['forehead_y']; cy = PY + g['forehead_y'] - 0.10 * fh; end = f1 if f1 is not None else self.NF
         trk = [t for t in g['head_track'] if f0 - 5 <= t[0] <= end + 5] or g['head_track']; cuts = set(self.E['starts'])
-        sm = []                                                        # light smoothing inside each shot
-        for n, t in enumerate(trk):
-            nb = [u for u in trk[max(0, n - 1):n + 2] if not any(min(u[0], t[0]) < c <= max(u[0], t[0]) for c in cuts)]
-            sm.append((t[0], float(np.mean([u[1] for u in nb])), float(np.mean([u[2] for u in nb]))))
+        sm = [(t[0], float(t[1]), float(t[2])) for t in trk]
         L0, R0 = min(t[1] for t in sm) + tuck, max(t[2] for t in sm) - tuck          # tightest spot on each side sets the size
         fit = [(L0 - 30) / text_width(w.upper(), 1) for w in [left] if w] + [(CW - 30 - R0) / text_width(w.upper(), 1) for w in [right] if w]
         size = int(min(max_size, min(fit)))
@@ -113,8 +120,9 @@ class Scene:
     .ln {{ display: block; white-space: nowrap; }}
     /* pinned title */
     .ttl {{ position: absolute; left: 0; width: {CW}px; top: {PY - 172}px; text-align: center; opacity: 0; }}
-    .ttl .t1 {{ font-weight: 600; font-size: 44px; letter-spacing: -0.02em; color: {BONE}; }}
-    .ttl .t2 {{ margin-top: 10px; transform-origin: 50% 50%; }}
+    .ttl .t1 {{ font-weight: 600; font-size: 44px; letter-spacing: -0.02em; color: {BONE}; opacity: 0; }}
+    .ttl .t2 {{ margin-top: 10px; transform-origin: 50% 50%; opacity: 0; }}
+    .ttl.on, .ttl.on .t1, .ttl.on .t2 {{ opacity: 1; }}
     .ttl .t2 span {{ display: inline-block; background: {BLUE}; color: #fff; font-weight: 800; font-size: 50px; letter-spacing: -0.025em; padding: 6px 22px 8px; border-radius: 10px; }}
     /* captions */
     .cap {{ position: absolute; font-weight: 700; font-size: 52px; line-height: 1.12; letter-spacing: -0.03em; color: #fff; text-align: center; opacity: 0;
@@ -166,5 +174,5 @@ class Scene:
         json.dump({"$schema": "https://hyperframes.heygen.com/schema/hyperframes.json", "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
                    "paths": {"blocks": "compositions", "components": "compositions/components", "assets": "assets"}, "media": {"autoProxy": True}}, open(f'{d}/hyperframes.json', 'w'), indent=2)
         json.dump({"id": comp, "name": self.title, "dimensions": {"width": CW, "height": CH}, "fps": 30, "createdAt": "2026-11-19T04:00:00.000Z"}, open(f'{d}/meta.json', 'w'), indent=2)
-        json.dump(dict(sfx=sorted(self.sfx, key=lambda s: s['frame']), captions=[dict(frame=c[0], text=c[1], spot=c[2]) for c in self.caps]), open(f'{d}/scene.json', 'w'), indent=1)
+        json.dump(dict(match=self.match, sfx=sorted(self.sfx, key=lambda s: s['frame']), captions=[dict(frame=c[0], text=c[1], spot=c[2]) for c in self.caps]), open(f'{d}/scene.json', 'w'), indent=1)
         print(cid, 'scene written:', len(self.caps), 'captions,', len(self.behind), 'behind-head words,', len(self.sfx), 'sounds')

@@ -1,67 +1,96 @@
 {
+ "match": {
+  "ref": 1,
+  "strength": 0.8
+ },
  "sfx": [
   {
-   "frame": 12,
-   "file": "transitions/whoosh.mp3",
-   "gain_db": -15
-  },
-  {
-   "frame": 44,
+   "frame": 40,
    "file": "ui/pop.mp3",
    "gain_db": -13
   },
   {
-   "frame": 52,
+   "frame": 70,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 88,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 85,
+   "frame": 122,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 99,
-   "file": "ui/click.wav",
-   "gain_db": -11
-  },
-  {
-   "frame": 132,
-   "file": "ui/click.wav",
-   "gain_db": -11
-  },
-  {
-   "frame": 185,
-   "file": "ui/click.wav",
-   "gain_db": -10
-  },
-  {
-   "frame": 195,
-   "file": "ui/pop.mp3",
-   "gain_db": -14
-  },
-  {
-   "frame": 221,
-   "file": "ui/pop.mp3",
-   "gain_db": -14
-  },
-  {
-   "frame": 229,
-   "file": "ui/pop.mp3",
-   "gain_db": -14
-  },
-  {
-   "frame": 237,
-   "file": "ui/pop.mp3",
-   "gain_db": -14
-  },
-  {
-   "frame": 309,
+   "frame": 175,
    "file": "impact/bass-drop.mp3",
    "gain_db": -16
   },
   {
-   "frame": 357,
+   "frame": 214,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 246,
+   "file": "ui/pop.mp3",
+   "gain_db": -13
+  },
+  {
+   "frame": 254,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 287,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 301,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 334,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 387,
+   "file": "ui/click.wav",
+   "gain_db": -10
+  },
+  {
+   "frame": 397,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 423,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 431,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 439,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 511,
+   "file": "impact/bass-drop.mp3",
+   "gain_db": -16
+  },
+  {
+   "frame": 559,
    "file": "transitions/whoosh.mp3",
    "gain_db": -15
   }
@@ -69,61 +98,101 @@
  "captions": [
   {
    "frame": 0,
+   "text": "Most traders",
+   "spot": "chest"
+  },
+  {
+   "frame": 23,
+   "text": "who try|coaching",
+   "spot": "right"
+  },
+  {
+   "frame": 47,
+   "text": "will quit",
+   "spot": "chest"
+  },
+  {
+   "frame": 61,
+   "text": "in the first",
+   "spot": "left"
+  },
+  {
+   "frame": 97,
+   "text": "it's not|because",
+   "spot": "left"
+  },
+  {
+   "frame": 113,
+   "text": "they can't trade",
+   "spot": "chest"
+  },
+  {
+   "frame": 133,
+   "text": "they just|build",
+   "spot": "right"
+  },
+  {
+   "frame": 158,
+   "text": "everything in the",
+   "spot": "chest"
+  },
+  {
+   "frame": 202,
    "text": "Do it",
    "spot": "chest"
   },
   {
-   "frame": 29,
+   "frame": 231,
    "text": "at a time",
    "spot": "chest"
   },
   {
-   "frame": 52,
+   "frame": 254,
    "text": "Add one thing",
    "spot": "right"
   },
   {
-   "frame": 85,
+   "frame": 287,
    "text": "wait",
    "spot": "left"
   },
   {
-   "frame": 99,
+   "frame": 301,
    "text": "check if|it worked",
    "spot": "chest"
   },
   {
-   "frame": 132,
+   "frame": 334,
    "text": "then we add|the next",
    "spot": "left"
   },
   {
-   "frame": 168,
+   "frame": 370,
    "text": "Don't turn on|your ads",
    "spot": "chest"
   },
   {
-   "frame": 211,
+   "frame": 413,
    "text": "hire two,|three people",
    "spot": "right"
   },
   {
-   "frame": 255,
+   "frame": 457,
    "text": "all in the|*same week*",
    "spot": "chest"
   },
   {
-   "frame": 290,
+   "frame": 492,
    "text": "Because if|something breaks",
    "spot": "chest"
   },
   {
-   "frame": 324,
+   "frame": 526,
    "text": "then you're not|going to know",
    "spot": "left"
   },
   {
-   "frame": 345,
+   "frame": 547,
    "text": "what has",
    "spot": "chest"
   }

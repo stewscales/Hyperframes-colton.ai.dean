@@ -49,6 +49,15 @@ for cid in ids:
     for g in geom:
         r = np.sqrt(((xx - g['nose'][0]) / 560) ** 2 + ((yy - g['nose'][1]) / 820) ** 2); u = np.clip((r - 0.45) / 0.75, 0, 1)
         vig.append((1 - 0.34 * u * u * (3 - 2 * u))[..., None])
+    # footage from different parts of the recording is lit differently: bring every snippet towards the reference one
+    # (per-channel gain + offset fitted on the wall and on his tee, applied at scene['match']['strength'])
+    grade = [None] * len(geom); mt = scene.get('match')
+    if mt:
+        ref = geom[mt['ref']]['tone']; hb, lb = np.array(ref['wall']), np.array(ref['tee'])
+        for si, g in enumerate(geom):
+            if si == mt['ref']: continue
+            ha, la = np.array(g['tone']['wall']), np.array(g['tone']['tee']); ga = (hb - lb) / (ha - la); kk = mt['strength']
+            grade[si] = ((1 + kk * (ga - 1)).astype(np.float32), (kk * (lb - ga * la)).astype(np.float32)); print(cid, 'snippet', si, 'matched to', mt['ref'], 'gain', ga.round(3), flush=True)
     enc, encb = encoder(tmp, CRF), encoder(base + '.v.mp4', '20'); k = 0
     for (a, b), si in zip(P, E['snip_of']):
         x0 = geom[si]['x0']; fb = PS * PS * 3
@@ -57,6 +66,7 @@ for cid in ids:
         for f in range(a, b):
             buf = dec.stdout.read(fb); assert len(buf) == fb, f'decode ended at source frame {f}'
             panel = np.frombuffer(buf, np.uint8).reshape(PS, PS, 3)
+            if grade[si] is not None: panel = np.clip(panel.astype(np.float32) * grade[si][0] + grade[si][1] + 0.5, 0, 255).astype(np.uint8)
             canvas = np.empty((CH, CW, 3), np.float32); canvas[:] = INKc
             canvas[PY:PY + PS] = panel.astype(np.float32) * (ramp * vig[si]) + INKc * (1 - ramp)
             encb.stdin.write(np.clip(canvas + 0.5, 0, 255).astype(np.uint8).tobytes())

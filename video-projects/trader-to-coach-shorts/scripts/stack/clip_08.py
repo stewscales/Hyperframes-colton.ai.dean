@@ -1,16 +1,30 @@
-"""08 — One thing at a time (stacked layout).
-Edits, in order:  pinned title  ->  "ONE THING" behind his head  ->  4-step loop card lighting up on each word
-(Add / Wait / Check / Next)  ->  week card: ads switched on + three hires dropped into the same week  ->
-"something broke": question marks on every change  ->  "BROKE" beside / behind his head.
+"""08 — One thing at a time, opened with the hook from 01 (stacked layout).
+Edits, in order:
+  HOOK   pinned title  ->  "90 | DAYS" behind his head + day counter card running to 90 ("Quit")  ->  "Why they quit" card:
+         "They can't trade" struck out, "They build in the wrong order" lit  ->  "WRONG | ORDER" behind his head
+  RULE   new pinned title  ->  "ONE | THING" behind his head  ->  4-step loop card lighting up on each word (Add / Wait / Check / Next)
+         ->  week card: ads switched on + three hires dropped into the same week  ->  "something broke": question marks on
+         every change  ->  "BROKE" beside / behind his head.
 Run from the project folder: python3 -I scripts/stack/clip_08.py"""
 exec(open('scripts/stack/kit.py').read())
 s = Scene('08-one-thing-at-a-time', 'One thing at a time')
 F = s.F
-s.pinned_title('The rule for scaling', 'your coaching business')
+CUT = F(1640)                                          # hook -> rule
+s.match = dict(ref=1, strength=0.8)                    # the hook was shot earlier in the recording (bluer, darker wall): match it to the rest
+s.pinned_title('Why most trading coaches', 'quit in 90 days', 0, CUT)
+s.pinned_title('The rule for scaling', 'your coaching business', CUT)
 
 # ---- captions (word for word), moving between spots ----
 s.captions([
-    (0,        'Do it',                         'chest', F(1642)),
+    (0,        'Most traders',                  'chest'),
+    (F(2),     'who try|coaching',              'right'),
+    (F(5),     'will quit',                     'chest'),
+    (F(7),     'in the first',                  'left', F(12)),
+    (F(12),    "it's not|because",              'left'),
+    (F(15),    "they can't trade",              'chest'),
+    (F(18),    'they just|build',               'right'),
+    (F(21),    'everything in the',             'chest', CUT),
+    (CUT,      'Do it',                         'chest', F(1642)),
     (F(1644),  'at a time',                     'chest'),
     (F(1647),  'Add one thing',                 'right'),
     (F(1650),  'wait',                          'left'),
@@ -23,27 +37,68 @@ s.captions([
     (F(1678),  "then you're not|going to know", 'left'),
     (F(1684),  'what has',                      'chest'),
 ])
-s.behind_text(F(1642), F(1647), 'One', 'thing')
-s.behind_text(F(1686), None, None, 'broke')
+s.behind_text(F(9) + 3, F(12), '90', 'days', si=0)
+s.behind_text(F(24), CUT, 'wrong', 'order', si=0)
+s.behind_text(F(1642), F(1647), 'One', 'thing', si=1)
+s.behind_text(F(1686), None, None, 'broke', si=1)
+s.sound(F(9) + 3, 'transitions/whoosh.mp3', -15)
+s.sound(F(24), 'impact/bass-drop.mp3', -16)
+s.sound(F(1642), 'transitions/whoosh.mp3', -15)
+s.sound(F(1686), 'transitions/whoosh.mp3', -15)
 
-# ---- card 1: the loop ----
+def card_in(sel, f, dur=0.3):
+    s.js.extend([f'tl.set("{sel}", {{ opacity: 1 }}, {tm(f)});',
+                 f'tl.fromTo("{sel}", {{ y: 44, scale: 0.96 }}, {{ y: 0, scale: 1, duration: {dur}, ease: "back.out(1.4)", immediateRender: false }}, {tm(f)});'])
+def card_out(sel, f): s.js.append(f'tl.to("{sel}", {{ opacity: 0, y: 24, duration: 0.12, ease: "power2.in" }}, {tm(f - 5)});')
+CROSS = '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/></svg>'
+TICK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'
+
+# ---- hook card 1: the first 90 days ----
+d0, d1 = F(7), F(11) + 4                               # "in the first 90 days": the counter runs through the phrase
+s.front.append('<div id="dayc" class="card"><div class="row"><div class="lab">Trader to coach</div><div id="quitp" class="pill2">Quit</div></div>'
+               '<div class="dayrow"><span class="dlab">Day</span><span id="dn" class="dnum">1</span><span class="dof">/ 90</span></div>'
+               '<div class="bar"><div id="barf" class="barf"></div></div></div>')
+card_in('#dayc', F(5) - 7); s.sound(F(5) - 7, 'ui/pop.mp3', -13)
+s.js += [f'tl.to("#dn", {{ textContent: 90, snap: {{ textContent: 1 }}, duration: {(d1 - d0) / 30:.4f}, ease: "power1.inOut" }}, {tm(d0)});',
+         f'tl.fromTo("#barf", {{ scaleX: 0.011 }}, {{ scaleX: 1, duration: {(d1 - d0) / 30:.4f}, ease: "power1.inOut", immediateRender: false }}, {tm(d0)});',
+         f'tl.fromTo("#quitp", {{ opacity: 0, scale: 0.6 }}, {{ opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2.4)", immediateRender: false }}, {tm(d1)});',
+         f'tl.to("#barf", {{ backgroundColor: "{BONE}", duration: 0.15 }}, {tm(d1)});']
+s.sound(d1, 'ui/click.wav', -11)
+card_out('#dayc', F(12))
+
+# ---- hook card 2: why they quit ----
+s.front.append('<div id="why" class="card"><div class="lab">Why they quit</div>'
+               f'<div id="wr0" class="wrow"><span id="wi0" class="wic">{CROSS}</span><span class="wt">They can&rsquo;t trade<span id="wst" class="strike"></span></span></div>'
+               f'<div id="wr1" class="wrow"><span id="wi1" class="wic">{TICK}</span><span class="wt">They build in the wrong order</span></div></div>')
+card_in('#why', F(12), 0.24)
+fs = F(17)                                             # "trade": not the reason
+s.js += [f'tl.fromTo("#wst", {{ scaleX: 0 }}, {{ scaleX: 1, duration: 0.2, ease: "power2.out", immediateRender: false }}, {tm(fs)});',
+         f'tl.fromTo("#wi0", {{ opacity: 0, scale: 0.4 }}, {{ opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }}, {tm(fs)});',
+         f'tl.to("#wr0 .wt", {{ color: "rgba(242,239,233,0.42)", duration: 0.2 }}, {tm(fs)});',
+         f'tl.fromTo("#wr1", {{ opacity: 0, x: -18 }}, {{ opacity: 0.5, x: 0, duration: 0.22, ease: "power3.out", immediateRender: false }}, {tm(F(18))});']
+s.sound(fs, 'ui/click.wav', -11)
+fw = F(24)                                             # "wrong order": the reason
+s.js += [f'tl.to("#wr1", {{ opacity: 1, backgroundColor: "rgba(47,111,237,0.20)", borderColor: "{BLUE}", duration: 0.16, ease: "power2.out" }}, {tm(fw)});',
+         f'tl.fromTo("#wr1", {{ scale: 0.97 }}, {{ scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }}, {tm(fw)});',
+         f'tl.fromTo("#wi1", {{ opacity: 0, scale: 0.4 }}, {{ opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }}, {tm(fw)});']
+card_out('#why', CUT)
+
+# ---- rule card 1: the loop ----
 steps = [('Add', F(1647)), ('Wait', F(1650)), ('Check', F(1651)), ('Next', F(1655))]
 s.front.append('<div id="loop" class="card"><div class="row"><div class="lab">One change at a time</div><div id="rep" class="chip">&#8635; repeat</div></div><div class="steps">' +
                ''.join(f'<div id="st{i}" class="st"><div class="num">0{i + 1}</div><div class="nm">{n}</div></div>' for i, (n, _) in enumerate(steps)) + '</div></div>')
 c0 = F(1647) - 8
-s.js += [f'tl.set("#loop", {{ opacity: 1 }}, {tm(c0)});',
-         f'tl.fromTo("#loop", {{ y: 46, scale: 0.96 }}, {{ y: 0, scale: 1, duration: 0.32, ease: "back.out(1.4)", immediateRender: false }}, {tm(c0)});']
+card_in('#loop', c0, 0.32); s.sound(c0, 'ui/pop.mp3', -13)
 for i, (n, f) in enumerate(steps):
     s.js += [f'tl.to("#st{i}", {{ backgroundColor: "{BLUE}", borderColor: "{BLUE}", color: "#ffffff", duration: 0.12, ease: "power2.out" }}, {tm(f)});',
              f'tl.fromTo("#st{i}", {{ scale: 0.92 }}, {{ scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }}, {tm(f)});']
     if i + 1 < len(steps):
         s.js.append(f'tl.to("#st{i}", {{ backgroundColor: "rgba(242,239,233,0.10)", borderColor: "rgba(242,239,233,0.30)", color: "{BONE}", duration: 0.16, ease: "power2.out" }}, {tm(steps[i + 1][1])});')
     s.sound(f, 'ui/click.wav', -11)
-s.js += [f'tl.fromTo("#rep", {{ opacity: 0, x: 14 }}, {{ opacity: 1, x: 0, duration: 0.2, ease: "power3.out", immediateRender: false }}, {tm(F(1659))});',
-         f'tl.to("#loop", {{ opacity: 0, y: 24, duration: 0.12, ease: "power2.in" }}, {tm(F(1660) - 5)});']
-s.sound(c0, 'ui/pop.mp3', -13)
+s.js.append(f'tl.fromTo("#rep", {{ opacity: 0, x: 14 }}, {{ opacity: 1, x: 0, duration: 0.2, ease: "power3.out", immediateRender: false }}, {tm(F(1659))});')
+card_out('#loop', F(1660))
 
-# ---- card 2: everything in the same week ----
+# ---- rule card 2: everything in the same week ----
 days = 'MTWTFSS'
 drops = [('Ads', 0, F(1664)), ('Hire', 1, F(1666)), ('Hire', 2, F(1667)), ('Hire', 3, F(1668))]
 cells = ''.join(f'<div class="day"><div class="dl">{d}</div>' + ''.join(f'<div id="dp{k}" class="dp">{n}<span id="q{k}" class="q">?</span></div>' for k, (n, c, _) in enumerate(drops) if c == i) + '</div>' for i, d in enumerate(days))
@@ -60,9 +115,9 @@ for k, (n, c, f) in enumerate(drops):
     s.js += [f'tl.set("#dp{k}", {{ opacity: 1 }}, {tm(f)});',
              f'tl.fromTo("#dp{k}", {{ y: -46, scale: 0.8 }}, {{ y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }}, {tm(f)});']
     s.sound(f, 'ui/pop.mp3', -14)
-fs = F(1672)                                         # "same week": the whole week lights up
-s.js += [f'tl.fromTo("#wk", {{ opacity: 0, scale: 1.04 }}, {{ opacity: 1, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }}, {tm(fs)});',
-         f'tl.to("#wl", {{ color: "{BLUE}", duration: 0.2 }}, {tm(fs)});']
+fsw = F(1672)                                        # "same week": the whole week lights up
+s.js += [f'tl.fromTo("#wk", {{ opacity: 0, scale: 1.04 }}, {{ opacity: 1, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }}, {tm(fsw)});',
+         f'tl.to("#wl", {{ color: "{BLUE}", duration: 0.2 }}, {tm(fsw)});']
 fb = F(1677)                                         # "breaks"
 s.js += [f'tl.to("#wl", {{ opacity: 0, duration: 0.08 }}, {tm(fb)});',
          f'tl.fromTo("#wb", {{ opacity: 0, scale: 0.8 }}, {{ opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2.2)", immediateRender: false }}, {tm(fb)});',
@@ -73,16 +128,33 @@ for k in range(len(drops)):                           # "then you're not going t
     f = F(1678) + 4 * k
     s.js += [f'tl.fromTo("#q{k}", {{ opacity: 0, scale: 0.3 }}, {{ opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }}, {tm(f)});',
              f'tl.to("#dp{k}", {{ backgroundColor: "rgba(242,239,233,0.14)", color: "{BONE}", duration: 0.15 }}, {tm(f)});']
-s.sound(F(1642), 'transitions/whoosh.mp3', -15)
-s.sound(F(1686), 'transitions/whoosh.mp3', -15)
 
 s.css.append('''    .card .row { display: flex; justify-content: space-between; align-items: center; height: 44px; }
     .chip { font-weight: 700; font-size: 24px; color: #2F6FED; opacity: 0; }
+    /* day counter */
+    .pill2 { background: #F2EFE9; color: #0A0A0A; font-weight: 800; font-size: 28px; letter-spacing: -0.01em; padding: 5px 20px 6px; border-radius: 22px; opacity: 0; }
+    .dayrow { display: flex; align-items: baseline; gap: 18px; margin-top: 10px; height: 150px; }
+    .dlab { font-weight: 700; font-size: 44px; letter-spacing: -0.02em; color: rgba(242,239,233,0.6); }
+    .dnum { font-weight: 800; font-size: 136px; line-height: 1; letter-spacing: -0.04em; color: #fff; font-variant-numeric: tabular-nums; min-width: 190px; }
+    .dof { font-weight: 700; font-size: 44px; letter-spacing: -0.02em; color: rgba(242,239,233,0.4); }
+    .bar { margin-top: 22px; height: 14px; border-radius: 7px; background: rgba(242,239,233,0.12); overflow: hidden; }
+    .barf { width: 100%; height: 100%; border-radius: 7px; background: #2F6FED; transform-origin: 0 50%; transform: scaleX(0.011); }
+    /* why they quit */
+    .wrow { display: flex; align-items: center; gap: 20px; height: 96px; margin-top: 18px; padding: 0 22px; border-radius: 22px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10);
+            font-weight: 800; font-size: 40px; letter-spacing: -0.03em; color: #fff; }
+    #wr0 { margin-top: 24px; }  #wr1 { opacity: 0; }
+    .wic { width: 44px; height: 44px; border-radius: 22px; display: flex; align-items: center; justify-content: center; opacity: 0; flex: none; }
+    .wic svg { width: 26px; height: 26px; }
+    #wi0 { background: rgba(242,239,233,0.16); color: #F2EFE9; }  #wi1 { background: #2F6FED; color: #fff; }
+    .wt { position: relative; white-space: nowrap; }
+    .strike { position: absolute; left: -6px; right: -6px; top: 54%; height: 4px; border-radius: 2px; background: #F2EFE9; transform-origin: 0 50%; transform: scaleX(0); }
+    /* the loop */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 30px; }
     .st { height: 164px; border-radius: 24px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.12); color: rgba(242,239,233,0.5);
           display: flex; flex-direction: column; justify-content: center; padding-left: 24px; }
     .st .num { font-weight: 700; font-size: 24px; letter-spacing: 0.08em; opacity: 0.75; }
     .st .nm { font-weight: 800; font-size: 46px; letter-spacing: -0.03em; margin-top: 4px; }
+    /* the week */
     .labs { position: relative; height: 44px; flex: 1; }
     .labs .lab { position: absolute; left: 0; top: 7px; }
     .pill { position: absolute; left: 0; top: 0; background: #F2EFE9; color: #0A0A0A; font-weight: 800; font-size: 26px; letter-spacing: -0.01em; padding: 5px 18px 6px; border-radius: 22px; opacity: 0; transform-origin: 0 50%; }
