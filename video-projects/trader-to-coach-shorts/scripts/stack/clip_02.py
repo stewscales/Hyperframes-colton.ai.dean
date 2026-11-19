@@ -129,7 +129,7 @@ def leak_path(side, y, r):
     return f'M{x:.1f},{y} q{side * reach * 0.75:.1f},3 {side * reach:.1f},{322 - y}'
 svg = ['<svg id="bk" class="bk" viewBox="0 0 330 352" width="330" height="352">',
        '<defs><clipPath id="bkclip"><path d="M52,138 L278,138 L249,309 Q248,313 243,313 L87,313 Q82,313 81,309 Z"/></clipPath></defs>',
-       f'<g id="pud" opacity="0"><ellipse cx="165" cy="325" rx="165" ry="11" fill="{BLUE}"/><ellipse cx="150" cy="322" rx="96" ry="3.5" fill="rgba(255,255,255,0.28)"/></g>',
+       f'<g id="pud" opacity="0"><ellipse cx="165" cy="325" rx="150" ry="11" fill="{BLUE}"/><ellipse cx="150" cy="322" rx="96" ry="3.5" fill="rgba(255,255,255,0.28)"/></g>',
        '<path d="M47,128 L283,128 L253,310 Q252,318 244,318 L86,318 Q78,318 77,310 Z" fill="#1B1C21"/>',
        f'<g id="hs" opacity="0"><path id="hsb" d="M143,72 Q160,84 165,128 L165,313" fill="none" stroke="{BLUE}" stroke-width="14" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>'
        '<path class="flow" d="M143,72 Q160,84 165,128 L165,313" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 14"/></g>']
@@ -168,7 +168,7 @@ pB = ('<div id="pB" class="pn"><div class="chead"><div class="clbl"><i class="do
 rowsC = [('Leaks are normal', 'ok'), ('A perfect bucket', 'bad'), ('Fill the biggest holes', 'ok')]
 pC = ('<div id="pC" class="pn"><div class="chead"><div class="clbl"><i class="dot b"></i>Every bucket leaks</div></div>' +
       ''.join(f'<div id="c{k}" class="rw"><span id="ct{k}">{t}</span>' + (f'<span id="ck{k}" class="okr off">{TICK}</span>' if m == 'ok' else f'<span id="ck{k}" class="okr bad">{CROSS}</span>') + '</div>' for k, (t, m) in enumerate(rowsC)) + '</div>')
-pD = ('<div id="pD" class="pn"><div class="chead"><div class="clbl"><i class="dot a"></i>Filling the bucket</div></div>'
+pD = ('<div id="pD" class="pn"><div class="chead"><div class="clbl"><i class="dot a"></i>Ads = a hose</div></div>'
       f'<div id="d0" class="rw mid"><span>By hand</span>{segs("dh", NSEG)}</div>'
       f'<div id="d1" class="rw mid"><span>Hose</span>{segs("dz", NSEG)}</div><div id="dfast" class="pilla low">A lot faster</div></div>')
 pE = ('<div id="pE" class="pn"><div class="chead"><div class="clbl"><i class="dot a"></i>A hose on a…</div></div>'
@@ -195,7 +195,7 @@ def flow_on(g, base, f, d=0, dur=0.2):
 def flow_off(g, base, f, d=0, dur=0.2):
     J(f'tl.to("#{base}", {{ strokeDashoffset: -1, duration: {dur}, ease: "power1.in" }}, {at(f, d)});'); J(f'tl.set("#{g}", {{ opacity: 0 }}, {at(f, d + dur * 30)});')
 def patch_on(k, f, d=0, snd=-12):
-    J(f'tl.fromTo("#pt{k}", {{ opacity: 0, scale: 0.2, y: 0, rotation: 0, transformOrigin: "50% 50%" }}, {{ opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2.6)", immediateRender: false }}, {at(f, d)});')
+    J(f'tl.fromTo("#pt{k}", {{ opacity: 0, scale: 0.2, y: 0, rotation: 0, transformOrigin: "50% 50%" }}, {{ opacity: 1, scale: 1, y: 0, rotation: 0, duration: 0.24, ease: "back.out(2.6)", immediateRender: false }}, {at(f, d)});')      # y / rotation in the to-vars too: a patch that fell off comes back in place
     flow_off(f'lk{k}', f'lkb{k}', f, d + 1)
     if snd: s.sound(f + d, 'ui/click.wav', snd)
 def patch_off(k, f, d=0):
@@ -203,7 +203,7 @@ def patch_off(k, f, d=0):
     flow_on(f'lk{k}', f'lkb{k}', f, d + 2)
 
 # ================= HOOK: the bucket is your business, the water is people =================
-J(f'tl.fromTo("#bk", {{ scale: 0.94 }}, {{ scale: 1, duration: 0.4, ease: "back.out(1.8)", transformOrigin: "50% 100%" }}, 0);')
+J(f'tl.fromTo("#bk", {{ scale: 1.05 }}, {{ scale: 1.12, duration: 0.4, ease: "back.out(1.8)", transformOrigin: "0% 100%" }}, 0);')    # the svg is shown at 1.12x, growing up out of the card
 pop('#a0', F(246), frm='{ opacity: 0, scale: 0.8, y: -16 }', dur=0.26, ease='back.out(2)'); s.sound(F(246), 'ui/click.wav', -12)      # "your business is the bucket"
 for i in range(4): s.sound(F(254) + 9 * i + 7, 'ui/pop.mp3', -19)                                                               # "water": the first drops land
 pop('#a1', F(256), frm='{ opacity: 0, scale: 0.8, y: -16 }', dur=0.26, ease='back.out(2)'); s.sound(F(256), 'ui/click.wav', -12)      # "the water's people"
@@ -238,7 +238,7 @@ swap('#pC', '#pD', C2)
 J(f'tl.fromTo("#hz", {{ opacity: 0, x: -150 }}, {{ opacity: 1, x: 0, duration: 0.4, ease: "back.out(1.5)", immediateRender: false }}, {at(F(1380))});')     # "ads ... hose": it arrives, not yet on
 J(f'tl.fromTo("#hzt", {{ scale: 1 }}, {{ scale: 1.16, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1, transformOrigin: "50% 50%", immediateRender: false }}, {at(F(1383))});')
 s.sound(F(1383), 'ui/pop.mp3', -14)
-pop('#d0', F(1392), frm='{ opacity: 0, scale: 0.9, y: 14 }', dur=0.24, ease='back.out(1.8)')                                    # "by hand": one notch
+pop('#d0', F(1387), frm='{ opacity: 0, scale: 0.9, y: 14 }', dur=0.24, ease='back.out(1.8)')                                    # "you've been filling the bucket by hand": one notch
 J(f'tl.to("#dh0", {{ backgroundColor: "{BLUE}", duration: 0.12 }}, {at(F(1393))});'); s.sound(F(1393), 'ui/click.wav', -13)
 fh = F(1395) + 5                                      # "a hose does it a lot faster": turned on
 pop('#d1', F(1394), frm='{ opacity: 0, scale: 0.9, y: 14 }', dur=0.24, ease='back.out(1.8)')
@@ -289,8 +289,8 @@ glow('#bkc', fg)
 assert fg + 9 <= NF - 9 and LV[-1][0] <= NF - 9, 'the last frame must be finished and held'
 
 s.css.append('''    .card.tall { top: 1244px; height: 352px; padding: 0; }
-    .bk { position: absolute; left: 14px; top: 0; overflow: visible; }
-    .flr { position: absolute; left: 28px; width: 304px; top: 322px; height: 2px; border-radius: 1px; background: rgba(242,239,233,0.14); }
+    .bk { position: absolute; left: 14px; top: 0; overflow: visible; transform-origin: 0 100%; transform: scale(1.12); }
+    .flr { position: absolute; left: 28px; width: 336px; top: 318px; height: 2px; border-radius: 1px; background: rgba(242,239,233,0.14); }
     .pn { position: absolute; left: 366px; right: 28px; top: 26px; height: 300px; opacity: 0; }
     .rw { position: relative; height: 70px; margin-top: 12px; border-radius: 18px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.14); display: flex; align-items: center; justify-content: space-between;
           padding: 0 14px 0 20px; font-weight: 800; font-size: 32px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; opacity: 0; }
@@ -322,6 +322,6 @@ s.css.append('''    .card.tall { top: 1244px; height: 352px; padding: 0; }
             padding: 0 14px 0 20px; font-weight: 800; font-size: 30px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
     .ox { position: absolute; right: 14px; top: 12px; }''')
 for t, sz, w, lim in [('Bucket = Your business', 34, 800, 506 - 44 - 24), ('Fill the bucket', 54, 800, 506), ('Fill the biggest holes', 32, 800, 506 - 34 - 40 - 12), ('Every bucket leaks', 36, 800, 506 - 30),
-                      ('Filling the bucket', 36, 800, 506 - 30), ('Leaky bucket', 32, 800, 506 - 34 - 170), ('Fill the biggest holes', 30, 800, 506 - 62 - 34 - 40 - 10), ('First 30 days', 36, 800, 506 - 30 - 150)]:
+                      ('Ads = a hose', 36, 800, 506 - 30), ('Leaky bucket', 32, 800, 506 - 34 - 170), ('Fill the biggest holes', 30, 800, 506 - 62 - 34 - 40 - 10), ('First 30 days', 36, 800, 506 - 30 - 150)]:
     assert text_width(t, sz, w, -0.03) <= lim, (t, round(text_width(t, sz, w, -0.03)), lim)
 s.write()
