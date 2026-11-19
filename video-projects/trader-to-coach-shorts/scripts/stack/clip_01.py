@@ -1,4 +1,8 @@
-"""01 — The wrong order (stacked layout). Opens with the shared hook, then three sections, each with ONE graphic that tells its part:
+"""01 — The wrong order (stacked layout). Same hook words as 08 but its own opening graphics, then three sections, each with ONE
+graphic that tells its part:
+  HOOK         title + a grid of traders on screen from the first frame; they drop out one by one until "90 days later: most quit"
+               -> "Why they quit" diagnosis: Trading skill fills and ticks (not the problem), Build order shows 3-1-2 and fails
+               -> "WRONG | ORDER" behind his head
   WRONG ORDER  "Month one" card: every hire lands as he names it and the Spend bar climbs to full, while Proven stays empty ("?")
                + "ALL THE | MONEY" behind his head
   RIGHT ORDER  "Day one: volume" card: Content and Messages fill tile by tile, tagged "By you", and feed the bar underneath until
@@ -11,12 +15,21 @@ s = Scene('01-wrong-order', 'The wrong order')
 exec(open('scripts/stack/hook.py').read())
 C1, C2, C3 = F(67), F(184), F(1770)                     # hook -> wrong order -> right order -> CTA
 s.match = dict(ref=0, strength=0.8, only=[3])           # the CTA was shot at the end of the recording (warmer, brighter wall)
-add_hook(C1)
+s.pinned_title('The real reason coaches', 'quit in 90 days', 0, C1)
 s.pinned_title('The wrong order', 'spend first', C1, C2)
 s.pinned_title('The right order', 'volume first', C2, C3)
 s.pinned_title('Want it step by step?', 'Message me “DOC”', C3)
 
-s.captions(HOOK_CAPTIONS(C1) + [
+s.captions([
+    (0,        'Most traders',                  'chest'),
+    (F(2),     'who try coaching',              'chest'),
+    (F(5),     'will *quit*',                   'chest'),
+    (F(7),     'in the first',                  'chest'),
+    (F(10),    '*90 days*',                     'chest'),
+    (F(12),    "it's not because",              'chest'),
+    (F(15),    "they *can't trade*",            'chest'),
+    (F(18),    'they just build',               'chest'),
+    (F(21),    'everything in the',             'chest', F(24)),          # then "WRONG | ORDER" behind his head
     (C1,       'Someone will get',              'chest'),
     (F(70),    'into coaching',                 'right'),
     (F(72),    "and they'll just *spend*",      'chest', F(76)),          # then "ALL THE | MONEY" behind his head
@@ -47,6 +60,7 @@ s.captions(HOOK_CAPTIONS(C1) + [
     (F(1790),  "and I'll send",                 'chest'),
     (F(1793),  'you this over',                 'chest'),
 ])
+s.behind_text(F(24), C1, 'wrong', 'order', si=0)
 s.behind_text(F(76), F(79), 'all the', 'money', si=1)
 s.behind_text(F(190), F(191), None, 'volume', si=2)
 s.sound(F(76), 'transitions/whoosh.mp3', -15)
@@ -62,6 +76,41 @@ def glow(sel, f, d=0):
 DOC = ('<svg viewBox="0 0 48 60"><path d="M6 2h24l12 12v40a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z" fill="#F2EFE9"/><path d="M30 2v9a3 3 0 0 0 3 3h9z" fill="#C9C5BC"/>'
        '<path d="M11 26h26M11 35h26M11 44h17" stroke="#2F6FED" stroke-width="3.6" stroke-linecap="round"/></svg>')
 SEND = '<svg viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'
+
+# ================= HOOK: who is left after 90 days =================
+import random
+PERSON = '<svg viewBox="0 0 24 28"><circle cx="12" cy="7.5" r="5.5" fill="currentColor"/><path d="M2.5 27.5c0-6.6 4.2-10.5 9.5-10.5s9.5 3.9 9.5 10.5z" fill="currentColor"/></svg>'
+NP, STAY = 36, 6
+s.front.append('<div id="pg" class="card tall" style="opacity:1"><div class="chead"><div id="pgA" class="clbl"><i class="dot a"></i>Traders who start coaching</div>'
+               '<div id="pgB" class="clbl"><i class="dot b"></i>90 days later: most quit</div></div>'
+               '<div class="pgrid">' + ''.join(f'<i id="p{k}" class="pp">{PERSON}</i>' for k in range(NP)) + '</div></div>')
+order = list(range(NP)); random.Random(7).shuffle(order); gone = order[:NP - STAY]
+f_end = F(11) + 2                                     # the last one drops as he finishes "90 days"
+for n, k in enumerate(gone):                          # they drop out one by one, faster as the days run out
+    f = 5 + (f_end - 5) * (n / (len(gone) - 1)) ** 0.85
+    J(f'tl.to("#p{k}", {{ color: "rgba(242,239,233,0.16)", scale: 0.84, duration: 0.2, ease: "power2.out" }}, {round(f / 30 - 0.001, 4)});')
+J(f'tl.to("#pgA", {{ opacity: 0, y: -10, duration: 0.14, ease: "power2.in" }}, {at(F(10), -3)});')
+J(f'tl.fromTo("#pgB", {{ opacity: 0, y: 12 }}, {{ opacity: 1, y: 0, duration: 0.22, ease: "power3.out", immediateRender: false }}, {at(F(10))});')
+s.sound(F(10), 'ui/click.wav', -12)
+card_out('#pg', F(12))
+
+# ---- why they quit: not skill, order ----
+s.front.append('<div id="dg" class="card tall"><div class="chead"><div class="clbl"><i class="dot b"></i>Why they quit</div></div>'
+               f'<div class="dgr"><span class="dgl">Trading skill</span><div class="dgt"><div id="dgf" class="mf"></div></div><span id="dgk" class="okr off2">{TICK}</span></div>'
+               '<div id="dgr2" class="dgr two"><span class="dgl">Build order</span><div class="dgo">' + ''.join(f'<b id="dgo{k}" class="dgn">{n}</b>' for k, n in enumerate('312')) +
+               f'</div><span id="dgx" class="okr bad">{CROSS}</span></div></div>')
+card_in('#dg', F(12), 0.24)
+J(f'tl.to("#dgf", {{ scaleX: 1, duration: {(F(17) - F(15)) / 30 + 0.1:.4f}, ease: "power2.inOut" }}, {at(F(15))});')           # "they can't trade": the skill is there
+pop('#dgk', F(17), 3, frm='{ opacity: 0, scale: 0.4 }', ease='back.out(3)'); s.sound(F(17) + 3, 'ui/click.wav', -11)
+for k in range(3):                                    # "they just build": 3, 1, 2
+    pop(f'#dgo{k}', F(18), 4 * k, frm='{ opacity: 0, scale: 0.6, y: -16 }', ease='back.out(2.2)'); s.sound(F(18) + 4 * k, 'ui/pop.mp3', -17)
+fx = F(24)                                            # "wrong order"
+pop('#dgx', fx, 2, frm='{ opacity: 0, scale: 0.4 }', ease='back.out(3)')
+J(f'tl.to(".dgn", {{ backgroundColor: "#3A3B40", borderColor: "rgba(242,239,233,0.6)", duration: 0.16 }}, {at(fx)});')
+J(f'tl.to("#dgr2", {{ backgroundColor: "rgba(242,239,233,0.07)", boxShadow: "0 0 0 3px rgba(242,239,233,0.5)", duration: 0.2 }}, {at(fx)});')
+for j, dx in enumerate([-10, 8, -5, 3, 0]): J(f'tl.to("#dgr2", {{ x: {dx}, duration: 0.05, ease: "power1.inOut" }}, {at(fx, 1.5 * j)});')
+s.sound(fx, 'impact/bass-drop.mp3', -16)
+card_out('#dg', C1)
 
 # ================= WRONG ORDER: "Month one" =================
 items = [('Ads', F(83)), ('Setter', F(87)), ('Closer', F(91)), ('Content manager', F(95))]
@@ -141,6 +190,17 @@ glow('#d1', fr, 8)
 assert fr + 8 + 9 <= s.NF - 9, 'the last frame must be finished and held'
 
 s.css.append('''    .card.tall { top: 1244px; height: 352px; padding: 26px 28px; }
+    /* hook: who is left */
+    #pgB { opacity: 0; }
+    .pgrid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px 0; margin-top: 22px; justify-items: center; }
+    .pp { width: 52px; height: 62px; color: #2F6FED; display: block; }  .pp svg { width: 52px; height: 62px; }
+    /* hook: why they quit */
+    .dgr { display: grid; grid-template-columns: 250px 1fr 40px; column-gap: 22px; align-items: center; height: 84px; margin-top: 16px; padding: 0 18px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); }
+    .dgl { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
+    .dgt { position: relative; height: 24px; border-radius: 12px; background: rgba(242,239,233,0.10); }
+    .okr.off2 { opacity: 0; }  .okr.bad { background: #F2EFE9; color: #0A0A0A; opacity: 0; }
+    .dgo { display: flex; gap: 14px; }
+    .dgn { width: 96px; height: 56px; border-radius: 16px; background: #2F6FED; border: 2px solid #2F6FED; color: #fff; font-weight: 800; font-size: 36px; display: flex; align-items: center; justify-content: center; opacity: 0; }
     .card.vol { top: 1244px; height: 352px; padding: 26px 28px; }
     /* month one */
     .pillb { position: absolute; right: 0; top: 2px; background: #F2EFE9; color: #0A0A0A; font-weight: 800; font-size: 30px; letter-spacing: -0.02em; padding: 3px 20px 5px; border-radius: 22px; opacity: 0; }

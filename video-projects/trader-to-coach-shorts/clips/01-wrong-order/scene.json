@@ -9,18 +9,28 @@
  "sfx": [
   {
    "frame": 76,
-   "file": "transitions/whoosh.mp3",
-   "gain_db": -15
+   "file": "ui/click.wav",
+   "gain_db": -12
   },
   {
-   "frame": 88,
+   "frame": 125,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 122,
-   "file": "ui/click.wav",
-   "gain_db": -11
+   "frame": 133,
+   "file": "ui/pop.mp3",
+   "gain_db": -17
+  },
+  {
+   "frame": 137,
+   "file": "ui/pop.mp3",
+   "gain_db": -17
+  },
+  {
+   "frame": 141,
+   "file": "ui/pop.mp3",
+   "gain_db": -17
   },
   {
    "frame": 175,
@@ -142,6 +152,11 @@
   {
    "frame": 61,
    "text": "in the first",
+   "spot": "chest"
+  },
+  {
+   "frame": 76,
+   "text": "*90 days*",
    "spot": "chest"
   },
   {
