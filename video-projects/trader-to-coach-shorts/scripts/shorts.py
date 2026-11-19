@@ -1,4 +1,4 @@
-"""Shared timing for the shorts: cut list (EDL), framing schedule and captions for one clip.
+"""Shared timing for the shorts: cut list (EDL) and captions for one clip.
 Run from the project folder. `python3 -I scripts/shorts.py [clip]` prints the cut list and captions.
 Everything is on the 30 fps grid of the source; audio is cut on exactly the same frames as the picture."""
 import json, math, sys, re, numpy as np
@@ -16,7 +16,6 @@ MIRO = (6895, 11060)                               # screen recording in the lon
 KEEP_AFTER, KEEP_BEFORE, MIN_PAUSE = 0.12, 0.07, 0.30   # a tightened pause keeps 0.12 s after the word and 0.07 s before the next
 LEAD, TRAIL, TAIL = 0.07, 0.09, 0.36               # snippet lead-in / lead-out; the last snippet of a clip breathes for TAIL
 SNAP = 6                                           # a word that starts within 6 frames after a cut switches on the cut
-ZOOM = {'W': 1.02, 'M': 1.065, 'T': 1.11}; CREEP = 0.015; ZMAX = 1.125
 
 def onset(t):
     """Start of speech at/just before aligned time t (end of the pause before it)."""
@@ -98,29 +97,6 @@ def word_list(E):
             if fo is None: fo = ps[-1][1] + ps[-1][0][1] - ps[-1][0][0] - 1
             out.append((wi, fo))
     return out
-
-def zoom_schedule(E):
-    """Per output frame zoom. Framing changes on cuts; inside a shot only ever a quick push-in on a key word."""
-    NF = E['NF']; z = np.zeros(NF); wl = dict(word_list(E)); cutset = set(E['starts'][:-1])
-    marks = []                                                   # (output frame, level, on a cut?)
-    for si, s in enumerate(E['C']['snips']):
-        first = [o for o, k in zip(E['starts'], E['snip_of']) if k == si][0]
-        marks.append((first, s['z'], True))
-        for wi, lv in sorted(s.get('steps', {}).items()):
-            f = wl[wi]; marks.append((f, lv, f in cutset))
-    marks.sort(); assert len({m[0] for m in marks}) == len(marks), marks
-    for n, (f, lv, oncut) in enumerate(marks):
-        end = marks[n + 1][0] if n + 1 < len(marks) else NF
-        v0 = ZOOM[lv]; v1 = min(v0 + CREEP * min(1, (end - f) / 150), ZMAX)
-        for k in range(f, end): z[k] = v0 + (v1 - v0) * (k - f) / max(1, end - f - 1)
-        if not oncut:                                             # push-in: 4-frame ease from the previous framing
-            prev = z[f - 1]; assert v0 > prev, ('push-out inside a shot', f)
-            o = f - 1
-            for k in range(o, min(o + 4, end)):
-                u = (k - o + 1) / 4; tgt = z[k] if k >= f else v0
-                z[k] = prev + (tgt - prev) * (1 - (1 - u) ** 3)
-    assert z.min() >= 1 and z.max() <= ZMAX + 1e-9
-    return z
 
 clean = lambda t: re.sub(r"[^A-Z0-9'%$\" -]", '', t.upper()).strip()
 def captions(E):

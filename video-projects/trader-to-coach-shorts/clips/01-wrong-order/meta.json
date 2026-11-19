@@ -2,8 +2,8 @@
   "id": "t2c-short-01-wrong-order",
   "name": "Most traders who try coaching quit in 90 days",
   "dimensions": {
-    "width": 1080,
-    "height": 1920
+    "width": 1920,
+    "height": 1080
   },
   "fps": 30,
   "createdAt": "2026-11-18T19:00:00.000Z"

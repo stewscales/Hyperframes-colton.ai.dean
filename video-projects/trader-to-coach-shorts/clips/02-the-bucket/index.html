@@ -6,28 +6,29 @@
   <title>Picture a bucket — Stew Scales</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
+    @font-face { font-family: 'Montserrat'; src: url('assets/fonts/montserrat-var-subset.woff2') format('woff2'); font-weight: 100 900; font-style: normal; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #000; }
-    #t2c-short-02-the-bucket { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }
-    #base { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }
+    #t2c-short-02-the-bucket { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a; }
+    body.capture, body.capture #t2c-short-02-the-bucket { background: transparent; }
+    #base { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; object-fit: cover; z-index: 1; }
     /* Captions: bold, clean, white with a solid dark outline; key words in brand blue */
     .cap {
-      position: absolute; left: 60px; right: 60px; top: 1040px; height: 180px;
+      position: absolute; left: 160px; right: 160px; top: 700px; height: 300px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 68px; line-height: 1.12; letter-spacing: 0.005em;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 76px; line-height: 1.12; letter-spacing: 0.005em;
       text-transform: uppercase; text-align: center; color: #ffffff;
-      text-shadow: 7.00px 0.00px 0 #0a0a0a, 6.76px 1.81px 0 #0a0a0a, 6.06px 3.50px 0 #0a0a0a, 4.95px 4.95px 0 #0a0a0a, 3.50px 6.06px 0 #0a0a0a, 1.81px 6.76px 0 #0a0a0a, 0.00px 7.00px 0 #0a0a0a, -1.81px 6.76px 0 #0a0a0a, -3.50px 6.06px 0 #0a0a0a, -4.95px 4.95px 0 #0a0a0a, -6.06px 3.50px 0 #0a0a0a, -6.76px 1.81px 0 #0a0a0a, -7.00px 0.00px 0 #0a0a0a, -6.76px -1.81px 0 #0a0a0a, -6.06px -3.50px 0 #0a0a0a, -4.95px -4.95px 0 #0a0a0a, -3.50px -6.06px 0 #0a0a0a, -1.81px -6.76px 0 #0a0a0a, -0.00px -7.00px 0 #0a0a0a, 1.81px -6.76px 0 #0a0a0a, 3.50px -6.06px 0 #0a0a0a, 4.95px -4.95px 0 #0a0a0a, 6.06px -3.50px 0 #0a0a0a, 6.76px -1.81px 0 #0a0a0a, 4.00px 0.00px 0 #0a0a0a, 3.86px 1.04px 0 #0a0a0a, 3.46px 2.00px 0 #0a0a0a, 2.83px 2.83px 0 #0a0a0a, 2.00px 3.46px 0 #0a0a0a, 1.04px 3.86px 0 #0a0a0a, 0.00px 4.00px 0 #0a0a0a, -1.04px 3.86px 0 #0a0a0a, -2.00px 3.46px 0 #0a0a0a, -2.83px 2.83px 0 #0a0a0a, -3.46px 2.00px 0 #0a0a0a, -3.86px 1.04px 0 #0a0a0a, -4.00px 0.00px 0 #0a0a0a, -3.86px -1.04px 0 #0a0a0a, -3.46px -2.00px 0 #0a0a0a, -2.83px -2.83px 0 #0a0a0a, -2.00px -3.46px 0 #0a0a0a, -1.04px -3.86px 0 #0a0a0a, -0.00px -4.00px 0 #0a0a0a, 1.04px -3.86px 0 #0a0a0a, 2.00px -3.46px 0 #0a0a0a, 2.83px -2.83px 0 #0a0a0a, 3.46px -2.00px 0 #0a0a0a, 3.86px -1.04px 0 #0a0a0a, 0 8px 22px rgba(0,0,0,0.55);
+      text-shadow: 7.82px 0.00px 0 #0a0a0a, 7.56px 2.02px 0 #0a0a0a, 6.78px 3.91px 0 #0a0a0a, 5.53px 5.53px 0 #0a0a0a, 3.91px 6.78px 0 #0a0a0a, 2.02px 7.56px 0 #0a0a0a, 0.00px 7.82px 0 #0a0a0a, -2.02px 7.56px 0 #0a0a0a, -3.91px 6.78px 0 #0a0a0a, -5.53px 5.53px 0 #0a0a0a, -6.78px 3.91px 0 #0a0a0a, -7.56px 2.02px 0 #0a0a0a, -7.82px 0.00px 0 #0a0a0a, -7.56px -2.02px 0 #0a0a0a, -6.78px -3.91px 0 #0a0a0a, -5.53px -5.53px 0 #0a0a0a, -3.91px -6.78px 0 #0a0a0a, -2.02px -7.56px 0 #0a0a0a, -0.00px -7.82px 0 #0a0a0a, 2.02px -7.56px 0 #0a0a0a, 3.91px -6.78px 0 #0a0a0a, 5.53px -5.53px 0 #0a0a0a, 6.78px -3.91px 0 #0a0a0a, 7.56px -2.02px 0 #0a0a0a, 4.47px 0.00px 0 #0a0a0a, 4.32px 1.16px 0 #0a0a0a, 3.87px 2.24px 0 #0a0a0a, 3.16px 3.16px 0 #0a0a0a, 2.24px 3.87px 0 #0a0a0a, 1.16px 4.32px 0 #0a0a0a, 0.00px 4.47px 0 #0a0a0a, -1.16px 4.32px 0 #0a0a0a, -2.24px 3.87px 0 #0a0a0a, -3.16px 3.16px 0 #0a0a0a, -3.87px 2.24px 0 #0a0a0a, -4.32px 1.16px 0 #0a0a0a, -4.47px 0.00px 0 #0a0a0a, -4.32px -1.16px 0 #0a0a0a, -3.87px -2.24px 0 #0a0a0a, -3.16px -3.16px 0 #0a0a0a, -2.24px -3.87px 0 #0a0a0a, -1.16px -4.32px 0 #0a0a0a, -0.00px -4.47px 0 #0a0a0a, 1.16px -4.32px 0 #0a0a0a, 2.24px -3.87px 0 #0a0a0a, 3.16px -3.16px 0 #0a0a0a, 3.87px -2.24px 0 #0a0a0a, 4.32px -1.16px 0 #0a0a0a, 0 8.9px 24.6px rgba(0,0,0,0.55);
       z-index: 20; opacity: 0; transform-origin: 50% 50%;
     }
     .ln { display: block; white-space: nowrap; }
     .hl { color: #2b95ff; }
-    .cap.hero { font-weight: 900; font-size: 98px; line-height: 1.07; }
+    .cap.hero { font-weight: 900; font-size: 106px; line-height: 1.07; }
   </style>
 </head>
 <body>
 
-<div id="t2c-short-02-the-bucket" data-composition-id="t2c-short-02-the-bucket" data-start="0" data-width="1080" data-height="1920">
+<div id="t2c-short-02-the-bucket" data-composition-id="t2c-short-02-the-bucket" data-start="0" data-width="1920" data-height="1080">
 
   <video id="base" data-start="0" data-duration="30.1333" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
   <audio id="base-audio" data-start="0" data-duration="30.1333" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
