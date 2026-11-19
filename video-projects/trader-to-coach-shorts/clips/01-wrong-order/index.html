@@ -64,7 +64,7 @@
     .tlf { position: absolute; inset: 0; background: #2F6FED; transform-origin: 0 50%; transform: scaleX(0.012); }
     .tlm { position: absolute; top: 20px; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; color: rgba(242,239,233,0.6); white-space: nowrap; }
     /* hook: why they quit */
-    .dgr { display: grid; grid-template-columns: 250px 1fr 40px; column-gap: 22px; align-items: center; height: 84px; margin-top: 16px; padding: 0 18px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); }
+    .dgr { display: grid; grid-template-columns: 250px 1fr 40px; column-gap: 22px; align-items: center; height: 94px; margin-top: 18px; padding: 0 18px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); }
     .dgl { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
     .dgt { position: relative; height: 24px; border-radius: 12px; background: rgba(242,239,233,0.10); }
     .okr.off2 { opacity: 0; }  .okr.bad { background: #F2EFE9; color: #0A0A0A; opacity: 0; }
@@ -102,9 +102,9 @@
     .cvr { display: flex; align-items: center; gap: 10px; margin: 11px 20px 0; }  .cvr i { width: 16px; height: 16px; border-radius: 4px; background: #2F6FED; flex: none; }  .cvr b { height: 8px; border-radius: 4px; background: #C4C0B7; display: block; }
     .cvf { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: #2F6FED; }
     .shn { position: absolute; top: -20%; left: -70%; width: 34%; height: 140%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0)); transform: skewX(-18deg); }
-    .dls { position: absolute; left: 336px; right: 28px; top: 44px; }
+    .dls { position: absolute; left: 336px; right: 28px; top: 36px; }
     .dtt { font-weight: 800; font-size: 44px; letter-spacing: -0.035em; color: #fff; white-space: nowrap; }
-    .drow { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+    .drow { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
     .okr.off { background: rgba(242,239,233,0.12); color: rgba(242,239,233,0); }
     .dl { font-weight: 700; font-size: 34px; letter-spacing: -0.03em; color: rgba(242,239,233,0.55); white-space: nowrap; }
     /* the message */
@@ -128,11 +128,11 @@
   <audio id="base-audio" data-start="0" data-duration="30.3000" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
 
   <div id="behind">
-    <div id="bh0" class="bh" style="top:497px; right:687.0px; font-size:85px; color:#2F6FED"><span id="bh0i" class="bhi">wrong</span></div>
-    <div id="bh1" class="bh" style="top:497px; left:719.0px; font-size:85px; color:#2F6FED"><span id="bh1i" class="bhi">order</span></div>
-    <div id="bh2" class="bh" style="top:527px; right:782.0px; font-size:55px; color:#2F6FED"><span id="bh2i" class="bhi">all the</span></div>
-    <div id="bh3" class="bh" style="top:527px; left:619.0px; font-size:55px; color:#2F6FED"><span id="bh3i" class="bhi">money</span></div>
-    <div id="bh4" class="bh" style="top:533px; left:724.0px; font-size:69px; color:#2F6FED"><span id="bh4i" class="bhi">volume</span></div>
+    <div id="bh0" class="bh" style="top:503px; right:687.0px; font-size:73px; color:#2F6FED"><span id="bh0i" class="bhi">wrong</span></div>
+    <div id="bh1" class="bh" style="top:503px; left:719.0px; font-size:73px; color:#2F6FED"><span id="bh1i" class="bhi">order</span></div>
+    <div id="bh2" class="bh" style="top:531px; right:782.0px; font-size:48px; color:#2F6FED"><span id="bh2i" class="bhi">all the</span></div>
+    <div id="bh3" class="bh" style="top:531px; left:619.0px; font-size:48px; color:#2F6FED"><span id="bh3i" class="bhi">money</span></div>
+    <div id="bh4" class="bh" style="top:537px; left:724.0px; font-size:61px; color:#2F6FED"><span id="bh4i" class="bhi">volume</span></div>
   </div>
   <div id="front">
     <div id="ttl0" class="ttl big on"><div class="t1">Most trading coaches</div><div class="t2"><span>quit in 90 days</span></div></div>
@@ -417,8 +417,8 @@
     tl.to("#dgr2", { x: 3.0, duration: 0.05, ease: "power1.inOut" }, 5.9823);
     tl.to("#dgr2", { x: 0.0, duration: 0.05, ease: "power1.inOut" }, 6.0323);
     tl.to("#dg", { opacity: 0, y: 24, duration: 0.12, ease: "power2.in" }, 6.399);
-    tl.set("#m1", { opacity: 1 }, 6.5657);
-    tl.fromTo("#m1", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.26, ease: "back.out(1.4)", immediateRender: false }, 6.5657);
+    tl.set("#m1", { opacity: 1 }, 7.8323);
+    tl.fromTo("#m1", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.26, ease: "back.out(1.4)", immediateRender: false }, 7.8323);
     tl.to("#ml0", { color: "#ffffff", duration: 0.15 }, 8.2657);
     tl.fromTo("#ml0", { scale: 1 }, { scale: 1.12, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, 8.2657);
     tl.fromTo("#fn0", { opacity: 0, scale: 0.78, y: -18 }, { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.26, ease: "back.out(2)", immediateRender: false }, 9.999);
@@ -476,8 +476,8 @@
     tl.to("#m1", { x: 2.4, duration: 0.05, ease: "power1.inOut" }, 14.7823);
     tl.to("#m1", { x: 0.0, duration: 0.05, ease: "power1.inOut" }, 14.8323);
     tl.to("#m1", { opacity: 0, y: 24, duration: 0.12, ease: "power2.in" }, 14.9323);
-    tl.set("#v1", { opacity: 1 }, 15.099);
-    tl.fromTo("#v1", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.26, ease: "back.out(1.4)", immediateRender: false }, 15.099);
+    tl.set("#v1", { opacity: 1 }, 15.8323);
+    tl.fromTo("#v1", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.26, ease: "back.out(1.4)", immediateRender: false }, 15.8323);
     tl.to("#vl0", { color: "#ffffff", duration: 0.15 }, 17.0657);
     tl.to("#vc0", { backgroundColor: "#2F6FED", borderColor: "#2F6FED", color: "#ffffff", duration: 0.1 }, 17.0657);
     tl.fromTo("#vc0", { scale: 0.6 }, { scale: 1, duration: 0.22, ease: "back.out(2.6)", immediateRender: false }, 17.0657);

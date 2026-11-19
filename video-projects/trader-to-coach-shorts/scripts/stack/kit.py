@@ -93,7 +93,9 @@ class Scene:
         trk = [t for t in g['head_track'] if f0 - 5 <= t[0] <= end + 5] or g['head_track']; cuts = set(self.E['starts'])
         sm = [(t[0], float(t[1]), float(t[2])) for t in trk]
         L0, R0 = min(t[1] for t in sm) + tuck, max(t[2] for t in sm) - tuck          # tightest spot on each side sets the size
-        fit = [(L0 - 30) / text_width(w.upper(), 1) for w in [left] if w] + [(CW - 30 - R0) / text_width(w.upper(), 1) for w in [right] if w]
+        zm = float(self.zoom[max(0, f0):max(f0 + 1, end - 6)].max()); ax = g['nose'][0]      # the words move with the camera: keep them inside the frame at the tightest zoom they are seen at
+        lo, hi = ax - (ax - 30) / zm, ax + (CW - 30 - ax) / zm                               # (set the camera before calling this; the last frames before a cut may be a zoom-through)
+        fit = [(L0 - lo) / text_width(w.upper(), 1) for w in [left] if w] + [(hi - R0) / text_width(w.upper(), 1) for w in [right] if w]
         size = int(min(max_size, min(fit)))
         for n, (w, side) in enumerate([(left, 'l'), (right, 'r')]):
             if not w: continue

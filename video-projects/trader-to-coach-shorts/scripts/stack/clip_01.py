@@ -64,9 +64,6 @@ s.captions([
     (F(1790),  "and I'll send",                 'chest'),
     (F(1793),  'you this over',                 'chest'),
 ])
-s.behind_text(F(24), C1, 'wrong', 'order', si=0)
-s.behind_text(F(76), F(79), 'all the', 'money', si=1)
-s.behind_text(F(190), F(191), None, 'volume', si=2)
 
 # ================= CAMERA =================
 s.shot(ST[0], ST[1], 1.00, 1.03)                        # hook: slow push
@@ -82,6 +79,9 @@ s.shot(ST[8], ST[9], 1.00, 1.03);  s.punch(F(1784), ST[9], 0.03); s.punch(F(1789
 for c in (C1, C2, C3):                                  # section changes: zoom through the cut
     s.through(c, 0.06); s.sound(c, 'transitions/whoosh.mp3', -15)
 assert s.zoom.max() <= 1.2 and s.zoom.min() >= 1.0, (s.zoom.min(), s.zoom.max())
+s.behind_text(F(24), C1, 'wrong', 'order', si=0)
+s.behind_text(F(76), F(79), 'all the', 'money', si=1)
+s.behind_text(F(190), F(191), None, 'volume', si=2)
 
 J = s.js.append
 def at(f, d=0): return round(tm(f) + d / 30, 4)
@@ -142,7 +142,7 @@ meters = ['Spend', 'Workload', 'Complexity']; NS = 5
 s.front.append('<div id="m1" class="card tall"><div class="chead"><div class="clbl"><i class="dot b"></i>Month 1</div><div id="m1w" class="pillb">+ whoever</div></div>'
                '<div class="fg">' + ''.join(f'<div class="fs"><div id="fn{k}" class="fn"><span class="fnn">{n}</span><span id="tg{k}" class="tg"><i id="tk{k}" class="tgk"></i></span></div></div>' for k, (n, _) in enumerate(funcs)) + '</div>'
                '<div class="mm">' + ''.join(f'<div class="mc"><div id="ml{j}" class="mlb">{m}</div><div class="segs">' + ''.join(f'<i id="sg{j}{n}"></i>' for n in range(NS)) + '</div></div>' for j, m in enumerate(meters)) + '</div></div>')
-card_in('#m1', C1, 0.26)
+card_in('#m1', F(72), 0.26)                          # the frame is his alone for the first line; the dashboard arrives on "and they'll just spend"
 def seg(j, n, f, d):
     J(f'tl.to("#sg{j}{n}", {{ backgroundColor: "{BLUE}", duration: 0.1 }}, {at(f, d)});')
     J(f'tl.fromTo("#sg{j}{n}", {{ scaleY: 1.8 }}, {{ scaleY: 1, duration: 0.24, ease: "power3.out", immediateRender: false }}, {at(f, d)});')
@@ -170,7 +170,7 @@ s.front.append('<div id="v1" class="card tall"><div class="chead"><div class="cl
                '<div class="vg"><div><div id="vl0" class="mlb">Content</div><div class="cal">' + ''.join(f'<i id="vc{n}" class="vc">{TK}</i>' for n in range(ND)) + '</div></div>'
                '<div><div id="vl1" class="mlb">Messages</div><div class="bars">' + ''.join(f'<span class="vbs" style="height:{28 + 80 * n / (NB - 1):.0f}px"><i id="vb{n}" class="vbar"></i></span>' for n in range(NB)) + '</div></div></div>'
                f'<div class="vres"><div id="vrf" class="vrf"></div><span class="vrt">What people actually want</span><span id="vrk" class="okr inv">{TICK}</span></div></div>')
-card_in('#v1', C2, 0.26)
+card_in('#v1', F(187), 0.26)                         # arrives on "it's all about"
 fc = F(191)                                           # "lots of content": one a day, every day
 J(f'tl.to("#vl0", {{ color: "#ffffff", duration: 0.15 }}, {at(fc)});'); s.sound(fc, 'ui/click.wav', -13)
 for n in range(ND):
@@ -245,7 +245,7 @@ s.css.append('''    .card.tall { top: 1244px; height: 352px; padding: 26px 28px;
     .tlf { position: absolute; inset: 0; background: #2F6FED; transform-origin: 0 50%; transform: scaleX(0.012); }
     .tlm { position: absolute; top: 20px; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; color: rgba(242,239,233,0.6); white-space: nowrap; }
     /* hook: why they quit */
-    .dgr { display: grid; grid-template-columns: 250px 1fr 40px; column-gap: 22px; align-items: center; height: 84px; margin-top: 16px; padding: 0 18px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); }
+    .dgr { display: grid; grid-template-columns: 250px 1fr 40px; column-gap: 22px; align-items: center; height: 94px; margin-top: 18px; padding: 0 18px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); }
     .dgl { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
     .dgt { position: relative; height: 24px; border-radius: 12px; background: rgba(242,239,233,0.10); }
     .okr.off2 { opacity: 0; }  .okr.bad { background: #F2EFE9; color: #0A0A0A; opacity: 0; }
@@ -283,9 +283,9 @@ s.css.append('''    .card.tall { top: 1244px; height: 352px; padding: 26px 28px;
     .cvr { display: flex; align-items: center; gap: 10px; margin: 11px 20px 0; }  .cvr i { width: 16px; height: 16px; border-radius: 4px; background: #2F6FED; flex: none; }  .cvr b { height: 8px; border-radius: 4px; background: #C4C0B7; display: block; }
     .cvf { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: #2F6FED; }
     .shn { position: absolute; top: -20%; left: -70%; width: 34%; height: 140%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0)); transform: skewX(-18deg); }
-    .dls { position: absolute; left: 336px; right: 28px; top: 44px; }
+    .dls { position: absolute; left: 336px; right: 28px; top: 36px; }
     .dtt { font-weight: 800; font-size: 44px; letter-spacing: -0.035em; color: #fff; white-space: nowrap; }
-    .drow { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+    .drow { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
     .okr.off { background: rgba(242,239,233,0.12); color: rgba(242,239,233,0); }
     .dl { font-weight: 700; font-size: 34px; letter-spacing: -0.03em; color: rgba(242,239,233,0.55); white-space: nowrap; }
     /* the message */
