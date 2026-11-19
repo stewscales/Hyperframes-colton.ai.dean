@@ -1,0 +1,313 @@
+{
+ "match": {
+  "ref": 0,
+  "strength": 0.8,
+  "only": [
+   3
+  ]
+ },
+ "sfx": [
+  {
+   "frame": 76,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 88,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 122,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 175,
+   "file": "impact/bass-drop.mp3",
+   "gain_db": -16
+  },
+  {
+   "frame": 258,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 300,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 333,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 365,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 398,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 430,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 491,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 512,
+   "file": "ui/click.wav",
+   "gain_db": -13
+  },
+  {
+   "frame": 540,
+   "file": "ui/click.wav",
+   "gain_db": -13
+  },
+  {
+   "frame": 586,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 653,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 712,
+   "file": "ui/click.wav",
+   "gain_db": -12
+  },
+  {
+   "frame": 745,
+   "file": "ui/click.wav",
+   "gain_db": -12
+  },
+  {
+   "frame": 775,
+   "file": "ui/click.wav",
+   "gain_db": -12
+  },
+  {
+   "frame": 849,
+   "file": "ui/click.wav",
+   "gain_db": -17
+  },
+  {
+   "frame": 852,
+   "file": "ui/click.wav",
+   "gain_db": -17
+  },
+  {
+   "frame": 855,
+   "file": "ui/click.wav",
+   "gain_db": -17
+  },
+  {
+   "frame": 868,
+   "file": "ui/send-message.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 877,
+   "file": "ui/notification.mp3",
+   "gain_db": -14
+  }
+ ],
+ "captions": [
+  {
+   "frame": 0,
+   "text": "Most traders",
+   "spot": "chest"
+  },
+  {
+   "frame": 23,
+   "text": "who try coaching",
+   "spot": "chest"
+  },
+  {
+   "frame": 47,
+   "text": "will *quit*",
+   "spot": "chest"
+  },
+  {
+   "frame": 61,
+   "text": "in the first",
+   "spot": "chest"
+  },
+  {
+   "frame": 97,
+   "text": "it's not because",
+   "spot": "chest"
+  },
+  {
+   "frame": 113,
+   "text": "they *can't trade*",
+   "spot": "chest"
+  },
+  {
+   "frame": 133,
+   "text": "they just build",
+   "spot": "chest"
+  },
+  {
+   "frame": 158,
+   "text": "everything in the",
+   "spot": "chest"
+  },
+  {
+   "frame": 197,
+   "text": "Someone will get",
+   "spot": "chest"
+  },
+  {
+   "frame": 213,
+   "text": "into coaching",
+   "spot": "right"
+  },
+  {
+   "frame": 235,
+   "text": "and they'll just *spend*",
+   "spot": "chest"
+  },
+  {
+   "frame": 279,
+   "text": "They turn on",
+   "spot": "chest"
+  },
+  {
+   "frame": 294,
+   "text": "their *ads*",
+   "spot": "chest"
+  },
+  {
+   "frame": 315,
+   "text": "they hire a *setter*",
+   "spot": "chest"
+  },
+  {
+   "frame": 349,
+   "text": "they hire a *closer*",
+   "spot": "chest"
+  },
+  {
+   "frame": 389,
+   "text": "they get a",
+   "spot": "chest"
+  },
+  {
+   "frame": 398,
+   "text": "*content manager*",
+   "spot": "chest"
+  },
+  {
+   "frame": 430,
+   "text": "whoever",
+   "spot": "right"
+  },
+  {
+   "frame": 453,
+   "text": "At the start",
+   "spot": "chest"
+  },
+  {
+   "frame": 475,
+   "text": "it's all about",
+   "spot": "chest"
+  },
+  {
+   "frame": 512,
+   "text": "lots of *content*",
+   "spot": "chest"
+  },
+  {
+   "frame": 540,
+   "text": "lots of *messages*",
+   "spot": "chest"
+  },
+  {
+   "frame": 570,
+   "text": "and you do them",
+   "spot": "chest"
+  },
+  {
+   "frame": 586,
+   "text": "by *yourself*",
+   "spot": "chest"
+  },
+  {
+   "frame": 606,
+   "text": "because that's how",
+   "spot": "chest"
+  },
+  {
+   "frame": 619,
+   "text": "you find out",
+   "spot": "chest"
+  },
+  {
+   "frame": 637,
+   "text": "what people",
+   "spot": "chest"
+  },
+  {
+   "frame": 651,
+   "text": "*actually want*",
+   "spot": "chest"
+  },
+  {
+   "frame": 669,
+   "text": "If you want this",
+   "spot": "chest"
+  },
+  {
+   "frame": 694,
+   "text": "laid out",
+   "spot": "left"
+  },
+  {
+   "frame": 712,
+   "text": "*step by step*",
+   "spot": "chest"
+  },
+  {
+   "frame": 739,
+   "text": "with *checklists*",
+   "spot": "chest"
+  },
+  {
+   "frame": 772,
+   "text": "the *important parts*",
+   "spot": "chest"
+  },
+  {
+   "frame": 811,
+   "text": "send me a *message*",
+   "spot": "chest"
+  },
+  {
+   "frame": 840,
+   "text": "saying *DOC*",
+   "spot": "chest"
+  },
+  {
+   "frame": 868,
+   "text": "and I'll send",
+   "spot": "chest"
+  },
+  {
+   "frame": 879,
+   "text": "you this over",
+   "spot": "chest"
+  }
+ ]
+}

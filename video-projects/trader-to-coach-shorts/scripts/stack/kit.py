@@ -34,7 +34,7 @@ class Scene:
         self.cid, self.title = cid, title; self.E = build(cid); self.NF = self.E['NF']; self.wl = dict(word_list(self.E))
         self.geom = json.load(open(f'clips/{cid}/geom.json')); self.behind, self.front, self.js, self.css, self.sfx = [], [], [], [], []
         self.cuts = self.E['starts'][1:-1]
-        self.match = None                                   # dict(ref=<snippet>, strength=0..1): colour-match the other snippets to this one
+        self.match = None                                   # dict(ref=<snippet>, strength=0..1[, only=[snippets]]): colour-match snippets to the reference one
     def F(self, wi, d=0): return self.wl[wi] + d                       # output frame on which a spoken word starts
     def head(self, si=0):
         g = self.geom[si]; fh = g['chin_y'] - g['forehead_y']
@@ -118,6 +118,7 @@ class Scene:
     body.capture, body.capture #{comp} {{ background: transparent; }}
     body.capture.pass-behind #front, body.capture.pass-front #behind {{ display: none; }}
     .hl {{ color: {BLUE}; }}
+    .cap .hl {{ font-weight: 800; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.9), 0 0 22px rgba(0,0,0,0.75), 0 0 46px rgba(0,0,0,0.5); }}   /* blue has to read over his hands too */
     .ln {{ display: block; white-space: nowrap; }}
     /* pinned title */
     .ttl {{ position: absolute; left: 0; width: {CW}px; top: {PY - 196}px; text-align: center; opacity: 0; }}
@@ -141,6 +142,12 @@ class Scene:
     .card {{ position: absolute; left: 60px; width: 900px; top: {PY + 894}px; height: 322px; border-radius: 34px; background: rgba(17,17,19,0.96); border: 1.5px solid rgba(242,239,233,0.14);
             box-shadow: 0 26px 70px rgba(0,0,0,0.55); opacity: 0; padding: 30px 32px; color: {BONE}; }}
     .card .lab {{ font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(242,239,233,0.55); }}
+    /* shared card furniture: header label with a status dot, tick ring, question badge */
+    .chead {{ position: relative; height: 48px; }}
+    .clbl {{ position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 36px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }}
+    .dot {{ width: 16px; height: 16px; border-radius: 8px; display: inline-block; }}  .dot.a {{ background: {BLUE}; }}  .dot.b {{ background: {BONE}; }}
+    .okr {{ width: 40px; height: 40px; border-radius: 20px; background: {BLUE}; color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }}  .okr svg {{ width: 24px; height: 24px; }}
+    .q {{ position: absolute; right: -12px; top: -14px; width: 38px; height: 38px; border-radius: 19px; background: {BONE}; color: {INK}; font-style: normal; font-weight: 900; font-size: 26px; display: flex; align-items: center; justify-content: center; opacity: 0; }}
 {chr(10).join(self.css)}
   </style>
 </head>

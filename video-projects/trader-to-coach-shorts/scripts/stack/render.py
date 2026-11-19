@@ -55,7 +55,7 @@ for cid in ids:
     if mt:
         ref = geom[mt['ref']]['tone']; hb, lb = np.array(ref['wall']), np.array(ref['tee'])
         for si, g in enumerate(geom):
-            if si == mt['ref']: continue
+            if si == mt['ref'] or (mt.get('only') is not None and si not in mt['only']): continue
             ha, la = np.array(g['tone']['wall']), np.array(g['tone']['tee']); ga = (hb - lb) / (ha - la); kk = mt['strength']
             grade[si] = ((1 + kk * (ga - 1)).astype(np.float32), (kk * (lb - ga * la)).astype(np.float32)); print(cid, 'snippet', si, 'matched to', mt['ref'], 'gain', ga.round(3), flush=True)
     enc, encb = encoder(tmp, CRF), encoder(base + '.v.mp4', '20'); k = 0
