@@ -38,3 +38,23 @@ Steps inside `build_all.sh`: `cut_audio.py` (voice cut on the picture frames, ~-
   Media (`assets/*.mp4`, `assets/*.wav`) and `renders/` are regenerable and not committed.
 
 Captions are word-for-word what is said; transcript mis-hearings are corrected in `clips.py` (`fix`).
+
+## Stacked 1080x1920 reels (current style) — `scripts/stack/`
+
+Clips 01, 02 and 08 are built in the stacked vertical style: pinned headline on top, the talking-head panel (a square crop of
+the 4K frame, never upscaled) in the middle, one card of motion graphics underneath, captions at his chest.
+
+```bash
+SRC=/path/to/Trader_to_Coach_-_full_video_FINAL.mp4
+python3 -I scripts/cut_audio.py $SRC 02-the-bucket                           # voice track on the cut list (after any change in clips.py)
+python3 -I scripts/stack/geom.py $SRC facelm.task selfie.tflite 02-the-bucket  # head position / tone per shot -> clips/<id>/geom.json
+bash scripts/stack/build.sh $SRC selfie.tflite /tmp/t2c-stack 02             # clip_02.py -> capture both layers -> render (picture + voice + SFX)
+```
+
+- `scripts/stack/kit.py` — layout, pinned titles, captions (`chest`, `hero` = caps in the blue bar), words behind his head, camera (`shot` / `punch` / `through`), page assembly.
+- `scripts/stack/clip_NN.py` — one scene file per reel: titles, captions, camera, the card graphics and their timing (every time is `F(word index)`, so the graphics follow the cut).
+- `scripts/stack/render.py` — decodes the cut list, moves the camera, composites the captured layers (behind-head layer through a person matte), mixes voice + effects.
+- `scripts/clips.py` per-clip options: `tight` (pause tightening), `hold` (frames the last picture frame is held), `start` / `end` (first / last source frame of a snippet).
+
+House rules that came out of review: nothing over his head or face (clip 02 uses chest captions only), key words in blue or in the
+blue bar, one short label per step beside the graphic, every graphic lands on its word, the first and the last frame are chosen by eye.

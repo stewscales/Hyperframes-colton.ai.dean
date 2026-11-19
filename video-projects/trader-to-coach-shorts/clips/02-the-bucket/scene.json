@@ -935,24 +935,9 @@
    "gain_db": -12
   },
   {
-   "frame": 108,
-   "file": "ui/pop.mp3",
-   "gain_db": -19
-  },
-  {
-   "frame": 117,
-   "file": "ui/pop.mp3",
-   "gain_db": -19
-  },
-  {
-   "frame": 123,
+   "frame": 125,
    "file": "ui/click.wav",
    "gain_db": -12
-  },
-  {
-   "frame": 198,
-   "file": "ui/click.wav",
-   "gain_db": -14
   },
   {
    "frame": 242,
@@ -962,22 +947,7 @@
   {
    "frame": 268,
    "file": "ui/pop.mp3",
-   "gain_db": -16
-  },
-  {
-   "frame": 271,
-   "file": "ui/pop.mp3",
-   "gain_db": -16
-  },
-  {
-   "frame": 274,
-   "file": "ui/pop.mp3",
-   "gain_db": -16
-  },
-  {
-   "frame": 277,
-   "file": "ui/pop.mp3",
-   "gain_db": -16
+   "gain_db": -15
   },
   {
    "frame": 326,
@@ -991,11 +961,6 @@
   },
   {
    "frame": 421,
-   "file": "ui/click.wav",
-   "gain_db": -12
-  },
-  {
-   "frame": 427,
    "file": "ui/click.wav",
    "gain_db": -12
   },
@@ -1015,22 +980,12 @@
    "gain_db": -13
   },
   {
-   "frame": 589,
+   "frame": 587,
    "file": "transitions/whoosh.mp3",
    "gain_db": -18
   },
   {
-   "frame": 612,
-   "file": "ui/pop.mp3",
-   "gain_db": -15
-  },
-  {
    "frame": 650,
-   "file": "ui/click.wav",
-   "gain_db": -12
-  },
-  {
-   "frame": 654,
    "file": "ui/click.wav",
    "gain_db": -12
   },
@@ -1060,12 +1015,7 @@
    "gain_db": -13
   },
   {
-   "frame": 840,
-   "file": "ui/click.wav",
-   "gain_db": -12
-  },
-  {
-   "frame": 846,
+   "frame": 841,
    "file": "ui/click.wav",
    "gain_db": -12
   },
@@ -1075,7 +1025,7 @@
    "gain_db": -17
   },
   {
-   "frame": 886,
+   "frame": 891,
    "file": "ui/click.wav",
    "gain_db": -12
   }
@@ -1198,8 +1148,8 @@
   },
   {
    "frame": 466,
-   "text": "as a hose",
-   "spot": "hero"
+   "text": "as a *hose*",
+   "spot": "chest"
   },
   {
    "frame": 490,
