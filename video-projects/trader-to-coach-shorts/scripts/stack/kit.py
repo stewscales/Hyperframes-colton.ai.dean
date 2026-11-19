@@ -59,7 +59,7 @@ class Scene:
         big = the opening headline: larger, and it lands with a small settle on the first frames."""
         i = sum(1 for x in self.front if 'class="ttl' in x); t = f'#ttl{i}'; cls = 'ttl big' if big else 'ttl'
         fit = lambda txt, size, wt, lim: min(size, int(lim / text_width(txt, 1, wt, -0.03)))        # a long line shrinks to stay inside the frame
-        s1 = fit(line1, 60 if big else 52, 800 if big else 700, 980); s2 = fit(bar, 80 if big else 64, 800, 940)
+        s1 = fit(line1, 60 if big else 52, 800 if big else 700, 900); s2 = fit(bar, 80 if big else 64, 800, 940)
         st1 = f' style="font-size:{s1}px"' if s1 < (60 if big else 52) else ''; st2 = f' style="font-size:{s2}px"' if s2 < (80 if big else 64) else ''
         if f0 == 0:                                         # the opening title is already there on the very first frame (it is the cover frame)
             self.front.append(f'<div id="ttl{i}" class="{cls} on"><div class="t1"{st1}>{esc(line1)}</div><div class="t2"><span{st2}>{esc(bar)}</span></div></div>')

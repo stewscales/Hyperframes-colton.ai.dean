@@ -23,12 +23,12 @@ CLIPS = {
    fix={1789: '"DOC"'}, hl={6, 24, 25, 190, 1789}, hero={24, 1789}, brk={2, 5, 7, 23, 72, 76, 187, 1774, 1776, 1779, 1788, 1790}, wide={92, 1790}),
  '02-the-bucket': dict(
    title='Picture a bucket',
-   snips=[dict(w=(238, 270), start=1884),              # eyes open, 0.1 s before "First"
+   snips=[dict(w=(238, 270), start=1881),              # frame 0 = the last eyes-open frame before he blinks through "First" (1882-1890); 1882+ opens on closed eyes
           dict(w=(749, 774)),
           dict(w=(1378, 1419)),
-          dict(w=(1729, 1745), end=15326)],           # mouth closed, eyes on the lens; he starts the next sentence at 15328
-   tight=dict(min_pause=0.20, keep_after=0.09, keep_before=0.05, min_cut=3),   # polish pass: pauses of 0.2 s+ come down to about 0.14 s
-   hold=20,                                            # the end frame is held 2/3 s so the last graphic can register
+          dict(w=(1729, 1745), end=15320)],           # last frame 15319: "order" is out, eyes still on the lens (he looks down from 15320)
+   tight=dict(min_pause=0.20, keep_after=0.09, keep_before=0.07, min_cut=3),   # polish pass: pauses of 0.2 s+ come down to about 0.16 s (the lead-in to each word is left alone)
+   hold=26,                                            # the end frame is held just under a second so the last graphic can register
    fix={239: "let's", 240: '', 241: '', 259: '30'}, hl={244, 752, 1383, 1733}, hero={1383}, brk={250, 261, 264, 268, 756, 1381, 1731}, wide={756}),
  '03-conversations-yourself': dict(
    title='Have the conversations yourself',

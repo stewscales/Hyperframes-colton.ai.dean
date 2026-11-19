@@ -116,7 +116,7 @@ YB, HW = 313, 172                                       # inside bottom of the b
 Y = lambda L: round(YB - HW * L, 1)                     # y of the water surface at level L (0..1)
 EMPTY = -0.07                                           # empty = the surface (and its ripple) is below the bottom
 FR = F(244)                                             # "bucket": the opening picture wipes clean
-LV = [(0, 0.62), (FR, 0.60), (FR + 16, EMPTY), (F(254), EMPTY), (F(254) + 38, 0.08), (B1 + 6, 0.08), (B1 + 88, 0.62), (F(752) + 2, 0.62), (F(771), 0.50), (F(774) + 2, 0.48),
+LV = [(0, 0.62), (FR, 0.62), (FR + 16, EMPTY), (F(254), EMPTY), (F(254) + 38, 0.08), (B1 + 6, 0.08), (B1 + 88, 0.62), (F(752) + 2, 0.62), (F(771), 0.50), (F(774) + 2, 0.48),
       (F(1387), 0.47), (F(1393) + 12, 0.53), (F(1395) + 6, 0.53), (F(1400) + 14, 0.86), (F(1404), 0.87), (F(1408), 0.97), (F(1413) + 2, 0.97), (C3, 0.62), (FIN, 0.50),
       (F(1742), 0.50), (F(1742) + 32, 0.95)]
 assert all(a[0] < b[0] for a, b in zip(LV, LV[1:])), LV

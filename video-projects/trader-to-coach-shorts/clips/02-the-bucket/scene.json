@@ -7,45 +7,48 @@
    3
   ]
  },
- "hold": 20,
+ "hold": 26,
  "zoom": [
   1.05,
   1.041,
   1.033,
-  1.026,
-  1.0201,
-  1.0151,
-  1.0111,
-  1.0081,
-  1.0061,
-  1.0051,
-  1.0051,
-  1.0056,
+  1.0259,
+  1.0199,
+  1.0149,
+  1.0109,
+  1.0078,
+  1.0058,
+  1.0048,
+  1.0048,
+  1.0052,
+  1.0057,
   1.0062,
   1.0067,
-  1.0072,
-  1.0077,
-  1.0082,
-  1.0087,
-  1.0092,
-  1.0097,
-  1.0103,
-  1.0108,
-  1.0113,
-  1.0118,
-  1.0123,
-  1.0128,
+  1.0071,
+  1.0076,
+  1.0081,
+  1.0086,
+  1.009,
+  1.0095,
+  1.01,
+  1.0105,
+  1.011,
+  1.0114,
+  1.0119,
+  1.0124,
+  1.0129,
   1.0133,
   1.0138,
-  1.0144,
-  1.0149,
-  1.0154,
-  1.0159,
-  1.0164,
-  1.0169,
-  1.0174,
-  1.0179,
-  1.0185,
+  1.0143,
+  1.0148,
+  1.0152,
+  1.0157,
+  1.0162,
+  1.0167,
+  1.0171,
+  1.0176,
+  1.0181,
+  1.0186,
   1.019,
   1.0195,
   1.02,
@@ -351,7 +354,7 @@
   1.0006,
   1.0009,
   1.0012,
-  1.0015,
+  1.0014,
   1.0017,
   1.002,
   1.0023,
@@ -359,84 +362,85 @@
   1.0029,
   1.0032,
   1.0035,
-  1.0038,
-  1.0041,
-  1.0044,
-  1.0047,
-  1.005,
+  1.0037,
+  1.004,
+  1.0043,
+  1.0046,
+  1.0049,
   1.0052,
   1.0055,
   1.0058,
   1.0061,
-  1.0064,
-  1.0067,
-  1.007,
-  1.0073,
-  1.0076,
-  1.0079,
-  1.0082,
+  1.0063,
+  1.0066,
+  1.0069,
+  1.0072,
+  1.0075,
+  1.0078,
+  1.0081,
   1.0084,
   1.0087,
-  1.009,
-  1.0093,
-  1.0096,
-  1.0099,
-  1.0102,
-  1.0105,
-  1.0108,
-  1.0111,
-  1.0114,
-  1.0117,
-  1.0119,
-  1.0122,
-  1.0125,
-  1.0128,
-  1.0131,
-  1.0134,
-  1.0137,
-  1.014,
-  1.0143,
-  1.0146,
-  1.0149,
-  1.0151,
-  1.0154,
-  1.0157,
-  1.016,
-  1.0163,
-  1.0166,
-  1.0169,
-  1.0172,
-  1.0175,
-  1.0178,
-  1.0181,
-  1.0183,
-  1.0186,
-  1.0189,
-  1.0192,
-  1.0195,
-  1.0198,
-  1.0201,
-  1.0204,
-  1.0207,
-  1.021,
+  1.0089,
+  1.0092,
+  1.0095,
+  1.0098,
+  1.0101,
+  1.0104,
+  1.0107,
+  1.011,
+  1.0112,
+  1.0115,
+  1.0118,
+  1.0121,
+  1.0124,
+  1.0127,
+  1.013,
+  1.0133,
+  1.0136,
+  1.0138,
+  1.0141,
+  1.0144,
+  1.0147,
+  1.015,
+  1.0153,
+  1.0156,
+  1.0159,
+  1.0162,
+  1.0164,
+  1.0167,
+  1.017,
+  1.0173,
+  1.0176,
+  1.0179,
+  1.0182,
+  1.0185,
+  1.0188,
+  1.019,
+  1.0193,
+  1.0196,
+  1.0199,
+  1.0202,
+  1.0205,
+  1.0208,
+  1.0211,
   1.0213,
   1.0216,
-  1.0218,
-  1.0221,
-  1.0224,
-  1.0227,
-  1.0378,
-  1.0487,
-  1.0561,
-  1.0607,
-  1.0632,
-  1.0643,
+  1.0219,
+  1.0222,
+  1.0225,
+  1.0228,
+  1.0379,
+  1.0488,
+  1.0562,
+  1.0608,
+  1.0633,
+  1.0644,
   1.0648,
-  1.065,
-  1.0653,
-  1.0656,
-  1.0659,
-  1.0662,
+  1.0651,
+  1.0654,
+  1.0657,
+  1.066,
+  1.0663,
   1.0665,
   1.0668,
   1.0671,
@@ -444,7 +448,7 @@
   1.0677,
   1.068,
   1.0683,
-  1.0685,
+  1.0686,
   1.0706,
   1.0763,
   1.0856,
@@ -702,56 +706,57 @@
   1.0018,
   1.0021,
   1.0024,
-  1.0027,
-  1.003,
-  1.0033,
-  1.0036,
-  1.0039,
-  1.0042,
-  1.0045,
-  1.0048,
-  1.0051,
-  1.0054,
-  1.0057,
-  1.006,
-  1.0063,
-  1.0066,
-  1.0069,
-  1.0072,
-  1.0075,
-  1.0078,
-  1.0081,
-  1.0084,
-  1.0087,
-  1.009,
-  1.0093,
-  1.0096,
-  1.0099,
-  1.0101,
-  1.0104,
-  1.0107,
-  1.011,
-  1.0113,
-  1.0116,
-  1.0119,
-  1.0122,
-  1.0125,
-  1.0128,
-  1.0131,
-  1.0134,
-  1.0137,
-  1.014,
-  1.0328,
-  1.0464,
-  1.0556,
-  1.0613,
+  1.0026,
+  1.0029,
+  1.0032,
+  1.0035,
+  1.0038,
+  1.0041,
+  1.0044,
+  1.0047,
+  1.005,
+  1.0053,
+  1.0056,
+  1.0059,
+  1.0062,
+  1.0065,
+  1.0068,
+  1.0071,
+  1.0074,
+  1.0076,
+  1.0079,
+  1.0082,
+  1.0085,
+  1.0088,
+  1.0091,
+  1.0094,
+  1.0097,
+  1.01,
+  1.0103,
+  1.0106,
+  1.0109,
+  1.0112,
+  1.0115,
+  1.0118,
+  1.0121,
+  1.0124,
+  1.0126,
+  1.0129,
+  1.0132,
+  1.0135,
+  1.0138,
+  1.0141,
+  1.0329,
+  1.0465,
+  1.0557,
+  1.0614,
   1.0644,
   1.0657,
-  1.0661,
-  1.0664,
-  1.0667,
-  1.067,
-  1.0673,
+  1.0662,
+  1.0665,
+  1.0668,
+  1.0671,
+  1.0674,
   1.0676,
   1.0679,
   1.0682,
@@ -920,44 +925,39 @@
  ],
  "sfx": [
   {
-   "frame": 26,
+   "frame": 29,
    "file": "transitions/whoosh.mp3",
    "gain_db": -18
   },
   {
-   "frame": 47,
+   "frame": 50,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 105,
+   "frame": 108,
    "file": "ui/pop.mp3",
    "gain_db": -19
   },
   {
-   "frame": 114,
+   "frame": 117,
    "file": "ui/pop.mp3",
    "gain_db": -19
   },
   {
-   "frame": 120,
+   "frame": 123,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 195,
+   "frame": 198,
    "file": "ui/click.wav",
    "gain_db": -14
   },
   {
-   "frame": 239,
+   "frame": 242,
    "file": "transitions/whoosh.mp3",
    "gain_db": -17
-  },
-  {
-   "frame": 265,
-   "file": "ui/pop.mp3",
-   "gain_db": -16
   },
   {
    "frame": 268,
@@ -975,54 +975,54 @@
    "gain_db": -16
   },
   {
-   "frame": 323,
+   "frame": 277,
+   "file": "ui/pop.mp3",
+   "gain_db": -16
+  },
+  {
+   "frame": 326,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 377,
+   "frame": 381,
    "file": "ui/pop.mp3",
    "gain_db": -14
   },
   {
-   "frame": 417,
+   "frame": 421,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 423,
+   "frame": 427,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 441,
+   "frame": 445,
    "file": "transitions/whoosh.mp3",
    "gain_db": -17
   },
   {
-   "frame": 469,
+   "frame": 473,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 565,
+   "frame": 569,
    "file": "ui/click.wav",
    "gain_db": -13
   },
   {
-   "frame": 585,
+   "frame": 589,
    "file": "transitions/whoosh.mp3",
    "gain_db": -18
   },
   {
-   "frame": 608,
+   "frame": 612,
    "file": "ui/pop.mp3",
    "gain_db": -15
-  },
-  {
-   "frame": 646,
-   "file": "ui/click.wav",
-   "gain_db": -12
   },
   {
    "frame": 650,
@@ -1030,47 +1030,52 @@
    "gain_db": -12
   },
   {
-   "frame": 671,
+   "frame": 654,
+   "file": "ui/click.wav",
+   "gain_db": -12
+  },
+  {
+   "frame": 675,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 698,
+   "frame": 703,
    "file": "ui/pop.mp3",
    "gain_db": -13
   },
   {
-   "frame": 733,
+   "frame": 738,
    "file": "impact/bass-drop.mp3",
    "gain_db": -16
   },
   {
-   "frame": 752,
+   "frame": 757,
    "file": "transitions/whoosh.mp3",
    "gain_db": -17
   },
   {
-   "frame": 815,
+   "frame": 820,
    "file": "ui/pop.mp3",
    "gain_db": -13
   },
   {
-   "frame": 835,
+   "frame": 840,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 841,
+   "frame": 846,
    "file": "ui/click.wav",
    "gain_db": -12
   },
   {
-   "frame": 851,
+   "frame": 856,
    "file": "transitions/whoosh.mp3",
    "gain_db": -17
   },
   {
-   "frame": 881,
+   "frame": 886,
    "file": "ui/click.wav",
    "gain_db": -12
   }
@@ -1082,212 +1087,212 @@
    "spot": "chest"
   },
   {
-   "frame": 16,
+   "frame": 19,
    "text": "picture a *bucket*",
    "spot": "chest"
   },
   {
-   "frame": 40,
+   "frame": 43,
    "text": "Your *business*",
    "spot": "chest"
   },
   {
-   "frame": 60,
+   "frame": 63,
    "text": "is the *bucket*",
    "spot": "chest"
   },
   {
-   "frame": 84,
+   "frame": 87,
    "text": "and then",
    "spot": "chest"
   },
   {
-   "frame": 90,
+   "frame": 93,
    "text": "we have *water*",
    "spot": "chest"
   },
   {
-   "frame": 116,
+   "frame": 119,
    "text": "the water's *people*",
    "spot": "chest"
   },
   {
-   "frame": 146,
+   "frame": 149,
    "text": "First *30 days*",
    "spot": "chest"
   },
   {
-   "frame": 174,
+   "frame": 177,
    "text": "your job is",
    "spot": "chest"
   },
   {
-   "frame": 192,
+   "frame": 195,
    "text": "to *fill* this bucket",
    "spot": "chest"
   },
   {
-   "frame": 218,
+   "frame": 221,
    "text": "with the water",
    "spot": "chest"
   },
   {
-   "frame": 239,
+   "frame": 242,
    "text": "And every bucket",
    "spot": "chest"
   },
   {
-   "frame": 265,
+   "frame": 268,
    "text": "leaks",
    "spot": "hero"
   },
   {
-   "frame": 279,
+   "frame": 282,
    "text": "Yours will too",
    "spot": "chest"
   },
   {
-   "frame": 300,
+   "frame": 303,
    "text": "and that's",
    "spot": "chest"
   },
   {
-   "frame": 309,
+   "frame": 312,
    "text": "completely *normal*",
    "spot": "chest"
   },
   {
-   "frame": 337,
+   "frame": 340,
    "text": "We're not trying",
    "spot": "chest"
   },
   {
-   "frame": 351,
+   "frame": 355,
    "text": "to build a",
    "spot": "chest"
   },
   {
-   "frame": 365,
+   "frame": 369,
    "text": "*perfect* bucket",
    "spot": "chest"
   },
   {
-   "frame": 389,
+   "frame": 393,
    "text": "we're trying to",
    "spot": "chest"
   },
   {
-   "frame": 406,
+   "frame": 410,
    "text": "fill the",
    "spot": "chest"
   },
   {
-   "frame": 417,
+   "frame": 421,
    "text": "*biggest holes*",
    "spot": "chest"
   },
   {
-   "frame": 441,
+   "frame": 445,
    "text": "Think of *ads*",
    "spot": "chest"
   },
   {
-   "frame": 462,
+   "frame": 466,
    "text": "as a hose",
    "spot": "hero"
   },
   {
-   "frame": 486,
+   "frame": 490,
    "text": "Up to now",
    "spot": "chest"
   },
   {
-   "frame": 511,
+   "frame": 515,
    "text": "you've been filling",
    "spot": "chest"
   },
   {
-   "frame": 535,
+   "frame": 539,
    "text": "the bucket",
    "spot": "chest"
   },
   {
-   "frame": 557,
+   "frame": 561,
    "text": "by *hand*",
    "spot": "chest"
   },
   {
-   "frame": 580,
+   "frame": 584,
    "text": "A *hose* does it",
    "spot": "chest"
   },
   {
-   "frame": 605,
+   "frame": 609,
    "text": "a lot *faster*",
    "spot": "chest"
   },
   {
-   "frame": 631,
+   "frame": 635,
    "text": "A hose on",
    "spot": "chest"
   },
   {
-   "frame": 644,
+   "frame": 648,
    "text": "a *good* bucket",
    "spot": "chest"
   },
   {
-   "frame": 663,
+   "frame": 667,
    "text": "that's *great*",
    "spot": "chest"
   },
   {
-   "frame": 684,
+   "frame": 688,
    "text": "A hose on",
    "spot": "chest"
   },
   {
-   "frame": 696,
+   "frame": 701,
    "text": "a *leaky* bucket",
    "spot": "chest"
   },
   {
-   "frame": 722,
+   "frame": 727,
    "text": "we've got a",
    "spot": "chest"
   },
   {
-   "frame": 733,
+   "frame": 738,
    "text": "wet floor",
    "spot": "hero"
   },
   {
-   "frame": 752,
+   "frame": 757,
    "text": "Most people",
    "spot": "chest"
   },
   {
-   "frame": 770,
+   "frame": 775,
    "text": "do it *backwards*",
    "spot": "chest"
   },
   {
-   "frame": 792,
+   "frame": 797,
    "text": "they'll buy",
    "spot": "chest"
   },
   {
-   "frame": 804,
+   "frame": 809,
    "text": "the *hose first*",
    "spot": "chest"
   },
   {
-   "frame": 832,
+   "frame": 837,
    "text": "but now you know",
    "spot": "chest"
   },
   {
-   "frame": 859,
+   "frame": 864,
    "text": "the *right order*",
    "spot": "chest"
   }
