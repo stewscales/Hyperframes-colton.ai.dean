@@ -1,0 +1,131 @@
+{
+ "sfx": [
+  {
+   "frame": 12,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  },
+  {
+   "frame": 44,
+   "file": "ui/pop.mp3",
+   "gain_db": -13
+  },
+  {
+   "frame": 52,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 85,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 99,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 132,
+   "file": "ui/click.wav",
+   "gain_db": -11
+  },
+  {
+   "frame": 185,
+   "file": "ui/click.wav",
+   "gain_db": -10
+  },
+  {
+   "frame": 195,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 221,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 229,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 237,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
+  },
+  {
+   "frame": 309,
+   "file": "impact/bass-drop.mp3",
+   "gain_db": -16
+  },
+  {
+   "frame": 357,
+   "file": "transitions/whoosh.mp3",
+   "gain_db": -15
+  }
+ ],
+ "captions": [
+  {
+   "frame": 0,
+   "text": "Do it",
+   "spot": "chest"
+  },
+  {
+   "frame": 29,
+   "text": "at a time",
+   "spot": "chest"
+  },
+  {
+   "frame": 52,
+   "text": "Add one thing",
+   "spot": "right"
+  },
+  {
+   "frame": 85,
+   "text": "wait",
+   "spot": "left"
+  },
+  {
+   "frame": 99,
+   "text": "check if|it worked",
+   "spot": "chest"
+  },
+  {
+   "frame": 132,
+   "text": "then we add|the next",
+   "spot": "left"
+  },
+  {
+   "frame": 168,
+   "text": "Don't turn on|your ads",
+   "spot": "chest"
+  },
+  {
+   "frame": 211,
+   "text": "hire two,|three people",
+   "spot": "right"
+  },
+  {
+   "frame": 255,
+   "text": "all in the|*same week*",
+   "spot": "chest"
+  },
+  {
+   "frame": 290,
+   "text": "Because if|something breaks",
+   "spot": "chest"
+  },
+  {
+   "frame": 324,
+   "text": "then you're not|going to know",
+   "spot": "left"
+  },
+  {
+   "frame": 345,
+   "text": "what has",
+   "spot": "chest"
+  }
+ ]
+}
