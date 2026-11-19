@@ -58,27 +58,30 @@
     #wi0 { background: rgba(242,239,233,0.16); color: #F2EFE9; }  #wi1 { background: #2F6FED; color: #fff; }
     .wt { position: relative; white-space: nowrap; }
     .strike { position: absolute; left: -6px; right: -6px; top: 54%; height: 4px; border-radius: 2px; background: #F2EFE9; transform-origin: 0 50%; transform: scaleX(0); }
-    .chip { font-weight: 700; font-size: 24px; color: #2F6FED; opacity: 0; }
-    /* the loop */
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 30px; }
-    .st { height: 164px; border-radius: 24px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.12); color: rgba(242,239,233,0.5);
-          display: flex; flex-direction: column; justify-content: center; padding-left: 24px; }
-    .st .num { font-weight: 700; font-size: 24px; letter-spacing: 0.08em; opacity: 0.75; }
-    .st .nm { font-weight: 800; font-size: 46px; letter-spacing: -0.03em; margin-top: 4px; }
-    /* the week */
-    .labs { position: relative; height: 44px; flex: 1; }
-    .labs .lab { position: absolute; left: 0; top: 7px; }
-    .pill { position: absolute; left: 0; top: 0; background: #F2EFE9; color: #0A0A0A; font-weight: 800; font-size: 26px; letter-spacing: -0.01em; padding: 5px 18px 6px; border-radius: 22px; opacity: 0; transform-origin: 0 50%; }
-    .sw { display: flex; align-items: center; gap: 16px; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
-    .swt { width: 92px; height: 48px; border-radius: 24px; background: rgba(242,239,233,0.2); position: relative; }
-    .swk { position: absolute; left: 4px; top: 4px; width: 40px; height: 40px; border-radius: 20px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
-    .days { position: relative; display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 30px; }
-    .day { height: 164px; border-radius: 20px; background: rgba(242,239,233,0.05); border: 2px solid rgba(242,239,233,0.10); display: flex; flex-direction: column; align-items: center; padding-top: 14px; }
-    .dl { font-weight: 700; font-size: 24px; color: rgba(242,239,233,0.5); }
-    .dp { position: relative; margin-top: 22px; width: 96px; height: 58px; border-radius: 16px; background: #2F6FED; color: #fff; font-weight: 800; font-size: 28px; letter-spacing: -0.02em;
-          display: flex; align-items: center; justify-content: center; opacity: 0; }
-    .q { position: absolute; right: -12px; top: -16px; width: 38px; height: 38px; border-radius: 19px; background: #F2EFE9; color: #0A0A0A; font-weight: 900; font-size: 26px; display: flex; align-items: center; justify-content: center; opacity: 0; }
-    .wk { position: absolute; left: -9px; right: -9px; top: -9px; bottom: -9px; border-radius: 28px; border: 3px solid #2F6FED; opacity: 0; }
+    /* the calendar */
+    .card.cal { top: 1244px; height: 352px; padding: 26px 28px; }
+    .chead { position: relative; height: 48px; }
+    .clbl { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 36px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
+    #lblB { opacity: 0; }
+    .dot { width: 16px; height: 16px; border-radius: 8px; display: inline-block; }  .dot.a { background: #2F6FED; }  .dot.b { background: #F2EFE9; }
+    .dlet { display: grid; grid-template-columns: 170px 440px 190px; column-gap: 22px; margin-top: 10px; height: 30px; }
+    .dlet div { display: grid; grid-template-columns: repeat(7, 56px); column-gap: 8px; }
+    .dlet b { text-align: center; font-weight: 700; font-size: 26px; line-height: 30px; color: rgba(242,239,233,0.55); }
+    .rows { position: relative; margin-top: 8px; }
+    .crow { display: grid; grid-template-columns: 170px 440px 190px; column-gap: 22px; height: 60px; margin-bottom: 12px; align-items: center; border-radius: 16px; }
+    #row1, #row2 { opacity: 0.4; }
+    .slot { height: 56px; border-radius: 16px; border: 2px dashed rgba(242,239,233,0.22); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 28px; letter-spacing: -0.02em; color: rgba(242,239,233,0.55); }
+    .cells { position: relative; display: grid; grid-template-columns: repeat(7, 56px); column-gap: 8px; height: 56px; }
+    .cc { position: relative; z-index: 1; border-radius: 14px; background: rgba(242,239,233,0.06); border: 2px solid rgba(242,239,233,0.14); display: flex; align-items: center; justify-content: center; }
+    .tk { opacity: 0; color: #fff; display: flex; }  .tk svg { width: 30px; height: 30px; }
+    .cbar { position: absolute; left: 0; top: 0; width: 440px; height: 56px; border-radius: 16px; background: #2F6FED; transform-origin: 0 50%; opacity: 0; }
+    .okb { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 32px; letter-spacing: -0.03em; color: #fff; opacity: 0; }
+    .okr { width: 40px; height: 40px; border-radius: 20px; background: #2F6FED; color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }  .okr svg { width: 24px; height: 24px; }
+    .chg { position: absolute; left: 0; top: 2px; width: 170px; height: 56px; border-radius: 16px; background: #2F6FED; color: #fff; font-weight: 800; font-size: 32px; letter-spacing: -0.02em;
+           display: flex; align-items: center; justify-content: center; opacity: 0; z-index: 3; box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+    .q { position: absolute; right: -12px; top: -14px; width: 38px; height: 38px; border-radius: 19px; background: #F2EFE9; color: #0A0A0A; font-style: normal; font-weight: 900; font-size: 26px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+    .brk { position: absolute; left: 654px; top: 2px; height: 56px; display: flex; align-items: center; opacity: 0; }
+    .brr { width: 40px; height: 40px; border-radius: 20px; background: #F2EFE9; color: #0A0A0A; display: flex; align-items: center; justify-content: center; }  .brr svg { width: 24px; height: 24px; }
   </style>
 </head>
 <body>
@@ -95,7 +98,6 @@
     <div id="bh3" class="bh" style="top:497px; left:716.0px; font-size:84px; color:#2F6FED"><span id="bh3i" class="bhi">order</span></div>
     <div id="bh4" class="bh" style="top:494px; right:645.0px; font-size:93px; color:#2F6FED"><span id="bh4i" class="bhi">One</span></div>
     <div id="bh5" class="bh" style="top:494px; left:743.0px; font-size:93px; color:#2F6FED"><span id="bh5i" class="bhi">thing</span></div>
-    <div id="bh6" class="bh" style="top:492px; left:696.0px; font-size:96px; color:#2F6FED"><span id="bh6i" class="bhi">broke</span></div>
   </div>
   <div id="front">
     <div id="ttl0" class="ttl on"><div class="t1">Why most trading coaches</div><div class="t2"><span>quit in 90 days</span></div></div>
@@ -127,9 +129,8 @@
     <div id="cap22" class="cap chest"><span class="ln">something <span class="hl">breaks</span></span></div>
     <div id="cap23" class="cap chest"><span class="ln">then you're not</span></div>
     <div id="cap24" class="cap left"><span class="ln">going to know</span></div>
-    <div id="cap25" class="cap chest"><span class="ln">what has</span></div>
-    <div id="loop" class="card"><div class="row"><div class="lab">One change at a time</div><div id="rep" class="chip">&#8635; repeat</div></div><div class="steps"><div id="st0" class="st"><div class="num">01</div><div class="nm">Add</div></div><div id="st1" class="st"><div class="num">02</div><div class="nm">Wait</div></div><div id="st2" class="st"><div class="num">03</div><div class="nm">Check</div></div><div id="st3" class="st"><div class="num">04</div><div class="nm">Next</div></div></div></div>
-    <div id="week" class="card"><div class="row"><div class="labs"><div id="wl" class="lab">Week 1</div><div id="wb" class="pill">Something broke</div></div><div class="sw"><span>Ads</span><div id="swt" class="swt"><div id="swk" class="swk"></div></div></div></div><div id="days" class="days"><div class="day"><div class="dl">M</div><div id="dp0" class="dp">Ads<span id="q0" class="q">?</span></div></div><div class="day"><div class="dl">T</div><div id="dp1" class="dp">Hire<span id="q1" class="q">?</span></div></div><div class="day"><div class="dl">W</div><div id="dp2" class="dp">Hire<span id="q2" class="q">?</span></div></div><div class="day"><div class="dl">T</div><div id="dp3" class="dp">Hire<span id="q3" class="q">?</span></div></div><div class="day"><div class="dl">F</div></div><div class="day"><div class="dl">S</div></div><div class="day"><div class="dl">S</div></div><div id="wk" class="wk"></div></div></div>
+    <div id="cap25" class="cap chest"><span class="ln">what has <span class="hl">broke</span></span></div>
+    <div id="cal" class="card cal"><div class="chead"><div id="lblA" class="clbl"><i class="dot a"></i>One thing at a time</div><div id="lblB" class="clbl"><i class="dot b"></i>All in the same week</div></div><div class="dlet"><span></span><div><b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b></div><span></span></div><div class="rows"><div id="row0" class="crow"><div class="slot">Week 1</div><div class="cells"><div id="bar0" class="cbar"></div><div id="c00" class="cc cr0"><span id="t00" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c01" class="cc cr0"><span id="t01" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c02" class="cc cr0"><span id="t02" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c03" class="cc cr0"><span id="t03" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c04" class="cc cr0"><span id="t04" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c05" class="cc cr0"><span id="t05" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c06" class="cc cr0"><span id="t06" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div></div><div id="ok0" class="okb"><span class="okr"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>Stable</div></div><div id="row1" class="crow"><div class="slot">Week 2</div><div class="cells"><div id="bar1" class="cbar"></div><div id="c10" class="cc cr1"><span id="t10" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c11" class="cc cr1"><span id="t11" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c12" class="cc cr1"><span id="t12" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c13" class="cc cr1"><span id="t13" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c14" class="cc cr1"><span id="t14" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c15" class="cc cr1"><span id="t15" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c16" class="cc cr1"><span id="t16" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div></div><div id="ok1" class="okb"><span class="okr"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>Stable</div></div><div id="row2" class="crow"><div class="slot">Week 3</div><div class="cells"><div id="bar2" class="cbar"></div><div id="c20" class="cc cr2"><span id="t20" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c21" class="cc cr2"><span id="t21" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c22" class="cc cr2"><span id="t22" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c23" class="cc cr2"><span id="t23" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c24" class="cc cr2"><span id="t24" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c25" class="cc cr2"><span id="t25" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div><div id="c26" class="cc cr2"><span id="t26" class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></div></div><div id="ok2" class="okb"><span class="okr"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.6 4.6L19 7.6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>Stable</div></div><div id="a0" class="chg">Ads</div><div id="a1" class="chg" style="top:72px">Hire</div><div id="x0" class="chg">Ads<i id="xq0" class="q">?</i></div><div id="x1" class="chg" style="left:192px">Hire<i id="xq1" class="q">?</i></div><div id="x2" class="chg" style="left:384px">Hire<i id="xq2" class="q">?</i></div><div id="brk" class="brk"><span class="brr"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/></svg></span></div></div></div>
   </div>
 
   <script>
@@ -318,61 +319,132 @@
     tl.to("#bh5", { x: -41.0, duration: 0.1000, ease: "none" }, 8.3323);
     tl.set("#bh5", { x: -20.0 }, 8.4657);
     tl.to("#bh5", { x: -16.0, duration: 0.1000, ease: "none" }, 8.4657);
-    tl.set("#bh6", { opacity: 1 }, 18.6323);
-    tl.fromTo("#bh6i", { x: -90, scale: 0.86 }, { x: 0, scale: 1, duration: 0.34, ease: "back.out(1.6)", immediateRender: false }, 18.6323);
-    tl.to("#bh6", { x: 1.0, duration: 0.1000, ease: "none" }, 18.499);
-    tl.to("#bh6", { x: -3.0, duration: 0.1000, ease: "none" }, 18.599);
-    tl.to("#bh6", { x: -7.0, duration: 0.1000, ease: "none" }, 18.699);
-    tl.to("#bh6", { x: -8.0, duration: 0.1000, ease: "none" }, 18.799);
-    tl.to("#bh6", { x: -5.0, duration: 0.1000, ease: "none" }, 18.899);
-    tl.to("#bh6", { x: -3.0, duration: 0.1000, ease: "none" }, 18.999);
-    tl.to("#bh6", { x: -2.0, duration: 0.1000, ease: "none" }, 19.099);
-    tl.set("#loop", { opacity: 1 }, 8.199);
-    tl.fromTo("#loop", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.32, ease: "back.out(1.4)", immediateRender: false }, 8.199);
-    tl.to("#st0", { backgroundColor: "#2F6FED", borderColor: "#2F6FED", color: "#ffffff", duration: 0.12, ease: "power2.out" }, 8.4657);
-    tl.fromTo("#st0", { scale: 0.92 }, { scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }, 8.4657);
-    tl.to("#st0", { backgroundColor: "rgba(242,239,233,0.10)", borderColor: "rgba(242,239,233,0.30)", color: "#F2EFE9", duration: 0.16, ease: "power2.out" }, 9.5657);
-    tl.to("#st1", { backgroundColor: "#2F6FED", borderColor: "#2F6FED", color: "#ffffff", duration: 0.12, ease: "power2.out" }, 9.5657);
-    tl.fromTo("#st1", { scale: 0.92 }, { scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }, 9.5657);
-    tl.to("#st1", { backgroundColor: "rgba(242,239,233,0.10)", borderColor: "rgba(242,239,233,0.30)", color: "#F2EFE9", duration: 0.16, ease: "power2.out" }, 10.0323);
-    tl.to("#st2", { backgroundColor: "#2F6FED", borderColor: "#2F6FED", color: "#ffffff", duration: 0.12, ease: "power2.out" }, 10.0323);
-    tl.fromTo("#st2", { scale: 0.92 }, { scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }, 10.0323);
-    tl.to("#st2", { backgroundColor: "rgba(242,239,233,0.10)", borderColor: "rgba(242,239,233,0.30)", color: "#F2EFE9", duration: 0.16, ease: "power2.out" }, 11.1323);
-    tl.to("#st3", { backgroundColor: "#2F6FED", borderColor: "#2F6FED", color: "#ffffff", duration: 0.12, ease: "power2.out" }, 11.1323);
-    tl.fromTo("#st3", { scale: 0.92 }, { scale: 1, duration: 0.26, ease: "back.out(2.4)", immediateRender: false }, 11.1323);
-    tl.fromTo("#rep", { opacity: 0, x: 14 }, { opacity: 1, x: 0, duration: 0.2, ease: "power3.out", immediateRender: false }, 11.8323);
-    tl.to("#loop", { opacity: 0, y: 24, duration: 0.12, ease: "power2.in" }, 12.1657);
-    tl.set("#week", { opacity: 1 }, 12.3323);
-    tl.fromTo("#week", { y: 40, scale: 0.97 }, { y: 0, scale: 1, duration: 0.26, ease: "power3.out", immediateRender: false }, 12.3323);
-    tl.to("#swk", { x: 44, duration: 0.16, ease: "power2.inOut" }, 12.899);
-    tl.to("#swt", { backgroundColor: "#2F6FED", duration: 0.16, ease: "power2.inOut" }, 12.899);
-    tl.set("#dp0", { opacity: 1 }, 13.2323);
-    tl.fromTo("#dp0", { y: -46, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 13.2323);
-    tl.set("#dp1", { opacity: 1 }, 14.099);
-    tl.fromTo("#dp1", { y: -46, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.099);
-    tl.set("#dp2", { opacity: 1 }, 14.3657);
-    tl.fromTo("#dp2", { y: -46, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.3657);
-    tl.set("#dp3", { opacity: 1 }, 14.6323);
-    tl.fromTo("#dp3", { y: -46, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.6323);
-    tl.fromTo("#wk", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power3.out", immediateRender: false }, 15.6657);
-    tl.to("#wl", { color: "#2F6FED", duration: 0.2 }, 15.6657);
-    tl.to("#wl", { opacity: 0, duration: 0.08 }, 17.0323);
-    tl.fromTo("#wb", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2.2)", immediateRender: false }, 17.0323);
-    tl.to("#wk", { borderColor: "rgba(242,239,233,0.85)", duration: 0.12 }, 17.0323);
-    tl.to("#week", { x: -11, duration: 0.05, ease: "power1.inOut" }, 17.0323);
-    tl.to("#week", { x: 10, duration: 0.05, ease: "power1.inOut" }, 17.0823);
-    tl.to("#week", { x: -7, duration: 0.05, ease: "power1.inOut" }, 17.1323);
-    tl.to("#week", { x: 5, duration: 0.05, ease: "power1.inOut" }, 17.1823);
-    tl.to("#week", { x: -2, duration: 0.05, ease: "power1.inOut" }, 17.2323);
-    tl.to("#week", { x: 0, duration: 0.05, ease: "power1.inOut" }, 17.2823);
-    tl.fromTo("#q0", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }, 17.5323);
-    tl.to("#dp0", { backgroundColor: "rgba(242,239,233,0.14)", color: "#F2EFE9", duration: 0.15 }, 17.5323);
-    tl.fromTo("#q1", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }, 17.6657);
-    tl.to("#dp1", { backgroundColor: "rgba(242,239,233,0.14)", color: "#F2EFE9", duration: 0.15 }, 17.6657);
-    tl.fromTo("#q2", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }, 17.799);
-    tl.to("#dp2", { backgroundColor: "rgba(242,239,233,0.14)", color: "#F2EFE9", duration: 0.15 }, 17.799);
-    tl.fromTo("#q3", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(3)", immediateRender: false }, 17.9323);
-    tl.to("#dp3", { backgroundColor: "rgba(242,239,233,0.14)", color: "#F2EFE9", duration: 0.15 }, 17.9323);
+    tl.set("#cal", { opacity: 1 }, 8.199);
+    tl.fromTo("#cal", { y: 44, scale: 0.96 }, { y: 0, scale: 1, duration: 0.32, ease: "back.out(1.4)", immediateRender: false }, 8.199);
+    tl.set("#a0", { opacity: 1 }, 8.4657);
+    tl.fromTo("#a0", { y: -34, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 8.4657);
+    tl.fromTo("#t00", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.5657);
+    tl.to("#c00", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.5657);
+    tl.fromTo("#t01", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.6324);
+    tl.to("#c01", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.6324);
+    tl.fromTo("#t02", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.699);
+    tl.to("#c02", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.699);
+    tl.fromTo("#t03", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.7657);
+    tl.to("#c03", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.7657);
+    tl.fromTo("#t04", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.8324);
+    tl.to("#c04", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.8324);
+    tl.fromTo("#t05", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.899);
+    tl.to("#c05", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.899);
+    tl.fromTo("#t06", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 9.9657);
+    tl.to("#c06", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 9.9657);
+    tl.set("#bar0", { opacity: 1 }, 10.099);
+    tl.fromTo("#bar0", { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power3.inOut", immediateRender: false }, 10.099);
+    tl.to(".cr0", { backgroundColor: "rgba(47,111,237,0)", borderColor: "rgba(47,111,237,0)", duration: 0.14 }, 10.2323);
+    tl.fromTo("#ok0", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "back.out(2)", immediateRender: false }, 10.2657);
+    tl.to("#row1", { opacity: 1, duration: 0.2, ease: "power2.out" }, 11.1323);
+    tl.set("#a1", { opacity: 1 }, 11.199);
+    tl.fromTo("#a1", { y: -34, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 11.199);
+    tl.fromTo("#t10", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 11.699);
+    tl.to("#c10", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 11.699);
+    tl.fromTo("#t11", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 11.799);
+    tl.to("#c11", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 11.799);
+    tl.fromTo("#t12", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 11.899);
+    tl.to("#c12", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 11.899);
+    tl.fromTo("#t13", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 11.999);
+    tl.to("#c13", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 11.999);
+    tl.to("#row0 .tk, #bar0, #ok0", { opacity: 0, duration: 0.14, ease: "power2.in" }, 12.1657);
+    tl.to(".cr0", { backgroundColor: "rgba(242,239,233,0.06)", borderColor: "rgba(242,239,233,0.14)", duration: 0.14 }, 12.1657);
+    tl.to("#row1 .tk, #bar1, #ok1", { opacity: 0, duration: 0.14, ease: "power2.in" }, 12.1657);
+    tl.to(".cr1", { backgroundColor: "rgba(242,239,233,0.06)", borderColor: "rgba(242,239,233,0.14)", duration: 0.14 }, 12.1657);
+    tl.to("#a0, #a1", { opacity: 0, y: -16, duration: 0.14, ease: "power2.in" }, 12.1657);
+    tl.to("#row1", { opacity: 0.4, duration: 0.2, ease: "power2.out" }, 12.1657);
+    tl.to("#lblA", { opacity: 0, y: -10, duration: 0.14, ease: "power2.in" }, 12.1657);
+    tl.fromTo("#lblB", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out", immediateRender: false }, 12.3323);
+    tl.set("#x0", { opacity: 1 }, 13.2323);
+    tl.fromTo("#x0", { y: -34, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 13.2323);
+    tl.set("#x1", { opacity: 1 }, 13.7657);
+    tl.fromTo("#x1", { y: -34, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 13.7657);
+    tl.set("#x2", { opacity: 1 }, 14.3657);
+    tl.fromTo("#x2", { y: -34, scale: 0.8 }, { y: 0, scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 14.3657);
+    tl.to("#row0", { backgroundColor: "rgba(242,239,233,0.07)", boxShadow: "0 0 0 3px rgba(242,239,233,0.55)", duration: 0.22, ease: "power2.out" }, 15.6657);
+    tl.fromTo("#brk", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(2.6)", immediateRender: false }, 17.0323);
+    tl.to("#cal", { x: -12, duration: 0.05, ease: "power1.inOut" }, 17.0323);
+    tl.to("#cal", { x: 10, duration: 0.05, ease: "power1.inOut" }, 17.0823);
+    tl.to("#cal", { x: -7, duration: 0.05, ease: "power1.inOut" }, 17.1323);
+    tl.to("#cal", { x: 5, duration: 0.05, ease: "power1.inOut" }, 17.1823);
+    tl.to("#cal", { x: -2, duration: 0.05, ease: "power1.inOut" }, 17.2323);
+    tl.to("#cal", { x: 0, duration: 0.05, ease: "power1.inOut" }, 17.2823);
+    tl.fromTo("#xq0", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(3)", immediateRender: false }, 17.5323);
+    tl.to("#x0", { backgroundColor: "#3A3B40", duration: 0.12 }, 17.5323);
+    tl.fromTo("#xq1", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(3)", immediateRender: false }, 17.599);
+    tl.to("#x1", { backgroundColor: "#3A3B40", duration: 0.12 }, 17.599);
+    tl.fromTo("#xq2", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(3)", immediateRender: false }, 17.6656);
+    tl.to("#x2", { backgroundColor: "#3A3B40", duration: 0.12 }, 17.6656);
+    tl.to("#xq0, #xq1, #xq2, #brk", { opacity: 0, scale: 0.6, duration: 0.12, ease: "power2.in" }, 17.799);
+    tl.to("#row0", { backgroundColor: "rgba(242,239,233,0)", boxShadow: "0 0 0 3px rgba(242,239,233,0)", duration: 0.16 }, 17.799);
+    tl.to("#lblB", { opacity: 0, y: -10, duration: 0.12, ease: "power2.in" }, 17.799);
+    tl.fromTo("#lblA", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out", immediateRender: false }, 17.899);
+    tl.to("#x0, #x1, #x2", { backgroundColor: "#2F6FED", duration: 0.16 }, 17.799);
+    tl.to("#x1", { x: -192, y: 72, duration: 0.3, ease: "power3.inOut" }, 17.8323);
+    tl.to("#x2", { x: -384, y: 144, duration: 0.32, ease: "power3.inOut" }, 17.8657);
+    tl.to("#row1", { opacity: 1, duration: 0.2, ease: "power2.out" }, 17.899);
+    tl.to("#row2", { opacity: 1, duration: 0.2, ease: "power2.out" }, 17.9657);
+    tl.fromTo("#t00", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 17.999);
+    tl.to("#c00", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 17.999);
+    tl.fromTo("#t01", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.0323);
+    tl.to("#c01", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.0323);
+    tl.fromTo("#t02", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.0657);
+    tl.to("#c02", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.0657);
+    tl.fromTo("#t03", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.099);
+    tl.to("#c03", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.099);
+    tl.fromTo("#t04", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.1323);
+    tl.to("#c04", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.1323);
+    tl.fromTo("#t05", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.1657);
+    tl.to("#c05", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.1657);
+    tl.fromTo("#t06", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.199);
+    tl.to("#c06", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.199);
+    tl.set("#bar0", { opacity: 1 }, 18.199);
+    tl.fromTo("#bar0", { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power3.inOut", immediateRender: false }, 18.199);
+    tl.to(".cr0", { backgroundColor: "rgba(47,111,237,0)", borderColor: "rgba(47,111,237,0)", duration: 0.14 }, 18.3323);
+    tl.fromTo("#ok0", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "back.out(2)", immediateRender: false }, 18.3657);
+    tl.fromTo("#t10", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.1323);
+    tl.to("#c10", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.1323);
+    tl.fromTo("#t11", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.1656);
+    tl.to("#c11", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.1656);
+    tl.fromTo("#t12", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.199);
+    tl.to("#c12", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.199);
+    tl.fromTo("#t13", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.2323);
+    tl.to("#c13", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.2323);
+    tl.fromTo("#t14", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.2656);
+    tl.to("#c14", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.2656);
+    tl.fromTo("#t15", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.299);
+    tl.to("#c15", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.299);
+    tl.fromTo("#t16", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.3323);
+    tl.to("#c16", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.3323);
+    tl.set("#bar1", { opacity: 1 }, 18.3323);
+    tl.fromTo("#bar1", { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power3.inOut", immediateRender: false }, 18.3323);
+    tl.to(".cr1", { backgroundColor: "rgba(47,111,237,0)", borderColor: "rgba(47,111,237,0)", duration: 0.14 }, 18.4656);
+    tl.fromTo("#ok1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "back.out(2)", immediateRender: false }, 18.499);
+    tl.fromTo("#t20", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.2323);
+    tl.to("#c20", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.2323);
+    tl.fromTo("#t21", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.2656);
+    tl.to("#c21", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.2656);
+    tl.fromTo("#t22", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.299);
+    tl.to("#c22", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.299);
+    tl.fromTo("#t23", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.3323);
+    tl.to("#c23", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.3323);
+    tl.fromTo("#t24", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.3656);
+    tl.to("#c24", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.3656);
+    tl.fromTo("#t25", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.399);
+    tl.to("#c25", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.399);
+    tl.fromTo("#t26", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2.6)", immediateRender: false }, 18.4323);
+    tl.to("#c26", { backgroundColor: "rgba(47,111,237,0.30)", borderColor: "rgba(47,111,237,0.75)", duration: 0.14 }, 18.4323);
+    tl.set("#bar2", { opacity: 1 }, 18.4323);
+    tl.fromTo("#bar2", { scaleX: 0 }, { scaleX: 1, duration: 0.24, ease: "power3.inOut", immediateRender: false }, 18.4323);
+    tl.to(".cr2", { backgroundColor: "rgba(47,111,237,0)", borderColor: "rgba(47,111,237,0)", duration: 0.14 }, 18.5656);
+    tl.fromTo("#ok2", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.2, ease: "back.out(2)", immediateRender: false }, 18.599);
+    tl.to("#cal", { borderColor: "rgba(47,111,237,0.8)", boxShadow: "0 26px 70px rgba(0,0,0,0.55), 0 0 64px rgba(47,111,237,0.38)", duration: 0.3, ease: "power2.out" }, 18.5323);
+    tl.fromTo("#cal", { scale: 1 }, { scale: 1.018, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, 18.5323);
     tl.set({}, {}, 19.2333);
     window.__timelines["t2c-short-08-one-thing-at-a-time"] = tl;
   </script>

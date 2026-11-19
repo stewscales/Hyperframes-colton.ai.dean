@@ -42,22 +42,17 @@
   {
    "frame": 287,
    "file": "ui/click.wav",
-   "gain_db": -11
+   "gain_db": -13
   },
   {
-   "frame": 301,
+   "frame": 303,
    "file": "ui/click.wav",
    "gain_db": -11
   },
   {
-   "frame": 334,
-   "file": "ui/click.wav",
-   "gain_db": -11
-  },
-  {
-   "frame": 387,
-   "file": "ui/click.wav",
-   "gain_db": -10
+   "frame": 336,
+   "file": "ui/pop.mp3",
+   "gain_db": -14
   },
   {
    "frame": 397,
@@ -65,7 +60,7 @@
    "gain_db": -14
   },
   {
-   "frame": 423,
+   "frame": 413,
    "file": "ui/pop.mp3",
    "gain_db": -14
   },
@@ -75,19 +70,24 @@
    "gain_db": -14
   },
   {
-   "frame": 439,
-   "file": "ui/pop.mp3",
-   "gain_db": -14
-  },
-  {
    "frame": 511,
    "file": "impact/bass-drop.mp3",
    "gain_db": -16
   },
   {
-   "frame": 559,
-   "file": "transitions/whoosh.mp3",
-   "gain_db": -15
+   "frame": 546,
+   "file": "ui/click.wav",
+   "gain_db": -12
+  },
+  {
+   "frame": 550,
+   "file": "ui/click.wav",
+   "gain_db": -13
+  },
+  {
+   "frame": 553,
+   "file": "ui/click.wav",
+   "gain_db": -14
   }
  ],
  "captions": [
@@ -218,7 +218,7 @@
   },
   {
    "frame": 547,
-   "text": "what has",
+   "text": "what has *broke*",
    "spot": "chest"
   }
  ]
