@@ -5,12 +5,7 @@
  },
  "sfx": [
   {
-   "frame": 40,
-   "file": "ui/pop.mp3",
-   "gain_db": -13
-  },
-  {
-   "frame": 70,
+   "frame": 76,
    "file": "transitions/whoosh.mp3",
    "gain_db": -15
   },
@@ -103,33 +98,33 @@
   },
   {
    "frame": 23,
-   "text": "who try|coaching",
-   "spot": "right"
+   "text": "who try coaching",
+   "spot": "chest"
   },
   {
    "frame": 47,
-   "text": "will quit",
+   "text": "will *quit*",
    "spot": "chest"
   },
   {
    "frame": 61,
    "text": "in the first",
-   "spot": "left"
+   "spot": "chest"
   },
   {
    "frame": 97,
-   "text": "it's not|because",
-   "spot": "left"
+   "text": "it's not because",
+   "spot": "chest"
   },
   {
    "frame": 113,
-   "text": "they can't trade",
+   "text": "they *can't trade*",
    "spot": "chest"
   },
   {
    "frame": 133,
-   "text": "they just|build",
-   "spot": "right"
+   "text": "they just build",
+   "spot": "chest"
   },
   {
    "frame": 158,
@@ -148,47 +143,77 @@
   },
   {
    "frame": 254,
-   "text": "Add one thing",
-   "spot": "right"
+   "text": "*Add* one thing",
+   "spot": "chest"
   },
   {
    "frame": 287,
-   "text": "wait",
-   "spot": "left"
+   "text": "*wait*",
+   "spot": "chest"
   },
   {
    "frame": 301,
-   "text": "check if|it worked",
+   "text": "*check* if it worked",
    "spot": "chest"
   },
   {
    "frame": 334,
-   "text": "then we add|the next",
-   "spot": "left"
+   "text": "then we add",
+   "spot": "chest"
+  },
+  {
+   "frame": 351,
+   "text": "the *next*",
+   "spot": "chest"
   },
   {
    "frame": 370,
-   "text": "Don't turn on|your ads",
+   "text": "Don't turn on",
+   "spot": "chest"
+  },
+  {
+   "frame": 390,
+   "text": "your *ads*",
    "spot": "chest"
   },
   {
    "frame": 413,
-   "text": "hire two,|three people",
+   "text": "*hire* two,",
+   "spot": "chest"
+  },
+  {
+   "frame": 431,
+   "text": "three people",
    "spot": "right"
   },
   {
    "frame": 457,
-   "text": "all in the|*same week*",
+   "text": "all in the",
+   "spot": "chest"
+  },
+  {
+   "frame": 470,
+   "text": "*same week*",
    "spot": "chest"
   },
   {
    "frame": 492,
-   "text": "Because if|something breaks",
+   "text": "Because if",
+   "spot": "chest"
+  },
+  {
+   "frame": 501,
+   "text": "something *breaks*",
    "spot": "chest"
   },
   {
    "frame": 526,
-   "text": "then you're not|going to know",
+   "text": "then you're not",
+   "spot": "chest"
+  },
+  {
+   "frame": 535,
+   "text": "going to know",
    "spot": "left"
   },
   {

@@ -60,6 +60,7 @@ class Scene:
         for i, c in enumerate(items):
             f, text, spot = c[:3]; end = c[3] if len(c) > 3 else (items[i + 1][0] if i + 1 < len(items) else None)
             side = spot in ('left', 'right')                    # nothing may run off the frame or into his face
+            assert not (side and '*' in text), f'blue words only at the chest (they do not read over the wall): {text!r}'
             for ln in text.replace('*', '').split('|'):
                 w = text_width(ln, 46 if side else 52, 800 if side else 700, -0.03); assert w <= (360 if side else 980), f'caption line too wide for the {spot} spot ({w:.0f}px): {ln!r}'
             self.front.append(f'<div id="cap{i}" class="cap {spot}"' + (' style="opacity:1"' if f == 0 else '') + f'>{rich(text)}</div>')
@@ -119,11 +120,11 @@ class Scene:
     .hl {{ color: {BLUE}; }}
     .ln {{ display: block; white-space: nowrap; }}
     /* pinned title */
-    .ttl {{ position: absolute; left: 0; width: {CW}px; top: {PY - 172}px; text-align: center; opacity: 0; }}
-    .ttl .t1 {{ font-weight: 600; font-size: 44px; letter-spacing: -0.02em; color: {BONE}; opacity: 0; }}
+    .ttl {{ position: absolute; left: 0; width: {CW}px; top: {PY - 196}px; text-align: center; opacity: 0; }}
+    .ttl .t1 {{ font-weight: 700; font-size: 52px; letter-spacing: -0.025em; color: {BONE}; opacity: 0; }}
     .ttl .t2 {{ margin-top: 10px; transform-origin: 50% 50%; opacity: 0; }}
     .ttl.on, .ttl.on .t1, .ttl.on .t2 {{ opacity: 1; }}
-    .ttl .t2 span {{ display: inline-block; background: {BLUE}; color: #fff; font-weight: 800; font-size: 50px; letter-spacing: -0.025em; padding: 6px 22px 8px; border-radius: 10px; }}
+    .ttl .t2 span {{ display: inline-block; background: {BLUE}; color: #fff; font-weight: 800; font-size: 64px; letter-spacing: -0.03em; padding: 6px 26px 10px; border-radius: 12px; }}
     /* captions */
     .cap {{ position: absolute; font-weight: 700; font-size: 52px; line-height: 1.12; letter-spacing: -0.03em; color: #fff; text-align: center; opacity: 0;
            text-shadow: 0 2px 5px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.55), 0 0 46px rgba(0,0,0,0.4); }}
