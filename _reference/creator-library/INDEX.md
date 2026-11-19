@@ -72,6 +72,30 @@ Videos downloaded via SnapInsta — metadata stripped, identities inferred from 
 
 ---
 
+## iamajene — Ajené Pinnock
+- **Handle**: @iamajene
+- **Niche**: Video editing with AI / creator workflow
+- **Platform**: Instagram Reels
+- **Videos studied**: 1 (`entire-video-is-claude-no-timeline`)
+- **Style distilled**: No (need 3+ videos)
+- **Key signature**: Small quiet captions + one oversized italic-serif accent word per sentence; UI props that show the noun on the word; pinned title; full-screen checklist beat; no zooms
+- **Path**: `iamajene/`
+- **Note**: Sent by Jude 2026-11-19 as the quality bar for the Trader to Coach shorts
+
+---
+
+## tenfoldmarc — Marc Cleroux
+- **Handle**: @tenfoldmarc
+- **Niche**: AI tips for non-technical creators
+- **Platform**: Instagram Reels
+- **Videos studied**: 1 (`claude-video-edits-number-14`)
+- **Style distilled**: No (need 3+ videos)
+- **Key signature**: Pinned headline + progress list that lights up item by item; fixed slot swapping content per item with an n/N counter; CTA as a UI mock
+- **Path**: `tenfoldmarc/`
+- **Note**: Sent by Jude 2026-11-19 as the quality bar for the Trader to Coach shorts. A third link from the same message (reel De2SEI7JP8r) could not be downloaded: restricted audience / login required.
+
+---
+
 ## Cross-creator patterns (what Stew wanted to learn)
 
 Based on all 5 reels, these are the shared moves Stew selected as reference:
