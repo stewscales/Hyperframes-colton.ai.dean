@@ -11,7 +11,7 @@ describes, on the word he says it, with one short label beside it per step. Soun
                 with a splash, the surface churns, the level races up
                 on a good bucket (every hole patched) it fills to the brim and the bucket glows: tick
                 on a leaky bucket the patches come off, it gushes, the glow goes, the puddle spreads: cross (hero WET FLOOR)
-  THE ENDING    "backwards": 1 Hose (cross), 2 Bucket. Then the takeaway takes the headline, in the biggest type of the reel,
+  THE ENDING    on "backwards" the order most people use lands: 1 Hose, 2 Bucket; cross on "the hose first". Then the takeaway takes the headline, in the biggest type of the reel,
                 and the bucket comes back to the centre of the card, the mirror of the opening shot:
                 "FIX THE BUCKET." (hose off, every hole patched, floor dries)
                 "THEN TURN ON THE HOSE." (hose on, it fills to the brim, glow). The end frame is held (clips.py: hold).
@@ -143,8 +143,8 @@ BODY = 'M47,128 L283,128 L253,310 Q252,318 244,318 L86,318 Q78,318 77,310 Z'
 # the reel opens on the punchline picture: hose on, every hole open and gushing, a wet floor (so these start visible)
 svg = ['<svg id="bk" class="bk" viewBox="0 0 330 352" width="330" height="352">',
        '<defs><clipPath id="bkclip"><path d="M52,138 L278,138 L249,309 Q248,313 243,313 L87,313 Q82,313 81,309 Z"/></clipPath>'
-       f'<radialGradient id="glg"><stop offset="0.35" stop-color="{BLUE}" stop-opacity="0.42"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient></defs>',
-       '<ellipse id="glw" cx="165" cy="222" rx="236" ry="196" fill="url(#glg)" opacity="0"/>',                             # a good bucket glows
+       f'<radialGradient id="glg"><stop offset="0.4" stop-color="{BLUE}" stop-opacity="0.4"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient></defs>',
+       '<ellipse id="glw" cx="165" cy="224" rx="196" ry="168" fill="url(#glg)" opacity="0"/>',                             # a good bucket glows
        '<path d="M-14,322 H344" stroke="rgba(242,239,233,0.14)" stroke-width="1.6" stroke-linecap="round"/>',                   # the floor
        f'<g id="pud"><ellipse cx="165" cy="325" rx="150" ry="11" fill="{BLUE}"/><ellipse cx="150" cy="322" rx="90" ry="3.5" fill="rgba(255,255,255,0.28)"/></g>',
        f'<path d="{BODY}" fill="#1B1C21"/>',
@@ -307,9 +307,8 @@ cross('#e1k', fw, snd=0); s.sound(fw, 'impact/bass-drop.mp3', -16); warn('#e1', 
 # ================= BACKWARDS =================
 fbk = F(1733)                                         # "backwards"
 swap('#pE', '#pF', fbk)
-row('#f0', F(1737))                                   # "the hose first"
-cross('#fx', F(1738), snd=-13); warn('#f0', F(1738))
-row('#f1', F(1738), 5)
+row('#f0', fbk, 2); row('#f1', fbk, 6)                # the order most people use: 1 hose, 2 bucket
+cross('#fx', F(1738), snd=-13); warn('#f0', F(1738))  # "the hose first": that is the mistake
 
 # ================= THE TAKEAWAY: FIX THE BUCKET. / THEN TURN ON THE HOSE. =================
 swap('#pF', None, FIN)
