@@ -29,19 +29,20 @@ def offset(t):
     for j in range(k, k + 70):
         if SIL[j:j + 5].all(): return j / 100, True
     return t, False
-def pauses(t0, t1):
+def pauses(t0, t1, min_pause=MIN_PAUSE):
     out = []; k0, k1 = int(t0 * 100), int(t1 * 100); j = k0
     while j < k1:
         if SIL[j]:
             e = j
             while e < k1 and SIL[e]: e += 1
-            if (e - j) / 100 >= MIN_PAUSE: out.append((j / 100, e / 100))
+            if (e - j) / 100 >= min_pause: out.append((j / 100, e / 100))
             j = e
         else: j += 1
     return out
 
 def build(cid):
     C = CLIPS[cid]; pieces = []; warn = []; snip_of = []
+    tp = C.get('tight', {}); KA, KB, MP = tp.get('keep_after', KEEP_AFTER), tp.get('keep_before', KEEP_BEFORE), tp.get('min_pause', MIN_PAUSE)   # a clip can ask for tighter pauses
     for si, s in enumerate(C['snips']):
         i, j = s['w']; last = si == len(C['snips']) - 1
         on, ok = onset(WORDS[i]['start']);  off, ok2 = offset(WORDS[j]['end'])
@@ -60,15 +61,15 @@ def build(cid):
             b = int(math.ceil(min(want, e - 0.03) * FPS))
             if last and e - off < 0.28: warn.append(f'last snippet: only {e - off:.2f}s of pause after the last word')
         cuts = []
-        for ps, pe in pauses(a / FPS, (tail['cut'] if last and tail else off)):
-            ca = int(math.ceil((ps + KEEP_AFTER) * FPS)); cb = int(math.floor((pe - KEEP_BEFORE) * FPS))
+        for ps, pe in pauses(a / FPS, (tail['cut'] if last and tail else off), MP):
+            ca = int(math.ceil((ps + KA) * FPS)); cb = int(math.floor((pe - KB) * FPS))
             nxt = [w for w in range(i, j + 1) if WORDS[w]['start'] * FPS >= cb - 1][:1]     # first word after the pause
             if nxt:                                           # a lip smack / breath before it: start the shot just before the word instead
                 ws = WORDS[nxt[0]]['start']
                 on_w = onset(ws)[0]
                 if math.floor(ws * FPS) - cb > 5 and int(on_w * 100) - 1 > int(cb / FPS * 100) and DB[int(cb / FPS * 100):int(on_w * 100) - 1].max() < THR + 9:
                     cb = max(cb, int(math.floor((on_w - LEAD) * FPS)))
-            if cb - ca >= 4: cuts.append((ca, cb))
+            if cb - ca >= tp.get('min_cut', 4): cuts.append((ca, cb))
         p = a
         for ca, cb in cuts:
             pieces.append((p, ca)); snip_of.append(si); p = cb
@@ -82,7 +83,7 @@ def build(cid):
             if f < a: return o
             if f < b: return o if (snap and f - a <= SNAP) else o + f - a
         return NF - 1
-    return dict(C=C, pieces=pieces, starts=starts, NF=NF, snip_of=snip_of, warn=warn, out_frame=out_frame)
+    return dict(C=C, pieces=pieces, starts=starts, NF=NF, snip_of=snip_of, warn=warn, out_frame=out_frame, hold=C.get('hold', 0))   # hold: frames the last picture frame is held after the footage (stacked renders)
 
 def word_list(E):
     """[(word index, output frame)] in playing order (each snippet's words mapped in its own pieces)."""

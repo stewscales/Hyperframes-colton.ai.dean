@@ -36,7 +36,7 @@ def sfx_info(path):
     return _sfx[path]
 
 for cid in ids:
-    E = build(cid); P, NF = E['pieces'], E['NF']; geom = json.load(open(f'clips/{cid}/geom.json')); scene = json.load(open(f'clips/{cid}/scene.json'))
+    E = build(cid); P, NV = E['pieces'], E['NF']; HOLD = E.get('hold', 0); NF = NV + HOLD; geom = json.load(open(f'clips/{cid}/geom.json')); scene = json.load(open(f'clips/{cid}/scene.json'))
     ovdir = f'{OVROOT}/ov-{cid}'; omap = json.load(open(ovdir + '/map.json'))['map']; assert len(omap) == NF, (len(omap), NF)
     behind, front = Layer(ovdir + '/behind'), Layer(ovdir + '/front')
     os.makedirs('renders', exist_ok=True); tmp = f'renders/{cid}.video.mp4'; dst = f'renders/{cid}.mp4'; base = f'clips/{cid}/assets/base.mp4'
@@ -65,8 +65,8 @@ for cid in ids:
         ax, ay = geom[si]['nose'][0], geom[si]['forehead_y'] - 0.1 * (geom[si]['chin_y'] - geom[si]['forehead_y'])   # the camera pushes in on his eyes, so the top of his head stays clear of the panel's fade
         dec = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-ss', f'{(a - 0.5) / FPS:.6f}', '-i', SRC, '-frames:v', str(b - a),
                                 '-vf', f'crop=2160:2160:{x0}:0,scale={IS}:{IS}:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=fb)
-        for f in range(a, b):
-            buf = dec.stdout.read(fb); assert len(buf) == fb, f'decode ended at source frame {f}'
+        for n in range(b - a + (HOLD if (a, b) == P[-1] else 0)):       # the last frame of the clip is held for HOLD frames (the camera keeps moving)
+            if n < b - a: buf = dec.stdout.read(fb); assert len(buf) == fb, f'decode ended at source frame {a + n}'
             zz = float(zoom[k]); q = IS / PS
             M = np.float32([[q / zz, 0, q * ax * (1 - 1 / zz)], [0, q / zz, q * ay * (1 - 1 / zz)]])       # panel pixel -> pixel of the 1296 frame
             panel = cv2.warpAffine(np.frombuffer(buf, np.uint8).reshape(IS, IS, 3), M, (PS, PS), flags=cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
@@ -94,7 +94,7 @@ for cid in ids:
         dec.stdout.close(); dec.wait()
     enc.stdin.close(); encb.stdin.close(); assert enc.wait() == 0 and encb.wait() == 0 and k == NF
     # ---- sound: voice + effects ----
-    voice = f'clips/{cid}/assets/voice.wav'; cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', tmp, '-i', voice]; fc = []; labs = ['[1:a]']
+    voice = f'clips/{cid}/assets/voice.wav'; cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', tmp, '-i', voice]; fc = [f'[1:a]apad=whole_dur={NF / FPS:.4f}[v0]']; labs = ['[v0]']
     for n, sx in enumerate(scene['sfx']):
         p = f'../../assets/sfx/{sx["file"]}'; cmd += ['-i', p]; pk, on, tpk = sfx_info(p); dur = 1.1
         t = sx['frame'] / FPS - ((tpk - on) if 'whoosh' in p else 0)                        # when the trimmed effect starts playing
@@ -102,5 +102,5 @@ for cid in ids:
     fc.append(''.join(labs) + f'amix=inputs={len(labs)}:normalize=0:duration=first,alimiter=limit=0.84:level=false[o]')
     subprocess.check_call(cmd + ['-filter_complex', ';'.join(fc), '-map', '0:v', '-map', '[o]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', dst]); os.remove(tmp)
     subprocess.check_call(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', base + '.v.mp4', '-i', voice, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', base]); os.remove(base + '.v.mp4')
-    json.dump(dict(clip=cid, frames=NF, fps=FPS, size=[CW, CH], pieces=P, snippet_of_piece=E['snip_of'], out_start=E['starts'][:-1], crop_x0=[g['x0'] for g in geom]), open(f'clips/{cid}/edl.json', 'w'))
+    json.dump(dict(clip=cid, frames=NF, hold=HOLD, fps=FPS, size=[CW, CH], pieces=P, snippet_of_piece=E['snip_of'], out_start=E['starts'][:-1], crop_x0=[g['x0'] for g in geom]), open(f'clips/{cid}/edl.json', 'w'))
     print(cid, 'rendered', NF, 'frames ->', dst, f'{os.path.getsize(dst) / 1048576:.1f} MB', flush=True)
