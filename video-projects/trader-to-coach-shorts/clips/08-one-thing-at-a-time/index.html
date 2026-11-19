@@ -17,12 +17,14 @@
     body.capture, body.capture #t2c-short-08-one-thing-at-a-time { background: transparent; }
     body.capture.pass-behind #front, body.capture.pass-front #behind { display: none; }
     .hl { color: #2F6FED; }
+    .cap .hl { font-weight: 800; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 2px 6px rgba(0,0,0,0.9), 0 0 22px rgba(0,0,0,0.75), 0 0 46px rgba(0,0,0,0.5); }   /* blue has to read over his hands too */
     .ln { display: block; white-space: nowrap; }
     /* pinned title */
     .ttl { position: absolute; left: 0; width: 1080px; top: 164px; text-align: center; opacity: 0; }
     .ttl .t1 { font-weight: 700; font-size: 52px; letter-spacing: -0.025em; color: #F2EFE9; opacity: 0; }
     .ttl .t2 { margin-top: 10px; transform-origin: 50% 50%; opacity: 0; }
     .ttl.on, .ttl.on .t1, .ttl.on .t2 { opacity: 1; }
+    .ttl.big { top: 128px; transform-origin: 50% 60%; }  .ttl.big .t1 { font-size: 60px; font-weight: 800; }  .ttl.big .t2 span { font-size: 80px; padding: 4px 30px 12px; border-radius: 14px; }
     .ttl .t2 span { display: inline-block; background: #2F6FED; color: #fff; font-weight: 800; font-size: 64px; letter-spacing: -0.03em; padding: 6px 26px 10px; border-radius: 12px; }
     /* captions */
     .cap { position: absolute; font-weight: 700; font-size: 52px; line-height: 1.12; letter-spacing: -0.03em; color: #fff; text-align: center; opacity: 0;
@@ -40,6 +42,12 @@
     .card { position: absolute; left: 60px; width: 900px; top: 1254px; height: 322px; border-radius: 34px; background: rgba(17,17,19,0.96); border: 1.5px solid rgba(242,239,233,0.14);
             box-shadow: 0 26px 70px rgba(0,0,0,0.55); opacity: 0; padding: 30px 32px; color: #F2EFE9; }
     .card .lab { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(242,239,233,0.55); }
+    /* shared card furniture: header label with a status dot, tick ring, question badge */
+    .chead { position: relative; height: 48px; }
+    .clbl { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 36px; letter-spacing: -0.03em; color: #fff; white-space: nowrap; }
+    .dot { width: 16px; height: 16px; border-radius: 8px; display: inline-block; }  .dot.a { background: #2F6FED; }  .dot.b { background: #F2EFE9; }
+    .okr { width: 40px; height: 40px; border-radius: 20px; background: #2F6FED; color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }  .okr svg { width: 24px; height: 24px; }
+    .q { position: absolute; right: -12px; top: -14px; width: 38px; height: 38px; border-radius: 19px; background: #F2EFE9; color: #0A0A0A; font-style: normal; font-weight: 900; font-size: 26px; display: flex; align-items: center; justify-content: center; opacity: 0; }
     .card .row { display: flex; justify-content: space-between; align-items: center; height: 44px; }
     /* day counter */
     .pill2 { background: #F2EFE9; color: #0A0A0A; font-weight: 800; font-size: 36px; letter-spacing: -0.02em; padding: 4px 24px 6px; border-radius: 26px; opacity: 0; }

@@ -58,14 +58,18 @@ for cid in ids:
             if si == mt['ref'] or (mt.get('only') is not None and si not in mt['only']): continue
             ha, la = np.array(g['tone']['wall']), np.array(g['tone']['tee']); ga = (hb - lb) / (ha - la); kk = mt['strength']
             grade[si] = ((1 + kk * (ga - 1)).astype(np.float32), (kk * (lb - ga * la)).astype(np.float32)); print(cid, 'snippet', si, 'matched to', mt['ref'], 'gain', ga.round(3), flush=True)
+    zoom = scene.get('zoom') or [1.0] * NF; assert len(zoom) == NF and 1.0 <= min(zoom) and max(zoom) <= 1.2, 'camera zoom must stay within 1.0-1.2 (no upscaling)'
     enc, encb = encoder(tmp, CRF), encoder(base + '.v.mp4', '20'); k = 0
     for (a, b), si in zip(P, E['snip_of']):
-        x0 = geom[si]['x0']; fb = PS * PS * 3
+        x0 = geom[si]['x0']; IS = 1296; fb = IS * IS * 3       # decoded at 1.2x the panel so the camera can push in without upscaling
+        ax, ay = geom[si]['nose'][0], geom[si]['forehead_y'] - 0.1 * (geom[si]['chin_y'] - geom[si]['forehead_y'])   # the camera pushes in on his eyes, so the top of his head stays clear of the panel's fade
         dec = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', '-ss', f'{(a - 0.5) / FPS:.6f}', '-i', SRC, '-frames:v', str(b - a),
-                                '-vf', f'crop=2160:2160:{x0}:0,scale=1080:1080:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=fb)
+                                '-vf', f'crop=2160:2160:{x0}:0,scale={IS}:{IS}:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=fb)
         for f in range(a, b):
             buf = dec.stdout.read(fb); assert len(buf) == fb, f'decode ended at source frame {f}'
-            panel = np.frombuffer(buf, np.uint8).reshape(PS, PS, 3)
+            zz = float(zoom[k]); q = IS / PS
+            M = np.float32([[q / zz, 0, q * ax * (1 - 1 / zz)], [0, q / zz, q * ay * (1 - 1 / zz)]])       # panel pixel -> pixel of the 1296 frame
+            panel = cv2.warpAffine(np.frombuffer(buf, np.uint8).reshape(IS, IS, 3), M, (PS, PS), flags=cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
             if grade[si] is not None: panel = np.clip(panel.astype(np.float32) * grade[si][0] + grade[si][1] + 0.5, 0, 255).astype(np.uint8)
             canvas = np.empty((CH, CW, 3), np.float32); canvas[:] = INKc
             canvas[PY:PY + PS] = panel.astype(np.float32) * (ramp * vig[si]) + INKc * (1 - ramp)
@@ -74,8 +78,13 @@ for cid in ids:
             box = behind.get(idx)
             if box is not None:
                 y0, y1, x0b, x1b = box; m = np.zeros((CH, CW), np.float32); m[PY:PY + PS] = matte(panel)
-                al = behind.a * (1 - m[y0:y1, x0b:x1b, None])
-                canvas[y0:y1, x0b:x1b] = canvas[y0:y1, x0b:x1b] * (1 - al) + behind.rgb * al
+                if zz > 1.0005:                           # words behind him live in the scene: they move with the camera
+                    cx, cy = ax, PY + ay; lay = np.zeros((CH, CW, 4), np.float32); lay[y0:y1, x0b:x1b, :3] = behind.rgb * behind.a; lay[y0:y1, x0b:x1b, 3:] = behind.a
+                    lay = cv2.warpAffine(lay, np.float32([[1 / zz, 0, cx * (1 - 1 / zz)], [0, 1 / zz, cy * (1 - 1 / zz)]]), (CW, CH), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
+                    al = lay[..., 3:] * (1 - m[..., None]); canvas[:] = canvas * (1 - al) + lay[..., :3] * (1 - m[..., None])
+                else:
+                    al = behind.a * (1 - m[y0:y1, x0b:x1b, None])
+                    canvas[y0:y1, x0b:x1b] = canvas[y0:y1, x0b:x1b] * (1 - al) + behind.rgb * al
                 if DEBUG and k % 6 == 0: os.makedirs(DEBUG, exist_ok=True); cv2.imwrite(f'{DEBUG}/matte-{k:05d}.png', (m[PY:PY + PS] * 255).astype(np.uint8))
             box = front.get(idx)
             if box is not None:

@@ -34,20 +34,36 @@ class Scene:
         self.cid, self.title = cid, title; self.E = build(cid); self.NF = self.E['NF']; self.wl = dict(word_list(self.E))
         self.geom = json.load(open(f'clips/{cid}/geom.json')); self.behind, self.front, self.js, self.css, self.sfx = [], [], [], [], []
         self.cuts = self.E['starts'][1:-1]
+        self.zoom = np.ones(self.NF)                         # camera: per-frame zoom of the video panel about his face (1.0-1.2)
         self.match = None                                   # dict(ref=<snippet>, strength=0..1[, only=[snippets]]): colour-match snippets to the reference one
     def F(self, wi, d=0): return self.wl[wi] + d                       # output frame on which a spoken word starts
     def head(self, si=0):
         g = self.geom[si]; fh = g['chin_y'] - g['forehead_y']
         return dict(cx=g['nose'][0], top=PY + g['forehead_y'] - 0.30 * fh, forehead=PY + g['forehead_y'], chin=PY + g['chin_y'], left=g['face_x'][0], right=g['face_x'][1], fh=fh)
     # ---- pinned title above the panel ----
-    def pinned_title(self, line1, bar, f0=3, f1=None):
-        """Two-line title above the panel (second line in the blue bar). Call again for a second title later in the clip."""
-        i = sum(1 for x in self.front if 'class="ttl' in x); t = f'#ttl{i}'
+    # ---- camera ----
+    def shot(self, f0, f1, z0, z1):
+        """One shot (cut to cut): a slow drift from z0 to z1."""
+        self.zoom[f0:f1] = np.linspace(z0, z1, f1 - f0)
+    def punch(self, f, f_end, dz, ramp=7):
+        """Subtle punch-in on a key word: ease in by dz over `ramp` frames starting one frame early, hold to the end of the shot."""
+        for k in range(f - 1, f_end):
+            u = min(1.0, (k - f + 2) / ramp); self.zoom[k] += dz * (1 - (1 - u) ** 3)
+    def through(self, f, dz=0.07, n=5):
+        """Zoom-through transition on the cut at frame f: the outgoing shot pushes in, the incoming one settles back."""
+        for j in range(n):
+            self.zoom[f - 1 - j] += dz * ((n - j) / n) ** 2
+            if f + j < self.NF: self.zoom[f + j] += dz * (1 - (j + 1) / (n + 1)) ** 2
+    def pinned_title(self, line1, bar, f0=3, f1=None, big=False):
+        """Two-line title above the panel (second line in the blue bar). Call again for a second title later in the clip.
+        big = the opening headline: larger, and it lands with a small settle on the first frames."""
+        i = sum(1 for x in self.front if 'class="ttl' in x); t = f'#ttl{i}'; cls = 'ttl big' if big else 'ttl'
         if f0 == 0:                                         # the opening title is already there on the very first frame (it is the cover frame)
-            self.front.append(f'<div id="ttl{i}" class="ttl on"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
+            self.front.append(f'<div id="ttl{i}" class="{cls} on"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
+            if big: self.js.append(f'tl.fromTo("{t}", {{ scale: 1.08 }}, {{ scale: 1, duration: 0.36, ease: "power3.out" }}, 0);')
             if f1: self.js.append(f'tl.to("{t}", {{ opacity: 0, duration: 0.14, ease: "power2.in" }}, {tm(f1 - 4)});')
             return
-        self.front.append(f'<div id="ttl{i}" class="ttl"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
+        self.front.append(f'<div id="ttl{i}" class="{cls}"><div class="t1">{esc(line1)}</div><div class="t2"><span>{esc(bar)}</span></div></div>')
         self.js += [f'tl.set("{t}", {{ opacity: 1 }}, {tm(f0)});',
                     f'tl.fromTo("{t} .t1", {{ y: -18, opacity: 0 }}, {{ y: 0, opacity: 1, duration: 0.3, ease: "power3.out", immediateRender: false }}, {tm(f0)});',
                     f'tl.fromTo("{t} .t2", {{ scaleX: 0.6, opacity: 0 }}, {{ scaleX: 1, opacity: 1, duration: 0.34, ease: "back.out(1.6)", immediateRender: false }}, {tm(f0 + 3)});']
@@ -125,6 +141,7 @@ class Scene:
     .ttl .t1 {{ font-weight: 700; font-size: 52px; letter-spacing: -0.025em; color: {BONE}; opacity: 0; }}
     .ttl .t2 {{ margin-top: 10px; transform-origin: 50% 50%; opacity: 0; }}
     .ttl.on, .ttl.on .t1, .ttl.on .t2 {{ opacity: 1; }}
+    .ttl.big {{ top: {PY - 220}px; transform-origin: 50% 60%; }}  .ttl.big .t1 {{ font-size: 60px; font-weight: 800; }}  .ttl.big .t2 span {{ font-size: 80px; padding: 4px 30px 12px; border-radius: 14px; }}
     .ttl .t2 span {{ display: inline-block; background: {BLUE}; color: #fff; font-weight: 800; font-size: 64px; letter-spacing: -0.03em; padding: 6px 26px 10px; border-radius: 12px; }}
     /* captions */
     .cap {{ position: absolute; font-weight: 700; font-size: 52px; line-height: 1.12; letter-spacing: -0.03em; color: #fff; text-align: center; opacity: 0;
@@ -182,5 +199,5 @@ class Scene:
         json.dump({"$schema": "https://hyperframes.heygen.com/schema/hyperframes.json", "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
                    "paths": {"blocks": "compositions", "components": "compositions/components", "assets": "assets"}, "media": {"autoProxy": True}}, open(f'{d}/hyperframes.json', 'w'), indent=2)
         json.dump({"id": comp, "name": self.title, "dimensions": {"width": CW, "height": CH}, "fps": 30, "createdAt": "2026-11-19T04:00:00.000Z"}, open(f'{d}/meta.json', 'w'), indent=2)
-        json.dump(dict(match=self.match, sfx=sorted(self.sfx, key=lambda s: s['frame']), captions=[dict(frame=c[0], text=c[1], spot=c[2]) for c in self.caps]), open(f'{d}/scene.json', 'w'), indent=1)
+        json.dump(dict(match=self.match, zoom=[round(float(z), 4) for z in self.zoom], sfx=sorted(self.sfx, key=lambda s: s['frame']), captions=[dict(frame=c[0], text=c[1], spot=c[2]) for c in self.caps]), open(f'{d}/scene.json', 'w'), indent=1)
         print(cid, 'scene written:', len(self.caps), 'captions,', len(self.behind), 'behind-head words,', len(self.sfx), 'sounds')
