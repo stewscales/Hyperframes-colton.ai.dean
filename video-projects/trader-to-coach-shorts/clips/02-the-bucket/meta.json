@@ -1,10 +1,10 @@
 {
   "id": "t2c-short-02-the-bucket",
-  "name": "Picture a bucket",
+  "name": "The bucket",
   "dimensions": {
-    "width": 1920,
-    "height": 1080
+    "width": 1080,
+    "height": 1920
   },
   "fps": 30,
-  "createdAt": "2026-11-18T19:00:00.000Z"
+  "createdAt": "2026-11-19T04:00:00.000Z"
 }
