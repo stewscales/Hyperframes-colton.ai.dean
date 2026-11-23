@@ -1,0 +1,980 @@
+[
+{
+"word": "BE",
+"start": 0.78,
+"end": 0.84,
+"score": 0.724
+},
+{
+"word": "HONEST",
+"start": 0.88,
+"end": 1.24,
+"score": 0.497
+},
+{
+"word": "ARE",
+"start": 1.58,
+"end": 1.64,
+"score": 0.02
+},
+{
+"word": "YOU",
+"start": 1.66,
+"end": 1.74,
+"score": 0.993
+},
+{
+"word": "A",
+"start": 1.8,
+"end": 1.84,
+"score": 0.775
+},
+{
+"word": "BETTER",
+"start": 1.9,
+"end": 2.06,
+"score": 0.965
+},
+{
+"word": "TRADER",
+"start": 2.12,
+"end": 2.4,
+"score": 0.925
+},
+{
+"word": "THAN",
+"start": 2.46,
+"end": 2.56,
+"score": 0.772
+},
+{
+"word": "THE",
+"start": 2.6,
+"end": 2.66,
+"score": 0.647
+},
+{
+"word": "GUY",
+"start": 2.7,
+"end": 2.82,
+"score": 0.79
+},
+{
+"word": "SELLING",
+"start": 2.921,
+"end": 3.161,
+"score": 0.848
+},
+{
+"word": "YOU",
+"start": 3.181,
+"end": 3.261,
+"score": 0.804
+},
+{
+"word": "A",
+"start": 3.301,
+"end": 3.321,
+"score": 0.011
+},
+{
+"word": "COURSE",
+"start": 3.381,
+"end": 3.701,
+"score": 0.391
+},
+{
+"word": "YEAH",
+"start": 4.341,
+"end": 4.541,
+"score": 0.364
+},
+{
+"word": "THOUGHT",
+"start": 4.681,
+"end": 4.881,
+"score": 0.979
+},
+{
+"word": "SO",
+"start": 4.961,
+"end": 5.061,
+"score": 0.989
+},
+{
+"word": "AND",
+"start": 5.121,
+"end": 5.181,
+"score": 0.009
+},
+{
+"word": "IT",
+"start": 5.201,
+"end": 5.241,
+"score": 0.219
+},
+{
+"word": "WINDS",
+"start": 5.301,
+"end": 5.461,
+"score": 0.564
+},
+{
+"word": "YOU",
+"start": 5.481,
+"end": 5.541,
+"score": 0.863
+},
+{
+"word": "UP",
+"start": 5.581,
+"end": 5.621,
+"score": 0.005
+},
+{
+"word": "DOESN'T",
+"start": 5.681,
+"end": 5.861,
+"score": 0.031
+},
+{
+"word": "IT",
+"start": 5.881,
+"end": 5.921,
+"score": 0.304
+},
+{
+"word": "HOW",
+"start": 6.301,
+"end": 6.381,
+"score": 0.232
+},
+{
+"word": "IS",
+"start": 6.441,
+"end": 6.521,
+"score": 0.126
+},
+{
+"word": "HE",
+"start": 6.541,
+"end": 6.661,
+"score": 0.463
+},
+{
+"word": "THE",
+"start": 6.701,
+"end": 6.761,
+"score": 0.598
+},
+{
+"word": "ONE",
+"start": 6.801,
+"end": 6.901,
+"score": 0.383
+},
+{
+"word": "MAKING",
+"start": 6.941,
+"end": 7.181,
+"score": 0.764
+},
+{
+"word": "MONEY",
+"start": 7.201,
+"end": 7.301,
+"score": 0.084
+},
+{
+"word": "OFF",
+"start": 7.381,
+"end": 7.461,
+"score": 0.187
+},
+{
+"word": "IT",
+"start": 7.581,
+"end": 7.881,
+"score": 0.065
+},
+{
+"word": "I",
+"start": 7.901,
+"end": 7.921,
+"score": 0.068
+},
+{
+"word": "USED",
+"start": 7.941,
+"end": 8.041,
+"score": 0.277
+},
+{
+"word": "TO",
+"start": 8.081,
+"end": 8.121,
+"score": 0.117
+},
+{
+"word": "CLOSE",
+"start": 8.161,
+"end": 8.301,
+"score": 0.157
+},
+{
+"word": "SALES",
+"start": 8.321,
+"end": 8.622,
+"score": 0.689
+},
+{
+"word": "FOR",
+"start": 8.702,
+"end": 8.762,
+"score": 0.33
+},
+{
+"word": "TRADING",
+"start": 8.822,
+"end": 9.082,
+"score": 0.888
+},
+{
+"word": "COACHES",
+"start": 9.142,
+"end": 9.522,
+"score": 0.661
+},
+{
+"word": "HUNDREDS",
+"start": 9.742,
+"end": 10.022,
+"score": 0.702
+},
+{
+"word": "OF",
+"start": 10.082,
+"end": 10.122,
+"score": 0.728
+},
+{
+"word": "CALLS",
+"start": 10.182,
+"end": 10.482,
+"score": 0.656
+},
+{
+"word": "AND",
+"start": 10.662,
+"end": 10.742,
+"score": 0.676
+},
+{
+"word": "HERE'S",
+"start": 10.782,
+"end": 10.902,
+"score": 0.1
+},
+{
+"word": "SOMETHING",
+"start": 10.942,
+"end": 11.142,
+"score": 0.1
+},
+{
+"word": "INTERESTING",
+"start": 11.182,
+"end": 11.622,
+"score": 0.688
+},
+{
+"word": "NOT",
+"start": 12.082,
+"end": 12.222,
+"score": 0.348
+},
+{
+"word": "ONCE",
+"start": 12.382,
+"end": 12.542,
+"score": 0.614
+},
+{
+"word": "DID",
+"start": 12.602,
+"end": 12.702,
+"score": 0.259
+},
+{
+"word": "SOMEONE",
+"start": 12.742,
+"end": 12.902,
+"score": 0.177
+},
+{
+"word": "ASK",
+"start": 12.922,
+"end": 13.022,
+"score": 0.542
+},
+{
+"word": "ME",
+"start": 13.042,
+"end": 13.102,
+"score": 0.11
+},
+{
+"word": "WHAT",
+"start": 13.162,
+"end": 13.242,
+"score": 0.03
+},
+{
+"word": "THE",
+"start": 13.282,
+"end": 13.342,
+"score": 0.13
+},
+{
+"word": "COACH'S",
+"start": 13.382,
+"end": 13.662,
+"score": 0.429
+},
+{
+"word": "WIN",
+"start": 13.722,
+"end": 13.822,
+"score": 0.296
+},
+{
+"word": "RATE",
+"start": 13.882,
+"end": 14.062,
+"score": 0.166
+},
+{
+"word": "WAS",
+"start": 14.102,
+"end": 14.242,
+"score": 0.269
+},
+{
+"word": "JUST",
+"start": 14.723,
+"end": 14.883,
+"score": 0.1
+},
+{
+"word": "THINK",
+"start": 14.903,
+"end": 15.063,
+"score": 0.647
+},
+{
+"word": "ABOUT",
+"start": 15.163,
+"end": 15.343,
+"score": 0.206
+},
+{
+"word": "THAT",
+"start": 15.383,
+"end": 15.523,
+"score": 0.173
+},
+{
+"word": "YOU",
+"start": 16.123,
+"end": 16.183,
+"score": 0.902
+},
+{
+"word": "DON'T",
+"start": 16.203,
+"end": 16.343,
+"score": 0.868
+},
+{
+"word": "NECESSARILY",
+"start": 16.403,
+"end": 16.943,
+"score": 0.936
+},
+{
+"word": "KNOW",
+"start": 16.983,
+"end": 17.123,
+"score": 0.823
+},
+{
+"word": "IF",
+"start": 17.223,
+"end": 17.263,
+"score": 0.597
+},
+{
+"word": "HE'S",
+"start": 17.303,
+"end": 17.403,
+"score": 0.519
+},
+{
+"word": "A",
+"start": 17.423,
+"end": 17.443,
+"score": 0.001
+},
+{
+"word": "BETTER",
+"start": 17.463,
+"end": 17.603,
+"score": 0.534
+},
+{
+"word": "TRADER",
+"start": 17.623,
+"end": 17.823,
+"score": 0.798
+},
+{
+"word": "THAN",
+"start": 17.903,
+"end": 17.983,
+"score": 0.725
+},
+{
+"word": "YOU",
+"start": 18.043,
+"end": 18.103,
+"score": 0.243
+},
+{
+"word": "ARE",
+"start": 18.123,
+"end": 18.243,
+"score": 0.2
+},
+{
+"word": "YOU",
+"start": 18.503,
+"end": 18.603,
+"score": 0.228
+},
+{
+"word": "FOLLOWED",
+"start": 18.683,
+"end": 18.923,
+"score": 0.972
+},
+{
+"word": "HIM",
+"start": 18.963,
+"end": 19.043,
+"score": 0.797
+},
+{
+"word": "BECAUSE",
+"start": 19.083,
+"end": 19.263,
+"score": 0.032
+},
+{
+"word": "HE",
+"start": 19.283,
+"end": 19.323,
+"score": 0.637
+},
+{
+"word": "EXPLAINED",
+"start": 19.363,
+"end": 19.683,
+"score": 0.537
+},
+{
+"word": "SOMETHING",
+"start": 19.703,
+"end": 19.883,
+"score": 0.115
+},
+{
+"word": "IN",
+"start": 19.903,
+"end": 19.943,
+"score": 0.004
+},
+{
+"word": "A",
+"start": 19.963,
+"end": 19.983,
+"score": 0.34
+},
+{
+"word": "WAY",
+"start": 20.003,
+"end": 20.083,
+"score": 0.949
+},
+{
+"word": "THAT",
+"start": 20.144,
+"end": 20.224,
+"score": 0.197
+},
+{
+"word": "FINALLY",
+"start": 20.304,
+"end": 20.584,
+"score": 0.774
+},
+{
+"word": "CLICKED",
+"start": 20.644,
+"end": 20.904,
+"score": 0.378
+},
+{
+"word": "AND",
+"start": 21.124,
+"end": 21.184,
+"score": 0.01
+},
+{
+"word": "THAT'S",
+"start": 21.204,
+"end": 21.364,
+"score": 0.996
+},
+{
+"word": "THE",
+"start": 21.384,
+"end": 21.464,
+"score": 0.976
+},
+{
+"word": "DIFFERENCE",
+"start": 21.504,
+"end": 21.844,
+"score": 0.982
+},
+{
+"word": "TRADING",
+"start": 22.324,
+"end": 22.604,
+"score": 0.855
+},
+{
+"word": "PAYS",
+"start": 22.644,
+"end": 22.824,
+"score": 0.499
+},
+{
+"word": "YOU",
+"start": 22.864,
+"end": 22.924,
+"score": 0.296
+},
+{
+"word": "FOR",
+"start": 22.944,
+"end": 23.004,
+"score": 0.001
+},
+{
+"word": "SITTING",
+"start": 23.024,
+"end": 23.224,
+"score": 0.327
+},
+{
+"word": "QUIETLY",
+"start": 23.244,
+"end": 23.664,
+"score": 0.912
+},
+{
+"word": "COACHING",
+"start": 24.184,
+"end": 24.504,
+"score": 0.712
+},
+{
+"word": "PAYS",
+"start": 24.544,
+"end": 24.724,
+"score": 0.49
+},
+{
+"word": "YOU",
+"start": 24.744,
+"end": 24.804,
+"score": 0.17
+},
+{
+"word": "FOR",
+"start": 24.824,
+"end": 24.884,
+"score": 0.052
+},
+{
+"word": "COMMUNICATING",
+"start": 24.904,
+"end": 25.484,
+"score": 0.732
+},
+{
+"word": "EVERY",
+"start": 25.764,
+"end": 25.965,
+"score": 0.954
+},
+{
+"word": "DAY",
+"start": 26.005,
+"end": 26.165,
+"score": 0.999
+},
+{
+"word": "ON",
+"start": 26.465,
+"end": 26.525,
+"score": 0.846
+},
+{
+"word": "CAMERA",
+"start": 26.605,
+"end": 26.945,
+"score": 0.743
+},
+{
+"word": "TO",
+"start": 27.105,
+"end": 27.165,
+"score": 0.758
+},
+{
+"word": "STRANGERS",
+"start": 27.205,
+"end": 27.665,
+"score": 0.919
+},
+{
+"word": "SOME",
+"start": 28.165,
+"end": 28.265,
+"score": 0.424
+},
+{
+"word": "OF",
+"start": 28.285,
+"end": 28.325,
+"score": 0.004
+},
+{
+"word": "THE",
+"start": 28.345,
+"end": 28.405,
+"score": 0.932
+},
+{
+"word": "BEST",
+"start": 28.465,
+"end": 28.605,
+"score": 0.902
+},
+{
+"word": "TRADERS",
+"start": 28.665,
+"end": 28.965,
+"score": 0.817
+},
+{
+"word": "IN",
+"start": 29.005,
+"end": 29.045,
+"score": 0.958
+},
+{
+"word": "THE",
+"start": 29.085,
+"end": 29.165,
+"score": 0.944
+},
+{
+"word": "WORLD",
+"start": 29.185,
+"end": 29.385,
+"score": 0.354
+},
+{
+"word": "WILL",
+"start": 29.405,
+"end": 29.525,
+"score": 0.133
+},
+{
+"word": "NEVER",
+"start": 29.545,
+"end": 29.705,
+"score": 0.245
+},
+{
+"word": "DO",
+"start": 29.745,
+"end": 29.805,
+"score": 0.144
+},
+{
+"word": "THAT",
+"start": 29.885,
+"end": 30.065,
+"score": 0.199
+},
+{
+"word": "SO",
+"start": 30.325,
+"end": 30.365,
+"score": 0.463
+},
+{
+"word": "NEXT",
+"start": 30.425,
+"end": 30.585,
+"score": 0.92
+},
+{
+"word": "TIME",
+"start": 30.625,
+"end": 30.785,
+"score": 0.252
+},
+{
+"word": "YOU",
+"start": 30.825,
+"end": 30.885,
+"score": 0.002
+},
+{
+"word": "SEE",
+"start": 30.905,
+"end": 30.985,
+"score": 0.189
+},
+{
+"word": "SOMEONE",
+"start": 31.025,
+"end": 31.225,
+"score": 0.159
+},
+{
+"word": "WITH",
+"start": 31.245,
+"end": 31.325,
+"score": 0.179
+},
+{
+"word": "WORSE",
+"start": 31.445,
+"end": 31.666,
+"score": 0.768
+},
+{
+"word": "TRADES",
+"start": 31.706,
+"end": 32.006,
+"score": 0.905
+},
+{
+"word": "THAN",
+"start": 32.046,
+"end": 32.146,
+"score": 0.629
+},
+{
+"word": "YOU",
+"start": 32.186,
+"end": 32.286,
+"score": 0.219
+},
+{
+"word": "SELLING",
+"start": 32.426,
+"end": 32.646,
+"score": 0.489
+},
+{
+"word": "A",
+"start": 32.686,
+"end": 32.706,
+"score": 0.007
+},
+{
+"word": "COURSE",
+"start": 32.766,
+"end": 33.046,
+"score": 0.245
+},
+{
+"word": "HE'S",
+"start": 33.406,
+"end": 33.506,
+"score": 0.42
+},
+{
+"word": "NOT",
+"start": 33.526,
+"end": 33.646,
+"score": 0.788
+},
+{
+"word": "NECESSARILY",
+"start": 33.686,
+"end": 34.186,
+"score": 0.955
+},
+{
+"word": "A",
+"start": 34.206,
+"end": 34.226,
+"score": 0.002
+},
+{
+"word": "BETTER",
+"start": 34.246,
+"end": 34.406,
+"score": 0.769
+},
+{
+"word": "TRADER",
+"start": 34.426,
+"end": 34.806,
+"score": 0.881
+},
+{
+"word": "HE",
+"start": 34.986,
+"end": 35.046,
+"score": 0.086
+},
+{
+"word": "JUST",
+"start": 35.126,
+"end": 35.246,
+"score": 0.041
+},
+{
+"word": "PRESSED",
+"start": 35.266,
+"end": 35.446,
+"score": 0.567
+},
+{
+"word": "RECORD",
+"start": 35.466,
+"end": 35.826,
+"score": 0.454
+},
+{
+"word": "SEND",
+"start": 36.406,
+"end": 36.546,
+"score": 0.964
+},
+{
+"word": "THIS",
+"start": 36.606,
+"end": 36.726,
+"score": 0.996
+},
+{
+"word": "TO",
+"start": 36.806,
+"end": 36.866,
+"score": 0.994
+},
+{
+"word": "THAT",
+"start": 36.926,
+"end": 37.006,
+"score": 0.666
+},
+{
+"word": "MATE",
+"start": 37.106,
+"end": 37.286,
+"score": 0.432
+},
+{
+"word": "WHO'S",
+"start": 37.326,
+"end": 37.467,
+"score": 0.482
+},
+{
+"word": "BETTER",
+"start": 37.527,
+"end": 37.667,
+"score": 0.33
+},
+{
+"word": "THAN",
+"start": 37.687,
+"end": 37.767,
+"score": 0.182
+},
+{
+"word": "EVERY",
+"start": 37.967,
+"end": 38.147,
+"score": 0.976
+},
+{
+"word": "TRADING",
+"start": 38.187,
+"end": 38.487,
+"score": 0.941
+},
+{
+"word": "GURU",
+"start": 38.507,
+"end": 38.627,
+"score": 0.224
+},
+{
+"word": "BUT",
+"start": 38.647,
+"end": 38.767,
+"score": 0.034
+},
+{
+"word": "HASN'T",
+"start": 38.887,
+"end": 39.107,
+"score": 0.224
+},
+{
+"word": "POSTED",
+"start": 39.147,
+"end": 39.347,
+"score": 0.538
+},
+{
+"word": "A",
+"start": 39.467,
+"end": 39.487,
+"score": 0.892
+},
+{
+"word": "SINGLE",
+"start": 39.567,
+"end": 39.827,
+"score": 0.976
+},
+{
+"word": "VIDEO",
+"start": 39.887,
+"end": 40.167,
+"score": 0.444
+}
+]
