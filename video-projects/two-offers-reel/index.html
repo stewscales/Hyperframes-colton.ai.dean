@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two offers — Stew Scales</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: 'Montserrat'; src: url('assets/fonts/montserrat-latin-wght.woff2') format('woff2'); font-weight: 100 900; font-style: normal; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; }
+    #two-offers { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0A0A0A; font-family: 'Montserrat', sans-serif; }
+    #base { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; object-fit: cover; z-index: 1; }
+    #front { position: absolute; inset: 0; z-index: 2; }
+    body.capture, body.capture #two-offers { background: transparent; }
+    .cap { position: absolute; left: 0; width: 1080px; top: 1526px; height: 90px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+    .ln { display: inline-block; white-space: nowrap; font-weight: 800; font-size: 58px; line-height: 1.1; letter-spacing: -0.02em; color: #F2EFE9; transform-origin: 50% 60%;
+          text-shadow: 0 0 2px rgba(10,10,10,0.9), 0 2px 5px rgba(10,10,10,0.75), 0 0 18px rgba(10,10,10,0.6), 0 0 40px rgba(10,10,10,0.4); }
+    .kw, .em { color: #2F6FED; text-shadow: 0 0 2px rgba(5,5,10,1), 0 0 4px rgba(5,5,10,0.95), 0 2px 8px rgba(5,5,10,0.85), 0 0 22px rgba(5,5,10,0.65), 0 0 44px rgba(5,5,10,0.4); }
+    .kw { font-weight: 900; }  .em { font-weight: 900; font-size: 70px; letter-spacing: -0.01em; }
+    .ov { position: absolute; left: 0; width: 1080px; top: 236px; height: 170px; display: flex; justify-content: center; opacity: 0; }
+    .ovc { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 170px; padding: 0 44px; border-radius: 22px; background: rgba(10,10,10,0.80);
+           box-shadow: 0 10px 30px rgba(0,0,0,0.35); transform-origin: 50% 50%; }
+    .ovb { font-weight: 900; font-size: 84px; line-height: 1; letter-spacing: -0.02em; color: #2F6FED; }
+    .ovs { margin-top: 12px; font-weight: 800; font-size: 32px; line-height: 1; letter-spacing: 0.08em; color: #F2EFE9; }
+  </style>
+</head>
+<body>
+
+<div id="two-offers" data-composition-id="two-offers" data-start="0" data-width="1080" data-height="1920">
+
+  <video id="base" data-start="0" data-duration="43.8333" data-track-index="0" src="assets/base.mp4" muted playsinline></video>
+  <audio id="base-audio" data-start="0" data-duration="43.8333" data-track-index="1" src="assets/base.mp4" data-volume="1"></audio>
+
+  <div id="front">
+    <div id="cap0" class="cap" style="opacity:1"><span class="ln">I've generated</span></div>
+    <div id="cap1" class="cap"><span class="ln"><span class="em">NEARLY £2 MILLION</span></span></div>
+    <div id="cap2" class="cap"><span class="ln">for trading coaches</span></div>
+    <div id="cap3" class="cap"><span class="ln">But I keep seeing the same</span></div>
+    <div id="cap4" class="cap"><span class="ln"><span class="kw">mistake</span> with content</span></div>
+    <div id="cap5" class="cap"><span class="ln">They're attracting</span></div>
+    <div id="cap6" class="cap"><span class="ln">the <span class="em">WRONG BUYERS</span></span></div>
+    <div id="cap7" class="cap"><span class="ln">If you're selling a</span></div>
+    <div id="cap8" class="cap"><span class="ln"><span class="em">£5,000 MENTORSHIP</span></span></div>
+    <div id="cap9" class="cap"><span class="ln">you need content</span></div>
+    <div id="cap10" class="cap"><span class="ln">that builds <span class="em">AUTHORITY</span></span></div>
+    <div id="cap11" class="cap"><span class="ln">and it builds <span class="em">TRUST</span></span></div>
+    <div id="cap12" class="cap"><span class="ln">It's like long-form</span></div>
+    <div id="cap13" class="cap"><span class="ln">YouTube videos</span></div>
+    <div id="cap14" class="cap"><span class="ln">breaking down</span></div>
+    <div id="cap15" class="cap"><span class="ln">your strategy</span></div>
+    <div id="cap16" class="cap"><span class="ln">analysing your trades</span></div>
+    <div id="cap17" class="cap"><span class="ln">explaining your psychology</span></div>
+    <div id="cap18" class="cap"><span class="ln">and showing people</span></div>
+    <div id="cap19" class="cap"><span class="ln">you actually know</span></div>
+    <div id="cap20" class="cap"><span class="ln">what you're doing</span></div>
+    <div id="cap21" class="cap"><span class="ln">Because someone's</span></div>
+    <div id="cap22" class="cap"><span class="ln">spending £5,000</span></div>
+    <div id="cap23" class="cap"><span class="ln">they need to trust</span></div>
+    <div id="cap24" class="cap"><span class="ln">that you can get them</span></div>
+    <div id="cap25" class="cap"><span class="ln">the results</span></div>
+    <div id="cap26" class="cap"><span class="ln">If you're selling a</span></div>
+    <div id="cap27" class="cap"><span class="ln"><span class="em">£50 PRODUCT</span></span></div>
+    <div id="cap28" class="cap"><span class="ln">it's completely different</span></div>
+    <div id="cap29" class="cap"><span class="ln">You need short-form</span></div>
+    <div id="cap30" class="cap"><span class="ln">content</span></div>
+    <div id="cap31" class="cap"><span class="ln">that grabs <span class="em">ATTENTION</span></span></div>
+    <div id="cap32" class="cap"><span class="ln">and it creates <span class="em">DESIRE</span></span></div>
+    <div id="cap33" class="cap"><span class="ln">Show off your lifestyle</span></div>
+    <div id="cap34" class="cap"><span class="ln">your personality</span></div>
+    <div id="cap35" class="cap"><span class="ln">your wins and your results</span></div>
+    <div id="cap36" class="cap"><span class="ln">Make people want to be</span></div>
+    <div id="cap37" class="cap"><span class="ln">part of your own world</span></div>
+    <div id="cap38" class="cap"><span class="ln">For someone spending £50</span></div>
+    <div id="cap39" class="cap"><span class="ln">you don't need the same</span></div>
+    <div id="cap40" class="cap"><span class="ln">convincing as someone</span></div>
+    <div id="cap41" class="cap"><span class="ln">spending £5,000</span></div>
+    <div id="cap42" class="cap"><span class="ln">Just stop using the same</span></div>
+    <div id="cap43" class="cap"><span class="ln">content strategy for</span></div>
+    <div id="cap44" class="cap"><span class="ln"><span class="em">TWO COMPLETELY</span></span></div>
+    <div id="cap45" class="cap"><span class="ln"><span class="em">DIFFERENT OFFERS.</span></span></div>
+    <div id="cap46" class="cap"><span class="ln">Your content should sell</span></div>
+    <div id="cap47" class="cap"><span class="ln">what you're actually</span></div>
+    <div id="cap48" class="cap"><span class="ln"><span class="kw">offering</span></span></div>
+    <div id="ov0" class="ov"><div class="ovc"><div class="ovb">£5,000</div><div class="ovs">AUTHORITY + TRUST</div></div></div>
+    <div id="ov1" class="ov"><div class="ovc"><div class="ovb">£50</div><div class="ovs">ATTENTION + DESIRE</div></div></div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    // Generated by scripts/build.py (frames at 30 fps; word times from forced alignment, mapped through the cut list)
+    tl.set("#cap0", { opacity: 0 }, 0.799);
+    tl.set("#cap1", { opacity: 1 }, 0.799);
+    tl.fromTo("#cap1 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 0.799);
+    tl.set("#cap1", { opacity: 0 }, 1.7323);
+    tl.set("#cap2", { opacity: 1 }, 1.7323);
+    tl.fromTo("#cap2 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 1.7323);
+    tl.set("#cap2", { opacity: 0 }, 2.699);
+    tl.set("#cap3", { opacity: 1 }, 2.699);
+    tl.fromTo("#cap3 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 2.699);
+    tl.set("#cap3", { opacity: 0 }, 3.799);
+    tl.set("#cap4", { opacity: 1 }, 3.799);
+    tl.fromTo("#cap4 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 3.799);
+    tl.set("#cap4", { opacity: 0 }, 4.599);
+    tl.set("#cap5", { opacity: 1 }, 4.599);
+    tl.fromTo("#cap5 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 4.599);
+    tl.set("#cap5", { opacity: 0 }, 5.3323);
+    tl.set("#cap6", { opacity: 1 }, 5.3323);
+    tl.fromTo("#cap6 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 5.3323);
+    tl.set("#cap6", { opacity: 0 }, 6.2657);
+    tl.set("#cap7", { opacity: 1 }, 6.2657);
+    tl.fromTo("#cap7 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 6.2657);
+    tl.set("#cap7", { opacity: 0 }, 6.899);
+    tl.set("#cap8", { opacity: 1 }, 6.899);
+    tl.fromTo("#cap8 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 6.899);
+    tl.set("#cap8", { opacity: 0 }, 7.8323);
+    tl.set("#cap9", { opacity: 1 }, 7.8323);
+    tl.fromTo("#cap9 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 7.8323);
+    tl.set("#cap9", { opacity: 0 }, 8.4323);
+    tl.set("#cap10", { opacity: 1 }, 8.4323);
+    tl.fromTo("#cap10 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 8.4323);
+    tl.set("#cap10", { opacity: 0 }, 9.399);
+    tl.set("#cap11", { opacity: 1 }, 9.399);
+    tl.fromTo("#cap11 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 9.399);
+    tl.set("#cap11", { opacity: 0 }, 10.3657);
+    tl.set("#cap12", { opacity: 1 }, 10.3657);
+    tl.fromTo("#cap12 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 10.3657);
+    tl.set("#cap12", { opacity: 0 }, 11.5323);
+    tl.set("#cap13", { opacity: 1 }, 11.5323);
+    tl.fromTo("#cap13 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 11.5323);
+    tl.set("#cap13", { opacity: 0 }, 12.399);
+    tl.set("#cap14", { opacity: 1 }, 12.399);
+    tl.fromTo("#cap14 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 12.399);
+    tl.set("#cap14", { opacity: 0 }, 12.8657);
+    tl.set("#cap15", { opacity: 1 }, 12.8657);
+    tl.fromTo("#cap15 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 12.8657);
+    tl.set("#cap15", { opacity: 0 }, 13.5323);
+    tl.set("#cap16", { opacity: 1 }, 13.5323);
+    tl.fromTo("#cap16 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 13.5323);
+    tl.set("#cap16", { opacity: 0 }, 14.7657);
+    tl.set("#cap17", { opacity: 1 }, 14.7657);
+    tl.fromTo("#cap17 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 14.7657);
+    tl.set("#cap17", { opacity: 0 }, 16.2323);
+    tl.set("#cap18", { opacity: 1 }, 16.2323);
+    tl.fromTo("#cap18 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 16.2323);
+    tl.set("#cap18", { opacity: 0 }, 16.799);
+    tl.set("#cap19", { opacity: 1 }, 16.799);
+    tl.fromTo("#cap19 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 16.799);
+    tl.set("#cap19", { opacity: 0 }, 17.3657);
+    tl.set("#cap20", { opacity: 1 }, 17.3657);
+    tl.fromTo("#cap20 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 17.3657);
+    tl.set("#cap20", { opacity: 0 }, 17.899);
+    tl.set("#cap21", { opacity: 1 }, 17.899);
+    tl.fromTo("#cap21 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 17.899);
+    tl.set("#cap21", { opacity: 0 }, 18.4657);
+    tl.set("#cap22", { opacity: 1 }, 18.4657);
+    tl.fromTo("#cap22 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 18.4657);
+    tl.set("#cap22", { opacity: 0 }, 19.2657);
+    tl.set("#cap23", { opacity: 1 }, 19.2657);
+    tl.fromTo("#cap23 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 19.2657);
+    tl.set("#cap23", { opacity: 0 }, 20.1657);
+    tl.set("#cap24", { opacity: 1 }, 20.1657);
+    tl.fromTo("#cap24 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 20.1657);
+    tl.set("#cap24", { opacity: 0 }, 20.799);
+    tl.set("#cap25", { opacity: 1 }, 20.799);
+    tl.fromTo("#cap25 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 20.799);
+    tl.set("#cap25", { opacity: 0 }, 21.5323);
+    tl.set("#cap26", { opacity: 1 }, 21.5323);
+    tl.fromTo("#cap26 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 21.5323);
+    tl.set("#cap26", { opacity: 0 }, 22.0657);
+    tl.set("#cap27", { opacity: 1 }, 22.0657);
+    tl.fromTo("#cap27 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 22.0657);
+    tl.set("#cap27", { opacity: 0 }, 23.1323);
+    tl.set("#cap28", { opacity: 1 }, 23.1323);
+    tl.fromTo("#cap28 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 23.1323);
+    tl.set("#cap28", { opacity: 0 }, 24.1323);
+    tl.set("#cap29", { opacity: 1 }, 24.1323);
+    tl.fromTo("#cap29 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 24.1323);
+    tl.set("#cap29", { opacity: 0 }, 24.999);
+    tl.set("#cap30", { opacity: 1 }, 24.999);
+    tl.fromTo("#cap30 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 24.999);
+    tl.set("#cap30", { opacity: 0 }, 25.399);
+    tl.set("#cap31", { opacity: 1 }, 25.399);
+    tl.fromTo("#cap31 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 25.399);
+    tl.set("#cap31", { opacity: 0 }, 26.399);
+    tl.set("#cap32", { opacity: 1 }, 26.399);
+    tl.fromTo("#cap32 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 26.399);
+    tl.set("#cap32", { opacity: 0 }, 27.4657);
+    tl.set("#cap33", { opacity: 1 }, 27.4657);
+    tl.fromTo("#cap33 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 27.4657);
+    tl.set("#cap33", { opacity: 0 }, 28.9323);
+    tl.set("#cap34", { opacity: 1 }, 28.9323);
+    tl.fromTo("#cap34 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 28.9323);
+    tl.set("#cap34", { opacity: 0 }, 30.099);
+    tl.set("#cap35", { opacity: 1 }, 30.099);
+    tl.fromTo("#cap35 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 30.099);
+    tl.set("#cap35", { opacity: 0 }, 31.599);
+    tl.set("#cap36", { opacity: 1 }, 31.599);
+    tl.fromTo("#cap36 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 31.599);
+    tl.set("#cap36", { opacity: 0 }, 32.3657);
+    tl.set("#cap37", { opacity: 1 }, 32.3657);
+    tl.fromTo("#cap37 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 32.3657);
+    tl.set("#cap37", { opacity: 0 }, 33.599);
+    tl.set("#cap38", { opacity: 1 }, 33.599);
+    tl.fromTo("#cap38 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 33.599);
+    tl.set("#cap38", { opacity: 0 }, 35.0657);
+    tl.set("#cap39", { opacity: 1 }, 35.0657);
+    tl.fromTo("#cap39 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 35.0657);
+    tl.set("#cap39", { opacity: 0 }, 35.9323);
+    tl.set("#cap40", { opacity: 1 }, 35.9323);
+    tl.fromTo("#cap40 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 35.9323);
+    tl.set("#cap40", { opacity: 0 }, 36.6657);
+    tl.set("#cap41", { opacity: 1 }, 36.6657);
+    tl.fromTo("#cap41 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 36.6657);
+    tl.set("#cap41", { opacity: 0 }, 37.7323);
+    tl.set("#cap42", { opacity: 1 }, 37.7323);
+    tl.fromTo("#cap42 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 37.7323);
+    tl.set("#cap42", { opacity: 0 }, 38.599);
+    tl.set("#cap43", { opacity: 1 }, 38.599);
+    tl.fromTo("#cap43 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 38.599);
+    tl.set("#cap43", { opacity: 0 }, 39.499);
+    tl.set("#cap44", { opacity: 1 }, 39.499);
+    tl.fromTo("#cap44 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 39.499);
+    tl.set("#cap44", { opacity: 0 }, 40.1657);
+    tl.set("#cap45", { opacity: 1 }, 40.1657);
+    tl.fromTo("#cap45 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 40.1657);
+    tl.set("#cap45", { opacity: 0 }, 41.1657);
+    tl.set("#cap46", { opacity: 1 }, 41.1657);
+    tl.fromTo("#cap46 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 41.1657);
+    tl.set("#cap46", { opacity: 0 }, 42.1657);
+    tl.set("#cap47", { opacity: 1 }, 42.1657);
+    tl.fromTo("#cap47 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 42.1657);
+    tl.set("#cap47", { opacity: 0 }, 42.7323);
+    tl.set("#cap48", { opacity: 1 }, 42.7323);
+    tl.fromTo("#cap48 .ln", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.16, ease: "power3.out", immediateRender: false }, 42.7323);
+    tl.set("#ov0", { opacity: 1 }, 7.8323);
+    tl.fromTo("#ov0 .ovc", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.18, ease: "power3.out", immediateRender: false }, 7.8323);
+    tl.set("#ov0", { opacity: 0 }, 10.999);
+    tl.set("#ov1", { opacity: 1 }, 24.1323);
+    tl.fromTo("#ov1 .ovc", { scale: 0.9, y: 8 }, { scale: 1, y: 0, duration: 0.18, ease: "power3.out", immediateRender: false }, 24.1323);
+    tl.set("#ov1", { opacity: 0 }, 27.4323);
+    tl.set("#cap48", { opacity: 0 }, 43.399);
+    tl.set({}, {}, 43.8333);
+    window.__timelines["two-offers"] = tl;
+  </script>
+</div>
+
+</body>
+</html>

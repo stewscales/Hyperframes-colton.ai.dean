@@ -1,0 +1,10 @@
+{
+  "id": "two-offers",
+  "name": "Two offers",
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "createdAt": "2026-11-23T08:00:00.000Z"
+}
