@@ -13,3 +13,9 @@ python3 -I scripts/render.py $TH IMG_3216.mov IMG_3255.mov /tmp/ov     # -> rend
 
 - Captions are what he says (confirmed with him where the speech tools disagreed: "for trading coaches", "the same mistake with content", "want to be part of your own world").
 - He sits lower in frame in this take than in better-trader, so the caption line is 16 px lower (1526).
+
+## Polish pass (v2)
+- £5,000 / £50 cards about 17% smaller (same design, colours, type).
+- Drive B-roll: 1.6x crop from the top of the 4K frame, source frames 26–69 (road and city lights; the speed display never shows), still 44 frames (~1.5 s).
+- Opening hook card for the first 2 s: "YOUR CONTENT IS ATTRACTING / THE WRONG BUYERS" (bone white + blue, dark card, clear of his hair).
+- More air after "Your content should sell what you're actually offering": the caption clears after "offering" and the shot holds about 0.9 s.

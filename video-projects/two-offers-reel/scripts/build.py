@@ -28,8 +28,8 @@ def speech_end(t):                                      # alignment ends can be 
     return k / 100
 
 # ---------------- cut list ----------------
-START, END = 30, 1446                                   # source frames: 2 frames before "I've"; 0.7 s after "offering" (he blinks, then looks back into the lens)
-BEAT = {22: 0.24, 39: 0.20, 80: 0.30, 102: 0.24, 123: 0.30, 139: 0.30, 151: 0.40}     # word index -> pause kept after it (s)
+START, END = 30, 1460                                   # source frames: 2 frames before "I've"; to the end of the take (1.2 s after "offering", so the last line breathes)
+BEAT = {22: 0.24, 39: 0.20, 80: 0.30, 102: 0.24, 123: 0.30, 139: 0.30, 151: 0.44}     # word index -> pause kept after it (s)
 cuts = []                                               # (first removed frame, first kept frame)
 for i in range(len(W) - 1):
     e = speech_end(W[i]['end']); s = W[i + 1]['start']; gap = s - e
@@ -63,7 +63,7 @@ PUNCH = [(cut_before(18), cut_before(23)), (cut_before(65), cut_before(81)), (cu
 PUNCH = [(a, NF if b is None else b) for a, b in PUNCH]
 for p0, p1 in PUNCH: assert p0 in starts and p1 > p0, (p0, p1)
 BROLL = [dict(kind='desk',  a=of(42) - 2, b=starts[shot_at(of(50))], src0=30),                    # "long-form YouTube videos, breaking down your strategy" (back to him for "analysing")
-         dict(kind='drive', a=of(103) - 1, b=out_frame(speech_end(W[106]['end'])) + 2, src0=24)]   # "Show off your lifestyle" (back to him for "your personality")
+         dict(kind='drive', a=of(103) - 1, b=out_frame(speech_end(W[106]['end'])) + 2, src0=26)]   # "Show off your lifestyle" (back to him for "your personality")
 for r in BROLL: r['n'] = r['b'] - r['a']
 assert 60 <= BROLL[0]['n'] <= 90 and 30 <= BROLL[1]['n'] <= 45, [r['n'] for r in BROLL]
 ZS = [1.08, 1.10, 1.10, 1.12]; zoom = np.ones(NF)                  # the comparison and the last line a step further
@@ -120,7 +120,7 @@ for n, (w0, text) in enumerate(CAPS):
 OVL = [dict(a=of(30), b=BROLL[0]['a'], big='£5,000', small='AUTHORITY + TRUST'),       # "you need content that builds authority and it builds trust"
        dict(a=of(91), b=BROLL[1]['a'], big='£50', small='ATTENTION + DESIDE')]          # "you need short-form content that grabs attention and it creates desire"
 OVL[1]['small'] = 'ATTENTION + DESIRE'
-OV_Y, OV_H = 236, 170                                    # card top and height (px): below Instagram's top bar, above his hair
+OV_Y, OV_H = 250, 142                                    # card top and height (px): below Instagram's top bar, above his hair (83% of the first cut)
 for k, ov in enumerate(OVL):
     html.append(f'<div id="ov{k}" class="ov"><div class="ovc"><div class="ovb">{esc(ov["big"])}</div><div class="ovs">{esc(ov["small"])}</div></div></div>')
     js += [f'tl.set("#ov{k}", {{ opacity: 1 }}, {tm(ov["a"])});',
@@ -128,6 +128,11 @@ for k, ov in enumerate(OVL):
            f'tl.set("#ov{k}", {{ opacity: 0 }}, {tm(ov["b"])});']
     hair = min(anchor[o][1] + (FACE[SRC[o]]['fy'] - 0.42 * (FACE[SRC[o]]['cy'] - FACE[SRC[o]]['fy']) - anchor[o][1]) * zoom[o] for o in range(ov['a'], ov['b']))
     assert hair > OV_Y + OV_H + 12, ('the card would touch his hair', k, round(hair)); ov['hair_min'] = round(hair); ov['n'] = ov['b'] - ov['a']
+HOOK = ('YOUR CONTENT IS ATTRACTING', 'THE WRONG BUYERS'); HOOK_N = 60     # the opening text hook, frames 0-59
+hs = min(46, int(820 / max(tw(HOOK[0], 1, 900), tw(HOOK[1], 1, 900))))
+html.append(f'<div id="hook" class="ov hk" style="opacity:1"><div class="ovc hkc"><div class="hk1" style="font-size:{hs}px">{esc(HOOK[0])}</div><div class="hk2" style="font-size:{hs}px">{esc(HOOK[1])}</div></div></div>')
+js.append(f'tl.set("#hook", {{ opacity: 0 }}, {tm(HOOK_N)});')
+hook_hair = min(anchor[o][1] + (FACE[SRC[o]]['fy'] - 0.42 * (FACE[SRC[o]]['cy'] - FACE[SRC[o]]['fy']) - anchor[o][1]) * zoom[o] for o in range(HOOK_N))
 inb_ = np.zeros(NF, bool)
 for r in BROLL: inb_[r['a']:r['b']] = True
 chin_out = lambda o: anchor[o][1] + (FACE[SRC[o]]['cy'] - anchor[o][1]) * zoom[o]
@@ -164,10 +169,12 @@ page = f'''<!DOCTYPE html>
     .kw, .em {{ color: {BLUE}; text-shadow: 0 0 2px rgba(5,5,10,1), 0 0 4px rgba(5,5,10,0.95), 0 2px 8px rgba(5,5,10,0.85), 0 0 22px rgba(5,5,10,0.65), 0 0 44px rgba(5,5,10,0.4); }}
     .kw {{ font-weight: 900; }}  .em {{ font-weight: 900; font-size: {EM}px; letter-spacing: -0.01em; }}
     .ov {{ position: absolute; left: 0; width: {CW}px; top: {OV_Y}px; height: {OV_H}px; display: flex; justify-content: center; opacity: 0; }}
-    .ovc {{ display: flex; flex-direction: column; align-items: center; justify-content: center; height: {OV_H}px; padding: 0 44px; border-radius: 22px; background: rgba(10,10,10,0.80);
+    .ovc {{ display: flex; flex-direction: column; align-items: center; justify-content: center; height: {OV_H}px; padding: 0 37px; border-radius: 18px; background: rgba(10,10,10,0.80);
            box-shadow: 0 10px 30px rgba(0,0,0,0.35); transform-origin: 50% 50%; }}
-    .ovb {{ font-weight: 900; font-size: 84px; line-height: 1; letter-spacing: -0.02em; color: {BLUE}; }}
-    .ovs {{ margin-top: 12px; font-weight: 800; font-size: 32px; line-height: 1; letter-spacing: 0.08em; color: {BONE}; }}
+    .ovb {{ font-weight: 900; font-size: 70px; line-height: 1; letter-spacing: -0.02em; color: {BLUE}; }}
+    .ov.hk {{ height: auto; }}  .hkc {{ height: auto; padding: 22px 34px 24px; }}
+    .hk1, .hk2 {{ font-weight: 900; line-height: 1.12; letter-spacing: -0.01em; white-space: nowrap; }}  .hk1 {{ color: {BONE}; }}  .hk2 {{ color: {BLUE}; }}
+    .ovs {{ margin-top: 10px; font-weight: 800; font-size: 27px; line-height: 1; letter-spacing: 0.08em; color: {BONE}; }}
   </style>
 </head>
 <body>
@@ -201,4 +208,4 @@ json.dump({"id": comp, "name": "Two offers", "dimensions": {"width": CW, "height
 json.dump(dict(comp=comp, fps=FPS, out_size=[CW, CH], frames=NF, shots=SHOTS, out_start=starts[:-1], src=SRC, zoom=[round(float(z), 4) for z in zoom], anchor=anchor,
                broll=BROLL, punch=PUNCH, overlays=OVL, captions=sched), open('scene.json', 'w'))
 print(f'frames {NF} ({NF / FPS:.2f} s, from {(END - START) / FPS:.2f} s)  cuts {len(cuts)}  punch {PUNCH}  broll {[(r["kind"], r["a"], r["b"], r["n"]) for r in BROLL]}')
-print('chin below the caption line on', len(over), 'talking-head frames', over[:12])
+print('hook', hs, 'px; his hair is at', round(hook_hair), 'in the first 2 s'); print('chin below the caption line on', len(over), 'talking-head frames', over[:12])

@@ -51,7 +51,9 @@ def talking(o):
 # ---- B-roll ----
 def clipframes(path):
     return list(decode(path, 'scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', CW, CH))
-CLIPS = {'desk': clipframes(DESK), 'drive': clipframes(DRIVE)}
+DRIVE_Z, DRIVE_Y = 1.6, 0         # the drive: a 1.6x crop of the 4K frame from the top (road and city lights; the speed display is out); still downscaled, never upscaled
+CLIPS = {'desk': clipframes(DESK),
+         'drive': list(decode(DRIVE, f'crop=trunc(iw/{DRIVE_Z}/2)*2:trunc(ih/{DRIVE_Z}/2)*2:(iw-iw/{DRIVE_Z})/2:{DRIVE_Y},scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', CW, CH))}
 LOOK = {'desk': (WB_DESK, 0.97), 'drive': (WB_DRIVE, 1.0)}
 for r in sc['broll']: assert len(CLIPS[r['kind']]) >= r['src0'] + r['n'], (r['kind'], len(CLIPS[r['kind']]), r['src0'] + r['n'])
 inb = {}
