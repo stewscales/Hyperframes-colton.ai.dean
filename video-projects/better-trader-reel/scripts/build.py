@@ -6,7 +6,7 @@
   CAMERA   the take's own framing (the source is 1080x1920, so no base zoom). Four punch-ins to 108%, each one a cut, anchored
            at the bottom of the frame so his chin rises away from the captions (the last one holds through the send-off):  "Yeah? Thought so. ...doesn't it?" | "Not once ... win rate was" |
            "Coaching pays you for communicating" | "He just pressed record."
-  B-ROLL   sales-call photo (slow 6% push) over "...for trading coaches. Hundreds of calls.";
+  B-ROLL   sales-call photo (slow 6% push), 1 s over "Hundreds of calls.";
            the filming clip over "Every day. On camera. To strangers." Straight cuts; his voice runs underneath.
   CAPTIONS the house style: Montserrat 800, bone white (#F2EFE9), one line of 1-5 words, a few key words in blue (#2F6FED);
            the five lines he asked to land (BETTER TRADER? / NOT ONCE. / WIN RATE / COMMUNICATING / HE JUST PRESSED RECORD.)
@@ -60,10 +60,10 @@ cut_before = lambda i: starts[shot_at(of(i))]          # the cut just before wor
 PUNCH = [(cut_before(14), cut_before(24)), (cut_before(48), cut_before(60)), (cut_before(99), of(104)), (cut_before(142), None)]     # the last one holds to the end
 PUNCH = [(a, NF if b is None else b) for a, b in PUNCH]
 for p0, p1 in PUNCH: assert p0 in starts and p1 > p0, (p0, p1)
-BROLL = [dict(kind='still', a=of(38), b=out_frame(speech_end(W[43]['end']) + 0.04) + 1),          # "for trading coaches. Hundreds of calls."
+BROLL = [dict(kind='still', a=of(41) - 3, b=of(41) + 27),                                         # 1 s over "Hundreds of calls." (back to him on "And")
          dict(kind='clip',  a=of(104) - 1, b=out_frame(speech_end(W[109]['end'])) + 1)]           # "Every day. On camera. To strangers."
 for r in BROLL: r['n'] = r['b'] - r['a']
-assert 45 <= BROLL[0]['n'] <= 66 and 45 <= BROLL[1]['n'] <= 60, [r['n'] for r in BROLL]
+assert BROLL[0]['n'] == 30 and 45 <= BROLL[1]['n'] <= 60, [r['n'] for r in BROLL]
 Z = 1.08; zoom = np.ones(NF)
 for p0, p1 in PUNCH: zoom[p0:p1] = Z
 anchor = []                                             # zoom centre per output frame: his nose x, the bottom of the frame (so a punch-in lifts his chin away from the captions)
