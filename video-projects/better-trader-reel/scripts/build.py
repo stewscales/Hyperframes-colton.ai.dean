@@ -26,8 +26,8 @@ def speech_end(t):                                      # alignment ends can be 
     return k / 100
 
 # ---------------- cut list ----------------
-START, END = 22, 1208                                   # source frames: 1.5 frames before "Be"; 3 frames after "video"
-BEAT = {13: 0.30, 63: 0.30, 145: 0.30, 109: 0.24, 98: 0.22, 47: 0.20, 59: 0.20}       # word index -> pause kept after it (s)
+START, END = 22, 1216                                   # source frames: 1.5 frames before "Be"; to the end of the take (0.35 s after "video", so the send-off lands)
+BEAT = {13: 0.30, 63: 0.30, 145: 0.56, 109: 0.24, 98: 0.22, 47: 0.20, 59: 0.20}       # word index -> pause kept after it (s)
 cuts = []                                               # (first removed frame, first kept frame)
 for i in range(len(W) - 1):
     e = speech_end(W[i]['end']); s = W[i + 1]['start']; gap = s - e
@@ -64,8 +64,8 @@ BROLL = [dict(kind='still', a=of(41) - 3, b=of(41) + 27),                       
          dict(kind='clip',  a=of(104) - 1, b=out_frame(speech_end(W[109]['end'])) + 1)]           # "Every day. On camera. To strangers."
 for r in BROLL: r['n'] = r['b'] - r['a']
 assert BROLL[0]['n'] == 30 and 45 <= BROLL[1]['n'] <= 60, [r['n'] for r in BROLL]
-Z = 1.08; zoom = np.ones(NF)
-for p0, p1 in PUNCH: zoom[p0:p1] = Z
+ZS = [1.08, 1.10, 1.08, 1.10]; zoom = np.ones(NF)                  # the two key lines ("Not once...", "He just pressed record") a step further
+for (p0, p1), Z in zip(PUNCH, ZS): zoom[p0:p1] = Z
 anchor = []                                             # zoom centre per output frame: his nose x, the bottom of the frame (so a punch-in lifts his chin away from the captions)
 for k, (s, o) in enumerate(zip(SHOTS, starts)):
     fr = [FACE[f] for f in range(s['a'], s['b'])]; ax = float(np.median([r['nx'] for r in fr])); ay = float(CH)

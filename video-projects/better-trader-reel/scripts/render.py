@@ -3,10 +3,10 @@ B-roll inserts, the caption layer from scripts/capture.js, and the cleaned-up vo
 
   python3 -I scripts/render.py <talking head.mp4> <sales photo.jpg> <filming clip.mov> <caption dir> [--music-db N] [--no-music]
 
-picture  talking head: full-range BT.709 -> punch-ins (Lanczos, 108%, about his chin) -> a light grade (levels 3-253 and a
-         gentle S-curve, same on R, G, B, so skin stays as shot) -> captions.
-         sales photo: covers the frame, slow 6% push towards the screens and his hands (no grade: it is already graded).
-         filming clip: autorotated, downscaled 2160x3840 -> 1080x1920, the same light grade.
+picture  talking head: full-range BT.709 -> punch-ins (Lanczos, 108-110%, anchored at the bottom of the frame) -> the grade (one
+         luminance curve: a little more contrast, a soft highlight roll-off for the windows; colour and skin unchanged) -> captions.
+         sales photo: covers the frame, slow 6% push; white balance nudged towards the take's daylight, a touch lifted, same curve.
+         filming clip: autorotated, downscaled 2160x3840 -> 1080x1920; white balance nudged, a touch lifted, same curve.
 sound    his voice only from the talking head (the B-roll clip's own sound is not used): 80 Hz high-pass, gentle noise
          reduction from a profile of the room between words (at most -7 dB), a small cut at 250 Hz and lift at 3.5 kHz;
          cut on the picture frames with 6 ms fades. Music bed (assets/sfx library) --music-db below the voice (default 23 dB),
@@ -19,9 +19,23 @@ while len(args) >= 2 and args[-2].startswith('--'): opt[args[-2]] = args[-1]; ar
 TH, PHOTO, CLIP, OV = args[:4]; MUSIC_DB = float(opt.get('--music-db', 23)); NO_MUSIC = bool(flags)
 sc = json.load(open('scene.json')); FPS = sc['fps']; CW, CH = sc['out_size']; NF = sc['frames']; SRC = sc['src']; ZOOM = sc['zoom']; ANCH = sc['anchor']
 omap = json.load(open(OV + '/map.json'))['map']; assert len(omap) == NF
-x = np.arange(256) / 255.0; x1 = np.clip((x - 3 / 255) / (253 / 255 - 3 / 255), 0, 1); K = 0.08
-LUT = np.clip(np.round(((1 - K) * x1 + K * x1 * x1 * (3 - 2 * x1)) * 255), 0, 255).astype(np.uint8)
-grade = lambda fr: cv2.LUT(fr, LUT)
+# the look: one tone curve on luminance, applied as an offset to R, G and B (so colour and skin tone do not shift):
+#   black point 4, a gentle S-curve for a little more contrast, and a soft roll-off above 78% so the windows lose their
+#   hard white edge (255 lands at 246). Below the knee (all of his face) it is the S-curve only.
+x = np.arange(256) / 255.0; x1 = np.clip((x - 4 / 255) / (1 - 4 / 255), 0, 1); K = 0.12
+y = (1 - K) * x1 + K * x1 * x1 * (3 - 2 * x1)
+KNEE, TOP = 0.78, 0.965; hi = y > KNEE; u = (y[hi] - KNEE) / (1 - KNEE)
+y[hi] = KNEE + (TOP - KNEE) * (1 - (1 - u) ** 1.6)                 # soft shoulder: starts at the curve's own slope, eases to TOP
+CURVE = (y * 255).astype(np.float32)
+LUM = np.float32([0.2126, 0.7152, 0.0722])
+def grade(fr, wb=None, lift=1.0):
+    f = fr.astype(np.float32)
+    if wb is not None: f *= np.float32(wb)                              # white-balance nudge (B-roll only)
+    if lift != 1.0: f = 255 * (f / 255) ** lift
+    Y = np.clip(f @ LUM, 0, 255); Y2 = np.interp(Y, np.arange(256), CURVE).astype(np.float32)
+    return np.clip(f + (Y2 - Y)[..., None] + 0.5, 0, 255).astype(np.uint8)
+WB_PHOTO = (0.949, 0.999, 1.068)      # the photo's wall reads warm (172,153,133) next to the take's neutral daylight: 45% of the way to neutral
+WB_CLIP = (0.981, 0.992, 1.030)       # the filming clip's white tee reads a touch warm: 35% of the way to neutral
 def decode(path, vf, w, h, extra=()):
     p = subprocess.Popen(['ffmpeg', '-nostdin', '-v', 'error', *extra, '-i', path, '-vf', vf + ',format=rgb24', '-f', 'rawvideo', '-'], stdout=subprocess.PIPE, bufsize=w * h * 3)
     while True:
@@ -48,7 +62,7 @@ def still(k, n):
     u = k / max(1, n - 1); z = 1.0 + 0.06 * u; cx = PW / 2 + 40 * u; cy = PH / 2 + 50 * u          # push gently towards the screens / hands
     s = 1 / (s0 * z); M = np.float32([[s, 0, cx - CW / 2 * s + 0.5 * s - 0.5], [0, s, cy - CH / 2 * s + 0.5 * s - 0.5]])
     src = cv2.GaussianBlur(photo, (0, 0), 0.4) if s > 1.02 else photo
-    return cv2.warpAffine(src, M, (CW, CH), flags=cv2.INTER_LANCZOS4 | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
+    return grade(cv2.warpAffine(src, M, (CW, CH), flags=cv2.INTER_LANCZOS4 | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT), WB_PHOTO, 0.96)
 clip = list(decode(CLIP, 'scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int:in_color_matrix=bt709:in_range=tv', CW, CH))
 NCLIP = next(r['n'] for r in sc['broll'] if r['kind'] == 'clip'); assert len(clip) >= NCLIP, (len(clip), NCLIP); COFF = min(2, len(clip) - NCLIP)   # skip up to 2 frames of camera start
 inb = {}
@@ -71,7 +85,7 @@ def enc(path, crf, preset):
 os.makedirs('renders', exist_ok=True); tmp = 'renders/v.mp4'; main = enc(tmp, '15', 'slow'); base = enc('assets/base.v.mp4', '20', 'medium')
 for o in range(NF):
     if o in inb:
-        th_frame(SRC[o]); r, k = inb[o]; fr = still(k, r['n']) if r['kind'] == 'still' else grade(clip[COFF + k])
+        th_frame(SRC[o]); r, k = inb[o]; fr = still(k, r['n']) if r['kind'] == 'still' else grade(clip[COFF + k], WB_CLIP, 0.97)
     else: fr = talking(o)
     base.stdin.write(fr.tobytes())
     ov = overlay(omap[o])
